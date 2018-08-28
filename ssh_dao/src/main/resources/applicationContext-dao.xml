@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="teacherDaoSample" class="com.ywx.dao.sample.impl.TeacherDaoSampleImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="depDao" class="com.ywx.erp.dao.impl.DepDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="empDao" class="com.ywx.erp.dao.impl.EmpDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="goodsDao" class="com.ywx.erp.dao.impl.GoodsDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="goodstypeDao" class="com.ywx.erp.dao.impl.GoodstypeDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="menuDao" class="com.ywx.erp.dao.impl.MenuDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+</beans>

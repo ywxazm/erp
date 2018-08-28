@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="teacherServiceSample" class="com.ywx.service.sample.impl.TeacherServiceSampleImpl">
+        <property name="teacherDaoSample" ref="teacherDaoSample"/>
+    </bean>
+    <bean id="depService" class="com.ywx.erp.service.impl.DepServiceImpl">
+        <property name="depDao" ref="depDao"/>
+    </bean>
+    <bean id="empService" class="com.ywx.erp.service.impl.EmpServiceImpl">
+        <property name="empDao" ref="empDao"/>
+    </bean>
+    <bean id="goodsService" class="com.ywx.erp.service.impl.GoodsServiceImpl">
+        <property name="goodsDao" ref="goodsDao"/>
+    </bean>
+    <bean id="goodstypeService" class="com.ywx.erp.service.impl.GoodstypeServiceImpl">
+        <property name="goodstypeDao" ref="goodstypeDao"/>
+    </bean>
+    <bean id="menuService" class="com.ywx.erp.service.impl.MenuServiceImpl">
+        <property name="menuDao" ref="menuDao"/>
+    </bean>
+</beans>

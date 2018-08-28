@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ywx.erp.entity.GoodsDo" table="goods">
+        <id name="uuid" type="java.lang.Long">
+            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+                <param name="sequence_name">GOODS_SEQ</param>         <!--sequence_name是固定的-->
+            </generator>
+        </id>
+        <property name="name" type="java.lang.String"/>
+        <property name="origin" type="java.lang.String"/>
+        <property name="producer" type="java.lang.String"/>
+        <property name="unit" type="java.lang.String"/>
+        <property name="inprice" type="java.lang.Double"/>
+        <property name="outprice" type="java.lang.Double"/>
+
+        <many-to-one name="goodsTypeDo" class="com.ywx.erp.entity.GoodsTypeDo" column="goodstypeuuid"/>
+
+    </class>
+</hibernate-mapping>

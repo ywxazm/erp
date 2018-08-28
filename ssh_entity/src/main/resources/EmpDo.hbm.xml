@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.ywx.erp.entity.EmpDo" table="emp">
+        <id name="uuid" type="java.lang.Long">
+            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+                <param name="sequence_name">EMP_SEQ</param>         <!--sequence_name是固定的-->
+            </generator>
+        </id>
+        <property name="username" type="java.lang.String"/>
+        <property name="pwd" type="java.lang.String"/>
+        <property name="name" type="java.lang.String"/>
+        <property name="gender" type="java.lang.Long"/>
+        <property name="email" type="java.lang.String"/>
+        <property name="tele" type="java.lang.String"/>
+        <property name="address" type="java.lang.String"/>
+        <property name="birthday" type="java.util.Date"/>
+
+        <many-to-one name="depDo" class="com.ywx.erp.entity.DepDo" column="depuuid" />
+    </class>
+</hibernate-mapping>

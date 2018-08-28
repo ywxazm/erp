@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="teacherActionSample" class="com.ywx.action.sample.TeacherActionSample">
+        <property name="teacherServiceSample" ref="teacherServiceSample"/>
+    </bean>
+
+    <bean id="depAction" class="com.ywx.erp.action.DepAction" scope="prototype">
+        <property name="depService" ref="depService"/>
+    </bean>
+
+    <bean id="empAction" class="com.ywx.erp.action.EmpAction" scope="prototype">
+        <property name="empService" ref="empService"/>
+    </bean>
+
+    <bean id="goodsAction" class="com.ywx.erp.action.GoodsAction" scope="prototype">
+        <property name="goodsService" ref="goodsService"/>
+    </bean>
+
+    <bean id="goodstypeAction" class="com.ywx.erp.action.GoodstypeAction" scope="prototype">
+        <property name="goodstypeService" ref="goodstypeService"/>
+    </bean>
+
+    <bean id="loginAction" class="com.ywx.erp.action.LoginAction" scope="prototype">
+        <property name="empService" ref="empService"/>
+    </bean>
+
+    <bean id="menuAction" class="com.ywx.erp.action.MenuAction" scope="prototype">
+        <property name="menuService" ref="menuService"/>
+    </bean>
+
+</beans>

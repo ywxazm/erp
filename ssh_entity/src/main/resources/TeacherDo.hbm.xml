@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ywx.entity.sample.TeacherDo" table="teacher">
+        <id name="tno" type="java.lang.Integer">
+            <generator class="native"/>
+        </id>
+        <property name="tname" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>
