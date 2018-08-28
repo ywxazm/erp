@@ -17,8 +17,8 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
     }
 
     @Override
-    public void addDo(EmpDo empDo) {
-        Md5Hash md5Hash = new Md5Hash(empDo.getPwd(), empDo.getUsername(), 2);      //TODO:此处对于密码的处理用到了MD5
+    public void addDo(EmpDo empDo) {        //初始化密码设置为用户名
+        Md5Hash md5Hash = new Md5Hash(empDo.getUsername(), empDo.getUsername(), 2);      //TODO:此处对于密码的处理用到了MD5
         empDo.setPwd(md5Hash.toString());
         empDao.addDo(empDo);
     }
@@ -43,11 +43,17 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
         EmpDo empDo = empDao.getDo(uuid);
         //旧密码比较
         String md5 = new Md5Hash(oldPwd, empDo.getUsername(), 2).toString();
-        if (empDo.getPwd() != md5) {
+        if (!empDo.getPwd().equals(md5)) {
             throw new ErpException("原密码错误");
         }
 
         Md5Hash md5Hash = new Md5Hash(newPwd, empDo.getUsername(), 2);
         empDo.setPwd(md5Hash.toString());       //TODO:这个地方用到了持久态
+    }
+
+    @Override
+    public void resetPwd(long id, String newPwd) {
+        EmpDo empDo = empDao.getDo(id);
+        empDo.setPwd(new Md5Hash(empDo.getUsername(), newPwd, 2).toString());
     }
 }

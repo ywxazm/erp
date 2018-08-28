@@ -1,9 +1,11 @@
 //提交的方法名称
-var method = '';
+var method = "";
+var listParam = "";
+var saveParam = "";
 $(function(){
 	//加载表格数据
 	$('#grid').datagrid({
-		url:name + '_listByPage',
+		url:name + '_listByPage' + listParam,
 		columns:columns,
 		singleSelect: true,
 		pagination: true,
@@ -12,7 +14,7 @@ $(function(){
 			iconCls: 'icon-add',
 			handler: function(){
 				//设置保存按钮提交的方法为add
-				method = 'addDo';
+				method = "addDo";
 				//关闭编辑窗口
 				$('#editDlg').dialog('open');
 			}
@@ -34,7 +36,6 @@ $(function(){
 	if(typeof(width) != "undefined"){
 		w = width;
 	}
-
 	//初始化编辑窗口
 	$('#editDlg').dialog({
 		title: '编辑',//窗口标题
@@ -53,7 +54,7 @@ $(function(){
 		}
 		var formData = $('#editForm').serializeJSON();
 		$.ajax({
-			url: name + '_' + method,
+			url: name + '_' + method + saveParam,
 			data: formData,
 			dataType: 'json',
 			type: 'post',
@@ -103,7 +104,7 @@ function edit(uuid){
 	$('#editForm').form('clear');
 
 	//设置保存按钮提交的方法为update
-	method = 'updateDo';
+	method = "update";
 
 	//加载数据
 	$('#editForm').form('load',name + '_getDo?id=' + uuid);

@@ -31,4 +31,8 @@
         <property name="menuService" ref="menuService"/>
     </bean>
 
+    <bean id="supplierAction" class="com.ywx.erp.action.SupplierAction" scope="prototype">
+        <property name="supplierService" ref="supplierService"/>
+    </bean>
+
 </beans>

@@ -74,7 +74,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         this.rows = rows;
     }
     /**
-     * 分页查询部门
+     * 分页查询
      */
     public void listByPage() {
         try {
@@ -92,7 +92,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     }
 
     /**
-     * 添加部门
+     * 添加
      */
     public void addDo() {
         logger.debug("operaObj is = {}, addDo doing, addDo = {}", this,  t);
@@ -127,7 +127,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     }
 
     /**
-     * 根据ID去获取部门信息
+     * 根据ID去获取
      */
     public void getDo() {
         logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
@@ -140,7 +140,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     }
 
     /**
-     * 更新部门信息
+     * 更新
      */
     public void updateDo() {
         logger.debug("operaObj is = {}, updateDo() doing, Do = {}", this, t);

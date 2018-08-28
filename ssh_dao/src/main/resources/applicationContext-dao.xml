@@ -21,5 +21,8 @@
     <bean id="menuDao" class="com.ywx.erp.dao.impl.MenuDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean id="supplierDao" class="com.ywx.erp.dao.impl.SupplierDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
 </beans>

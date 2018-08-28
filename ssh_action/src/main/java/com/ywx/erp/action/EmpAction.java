@@ -75,6 +75,19 @@ public class EmpAction extends BaseAction<EmpDo> {
             logger.error("operaObj is = {}, updatePwd is error, msg = {}", this, ex.getMessage());
             write(ajaxReturn(true, "密码修改失败"));
         }
+    }
 
+    /**
+     * 重新设置密码,仅供管理员
+     */
+    public void resetPwd() {
+        logger.debug("operaObj is = {}, resetPwd() doing", this, newPwd);
+        try {
+            empService.resetPwd(id, newPwd);
+            write(ajaxReturn(true, "密码修改成功"));
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, resetPwd is error, msg = {}", this, ex.getMessage());
+            write(ajaxReturn(false, "密码修改失败"));
+        }
     }
 }

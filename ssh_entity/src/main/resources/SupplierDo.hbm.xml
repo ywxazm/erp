@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ywx.erp.entity.SupplierDo" table="supplier">
+        <id name="uuid" type="java.lang.Integer">
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="java.lang.String"/>
+        <property name="address" type="java.lang.String"/>
+        <property name="contact" type="java.lang.String"/>
+        <property name="tele" type="java.lang.String"/>
+        <property name="email" type="java.lang.String"/>
+        <property name="type" type="java.lang.Character"/>
+    </class>
+</hibernate-mapping>
