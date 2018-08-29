@@ -20,7 +20,7 @@ public class SupplierAction extends BaseAction<SupplierDo> {
      */
     @Override
     public void getDo() {
-        logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
+        logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
         try {
             SupplierDo supplierDo = supplierService.getDo(id);
             HashMap<String, Object> map = new HashMap<>();

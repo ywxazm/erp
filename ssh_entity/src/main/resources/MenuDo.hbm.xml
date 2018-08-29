@@ -7,6 +7,7 @@
         <property name="menuname" type="java.lang.String"/>
         <property name="icon" type="java.lang.String"/>
         <property name="url" type="java.lang.String"/>
+        <property name="pid" type="java.lang.String"/>
         <bag name="menus" order-by="menuid">                    <!--TODO: 注意这种自关联的配置-->
             <key column="pid" />
             <one-to-many class="com.ywx.erp.entity.MenuDo" />

@@ -5,9 +5,7 @@
 <hibernate-mapping>
     <class name="com.ywx.erp.entity.EmpDo" table="emp">
         <id name="uuid" type="java.lang.Long">
-            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
-                <param name="sequence_name">EMP_SEQ</param>         <!--sequence_name是固定的-->
-            </generator>
+            <generator class="increment" />
         </id>
         <property name="username" type="java.lang.String"/>
         <property name="pwd" type="java.lang.String"/>

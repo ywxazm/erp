@@ -5,9 +5,7 @@
 <hibernate-mapping>
     <class name="com.ywx.erp.entity.DepDo" table="Dep">
         <id name="uuid" type="java.lang.Long">
-            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
-                <param name="sequence_name">DEP_SEQ</param>         <!--sequence_name是固定的-->
-            </generator>
+            <generator class="increment" />
         </id>
         <property name="name" type="java.lang.String"/>
         <property name="tele" type="java.lang.String"/>

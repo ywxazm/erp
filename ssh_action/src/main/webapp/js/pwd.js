@@ -23,9 +23,9 @@ $(function(){
                 }
                 return "";
             }},
-            {field:'dep',title:'部门',width:100,formatter:function(dep){
-                if(dep){
-                    return dep.name;
+            {field:'depDo',title:'部门',width:100,formatter:function(depDo){
+                if(depDo){
+                    return depDo.name;
                 }
                 return "";
             }},
@@ -38,74 +38,21 @@ $(function(){
         pagination: true,
         rownumbers: true
     });
-
-    $('#btnSave').bind('click',function(){
-        if($('#formPwdReset').form('validate') == false){
-            return;
-        }
-        var datas = $('#formPwdReset').serializeJSON();
-        $.ajax({
-            url: 'empAction_updatePwd_reset',
-            dataType:'json',
-            data: datas,
-            type: 'post',
-            success: function(rtn){
-                if(rtn.success){
-                    $.messager.alert("提示信息", "重置密码成功!", 'info', function(){
-                        //关闭窗口
-                        $('#dlgPwdReset').window('close');
-                        //刷新列表
-                        $('#grid').datagrid('reload');
-                    });
-                }else{
-                    $.messager.alert("提示信息", "重置密码失败!<br>" + rtn.message, 'info');
-                    //关闭窗口
-                    $('#dlgPwdReset').window('close');
-                }
-            }
-        });
-    });
-
-    $('#editDlg').dialog({
-        title:"重置员工密码",
-        width:260,
-        height:120,
-        iconCls:'icon-save',
-        modal:true,
-        closed:true,
-        buttons:[
-            {
-                text:'保存',
-                iconCls: 'icon-save',
-                handler:function(){
-                    var datas = $('#editForm').serializeJSON();
-                    $.ajax({
-                        url: 'empAction_resetPwd',
-                        dataType:'json',
-                        data: datas,
-                        type: 'post',
-                        success: function(rtn){
-                            $.messager.alert("提示", rtn.message, 'info', function(){
-                                if(rtn.success){
-                                    //关闭窗口
-                                    $('#editDlg').dialog('close');
-                                    //刷新列表
-                                    $('#grid').datagrid('reload');
-                                }else{
-                                    $.messager.alert("提示", "重置密码失败!<br>" + rtn.message, 'info');
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-        ]
-    });
 });
 
 function updatePwd_reset(uuid){
-    //清除表单内容，防止数据混乱
-    $('#editForm').form('load',{id:uuid,newPwd:""});
-    //弹出窗口
-    $('#editDlg').dialog('open');
+    $.ajax({
+        url: 'empAction_resetPwd?id=' + uuid,
+        type: 'get',
+        success: function(rtn){
+            if(rtn.success){
+                $.messager.alert("提示信息", "重置密码成功!", 'info', function(){
+                    //刷新列表
+                    $('#grid').datagrid('reload');
+                });
+            }else{
+                $.messager.alert("提示信息", "重置密码失败!<br>" + rtn.msg, 'info');
+            }
+        }
+    });
 }

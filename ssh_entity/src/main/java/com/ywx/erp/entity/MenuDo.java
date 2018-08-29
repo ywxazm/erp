@@ -9,6 +9,7 @@ public class MenuDo implements Serializable {
     private String menuname;
     private String icon;
     private String url;
+    private String pid;
     private List<MenuDo>menus;
 
     public String getMenuid() {
@@ -43,6 +44,14 @@ public class MenuDo implements Serializable {
         this.url = url;
     }
 
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
     public List<MenuDo> getMenus() {
         return menus;
     }
@@ -58,20 +67,22 @@ public class MenuDo implements Serializable {
 
         MenuDo menuDo = (MenuDo) o;
 
-        if (!menuid.equals(menuDo.menuid)) return false;
-        if (!menuname.equals(menuDo.menuname)) return false;
-        if (!icon.equals(menuDo.icon)) return false;
-        if (!url.equals(menuDo.url)) return false;
-        return menus.equals(menuDo.menus);
+        if (menuid != null ? !menuid.equals(menuDo.menuid) : menuDo.menuid != null) return false;
+        if (menuname != null ? !menuname.equals(menuDo.menuname) : menuDo.menuname != null) return false;
+        if (icon != null ? !icon.equals(menuDo.icon) : menuDo.icon != null) return false;
+        if (url != null ? !url.equals(menuDo.url) : menuDo.url != null) return false;
+        if (pid != null ? !pid.equals(menuDo.pid) : menuDo.pid != null) return false;
+        return menus != null ? menus.equals(menuDo.menus) : menuDo.menus == null;
     }
 
     @Override
     public int hashCode() {
-        int result = menuid.hashCode();
-        result = 31 * result + menuname.hashCode();
-        result = 31 * result + icon.hashCode();
-        result = 31 * result + url.hashCode();
-        result = 31 * result + menus.hashCode();
+        int result = menuid != null ? menuid.hashCode() : 0;
+        result = 31 * result + (menuname != null ? menuname.hashCode() : 0);
+        result = 31 * result + (icon != null ? icon.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (pid != null ? pid.hashCode() : 0);
+        result = 31 * result + (menus != null ? menus.hashCode() : 0);
         return result;
     }
 
@@ -82,6 +93,7 @@ public class MenuDo implements Serializable {
                 ", menuname='" + menuname + '\'' +
                 ", icon='" + icon + '\'' +
                 ", url='" + url + '\'' +
+                ", pid='" + pid + '\'' +
                 ", menus=" + menus +
                 '}';
     }

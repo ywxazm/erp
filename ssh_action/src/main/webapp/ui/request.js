@@ -1,11 +1,10 @@
-var url=location.search;
+//解析URL上的请求参数
+var url = location.search;
 var Request = new Object();
-if(url.indexOf("?")!=-1)
-{
-    var str = url.substr(1)  
+if (url.indexOf("?") != -1) {
+    var str = url.substr(1)
     strs = str.split("&");
-    for(var i=0;i<strs.length;i++)
-    {
-        Request[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+    for (var i = 0; i < strs.length; i++) {
+        Request[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
     }
 }

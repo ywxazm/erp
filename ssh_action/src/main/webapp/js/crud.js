@@ -17,6 +17,8 @@ $(function(){
 				method = "addDo";
 				//关闭编辑窗口
 				$('#editDlg').dialog('open');
+                //清空表单内容
+                $('#editForm').form('clear');
 			}
 		}]
 	});
@@ -104,7 +106,7 @@ function edit(uuid){
 	$('#editForm').form('clear');
 
 	//设置保存按钮提交的方法为update
-	method = "update";
+	method = "updateDo";
 
 	//加载数据
 	$('#editForm').form('load',name + '_getDo?id=' + uuid);

@@ -116,7 +116,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 删除部门
      */
     public void delDo() {
-        logger.debug("operaObj is = {}, delDo() doing, uuid = {}", id);
+        logger.debug("operaObj is = {}, delDo() doing, id = {}", this, id);
         try {
             baseService.delDo(id);
             write(ajaxReturn(true, "删除成功"));
@@ -130,7 +130,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 根据ID去获取
      */
     public void getDo() {
-        logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
+        logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
         try {
             T t = baseService.getDo(id);
             write(JSONObject.toJSONString(t));

@@ -78,12 +78,12 @@ public class EmpAction extends BaseAction<EmpDo> {
     }
 
     /**
-     * 重新设置密码,仅供管理员
+     * 重新设置密码
      */
     public void resetPwd() {
-        logger.debug("operaObj is = {}, resetPwd() doing", this, newPwd);
+        logger.debug("operaObj is = {}, resetPwd doing, id = {}", this, id);
         try {
-            empService.resetPwd(id, newPwd);
+            empService.resetPwd(id);
             write(ajaxReturn(true, "密码修改成功"));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, resetPwd is error, msg = {}", this, ex.getMessage());

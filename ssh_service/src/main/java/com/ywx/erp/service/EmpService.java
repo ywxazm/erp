@@ -10,6 +10,6 @@ public interface EmpService extends BaseService<EmpDo> {
 
     EmpDo getCurrentUser();
 
-    void resetPwd(long id, String newPwd);
+    void resetPwd(long id);
 
 }

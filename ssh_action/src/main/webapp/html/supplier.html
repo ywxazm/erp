@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>供应商管理</title>
+
     <link rel="stylesheet" type="text/css" href="/ui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="/ui/themes/icon.css">
     <script type="text/javascript" src="/ui/jquery.min.js"></script>
@@ -11,16 +12,17 @@
     <script type="text/javascript" src="/ui/jquery.serializejson.min.js"></script>
     <script type="text/javascript" src="/ui/request.js"></script>
     <script type="text/javascript" src="/js/crud.js"></script>
+
     <script type="text/javascript">
         if (Request['type'] == 1) {
             document.title = "供应商管理";
             listParam = "?t.type=1";
-            saveParam = "?tt.type=1";
+            saveParam = "?t.type=1";
         }
         if (Request['type'] == 2) {
             document.title = "客户管理";
             listParam = "?t.type=2";
-            saveParam = "?tt.type=2";
+            saveParam = "?t.type=2";
         }
         var name = "supplierAction";
         var height = 300;
@@ -32,7 +34,6 @@
             {field: 'contact', title: '联系人', width: 100},
             {field: 'tele', title: '联系电话', width: 100},
             {field: 'email', title: '邮件地址', width: 100},
-
             {
                 field: '-', title: '操作', width: 200, formatter: function (value, row, index) {
                 var oper = "<a href=\"javascript:void(0)\" onclick=\"edit(" + row.uuid + ')">修改</a>';
@@ -41,29 +42,30 @@
             }
             }
         ]];
-
     </script>
+
 </head>
 <body>
 <div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
     <div style="height:2px;"></div>
+    <br/>
     <form id="searchForm">
-        名称：<input name="tt.name">
-        联系地址：<input name="tt.address">
-        联系人：<input name="tt.contact">
-        联系电话：<input name="tt.tele">
-        邮件地址：<input name="tt.email">
-
+        名称：<input name="t.name">
+        联系地址：<input name="t.address">
+        联系人：<input name="t.contact">
+        联系电话：<input name="t.tele">
+        邮件地址：<input name="t.email">
         <button type="button" id="btnSearch">查询</button>
+        <br/>
     </form>
     <div style="height:2px;"></div>
 </div>
+
 <table id="grid"></table>
 
 <div id="editDlg">
     <form id="editForm">
         <input name="t.uuid" type="hidden">
-
         <table>
             <tr>
                 <td>名称</td>
@@ -85,7 +87,6 @@
                 <td>邮件地址</td>
                 <td><input name="t.email"></td>
             </tr>
-
         </table>
         <button id="btnSave" type="button">保存</button>
     </form>

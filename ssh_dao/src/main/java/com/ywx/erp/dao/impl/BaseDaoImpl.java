@@ -1,6 +1,7 @@
 package com.ywx.erp.dao.impl;
 
 import com.ywx.erp.dao.BaseDao;
+import com.ywx.erp.entity.DepDo;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
