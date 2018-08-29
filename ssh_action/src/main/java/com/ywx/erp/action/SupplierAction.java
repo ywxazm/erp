@@ -33,7 +33,7 @@ public class SupplierAction extends BaseAction<SupplierDo> {
             map.put("t.type" , supplierDo.getType());
             write(JSONObject.toJSONString(map));
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.error("operaObj is = {}, getDo is error, msg = {} ", this, ex.getMessage());
         }
     }
 }
