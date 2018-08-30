@@ -24,4 +24,7 @@
     <bean id="supplierService" class="com.ywx.erp.service.impl.SupplierServiceImpl">
         <property name="supplierDao" ref="supplierDao"/>
     </bean>
+    <bean id="ordersService" class="com.ywx.erp.service.impl.OrdersServiceImpl">
+        <property name="ordersDao" ref="ordersDao"/>
+    </bean>
 </beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ywx.erp.entity.OrdersDo" table="orders">
+        <id name="uuid">
+            <generator class="increment"/>
+        </id>
+
+        <property name="createtime"/>
+        <property name="checktime"/>
+        <property name="starttime"/>
+        <property name="endtime"/>
+        <property name="type"/>
+        <property name="creater"/>
+        <property name="checker"/>
+        <property name="starter"/>
+        <property name="ender"/>
+        <property name="supplieruuid"/>
+        <property name="totalmoney"/>
+        <property name="state"/>
+        <property name="waybillsn"/>
+
+        <!-- 级联更新, 更新订单，级联更新订单明细  -->
+        <!-- 一个订单对应多个订单明细 -->
+        <bag name="orderDetailDos" cascade="save-update" inverse="true">   <!--TODO: 级联操作配置-->
+            <key column="ordersuuid"></key>
+            <one-to-many class="com.ywx.erp.entity.OrderdetailDo"/>
+        </bag>
+
+    </class>
+</hibernate-mapping>

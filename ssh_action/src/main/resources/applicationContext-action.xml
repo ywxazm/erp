@@ -35,4 +35,8 @@
         <property name="supplierService" ref="supplierService"/>
     </bean>
 
+    <bean id="ordersAction" class="com.ywx.erp.action.OrdersAction" scope="prototype">
+        <property name="ordersService" ref="ordersService"/>
+    </bean>
+
 </beans>
