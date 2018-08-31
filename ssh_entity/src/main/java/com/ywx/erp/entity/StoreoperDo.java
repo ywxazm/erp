@@ -7,6 +7,12 @@ import java.io.Serializable;
  * @author Administrator *
  */
 public class StoreoperDo implements Serializable {
+
+	/**未入库 */
+	public static final String STATE_NOT_IN = "0";
+	/**已入库*/
+	public static final String STATE_IN = "1";
+
 	private Long uuid;//编号
 	private Long empuuid;//操作员工编号
 	private java.util.Date opertime;//操作日期

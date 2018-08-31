@@ -1,7 +1,6 @@
 $(function(){
 	
-	var url = 'ordersAction_listByPage?t.type=1';			//只会查找出 type = 1(采购订单), type = 2(销售订单)
-															//state = 0, 1, 2, 3 未审核， 已审核， 已确认， 已入库
+	var url = 'ordersAction_listByPage?t.type=1';
 	//如果审核业务，加上state=0，只查询出未审核的订单
 	if(Request['oper'] == 'doCheck'){
 		url += "&t.state=0";
@@ -53,7 +52,7 @@ $(function(){
 			//打开窗口
 			$('#ordersDlg').dialog('open');
 			//加载明细列表
-            $('#itemgrid').datagrid('loadData',rowData.orderDetailDos);
+			$('#itemgrid').datagrid('loadData',rowData.orderDetailDos);
 		}
 	});
 	
@@ -148,7 +147,7 @@ function getState(value){
 		case 1:return '已审核';
 		case 2:return '已确认';
 		case 3:return '已入库';
-		default: return '--';
+		default: return '';
 	}
 }
 
@@ -232,7 +231,7 @@ function doInStore(){
 				dataType: 'json',
 				type: 'post',
 				success:function(rtn){
-					$.messager.alert('提示',rtn.message,'info',function(){
+					$.messager.alert('提示',rtn.msg,'info',function(){
 						if(rtn.success){
 							//关闭入库窗口
 							$('#itemDlg').dialog('close');

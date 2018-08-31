@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ywx.erp.common.WriteDate;
+import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.service.BaseService;
+import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -153,4 +155,5 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             write(ajaxReturn(false, "更新失败"));
         }
     }
+
 }

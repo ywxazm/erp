@@ -29,5 +29,16 @@
     </bean>
     <bean id="orderdetailService" class="com.ywx.erp.service.impl.OrderdetailServiceImpl">
         <property name="orderdetailDao" ref="orderdetailDao"/>
+        <property name="storedetailDao" ref="storedetailDao"/>
+        <property name="storeoperDao" ref="storeoperDao"/>
+    </bean>
+    <bean id="storeService" class="com.ywx.erp.service.impl.StoreServiceImpl">
+        <property name="storeDao" ref="storeDao"/>
+    </bean>
+    <bean id="storedetailService" class="com.ywx.erp.service.impl.StoredetailServiceImpl">
+        <property name="storedetailDao" ref="storedetailDao"/>
+    </bean>
+    <bean id="storeoperService" class="com.ywx.erp.service.impl.StoreoperServiceImpl">
+        <property name="storeoperDao" ref="storeoperDao"/>
     </bean>
 </beans>

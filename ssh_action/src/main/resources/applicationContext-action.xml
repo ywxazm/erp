@@ -45,4 +45,8 @@
         <property name="orderdetailService" ref="orderdetailService"/>
     </bean>
 
+    <bean id="storeAction" class="com.ywx.erp.action.StoreAction" scope="prototype">
+        <property name="storeService" ref="storeService"/>
+    </bean>
+
 </beans>

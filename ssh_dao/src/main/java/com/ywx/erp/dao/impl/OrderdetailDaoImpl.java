@@ -41,7 +41,7 @@ public class OrderdetailDaoImpl extends BaseDaoImpl<OrderdetailDo> implements Or
                 dc.add(Restrictions.like("state", t1.getState()));
             }
             if (null != t1.getOrdersDo() && null != t1.getOrdersDo().getUuid()) {
-                dc.add(Restrictions.eq("ordersuuid", t1.getOrdersDo().getUuid()));
+                dc.add(Restrictions.eq("ordersDo", t1.getOrdersDo()));
             }
         }
         return dc;

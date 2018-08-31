@@ -1,8 +1,10 @@
 package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.entity.OrderdetailDo;
 import com.ywx.erp.service.OrderdetailService;
+import org.apache.struts2.ServletActionContext;
 
 import java.util.HashMap;
 
@@ -35,6 +37,33 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
         }
+    }
+
+    private Long storeuuid;
+    public Long getStoreuuid() {
+        return storeuuid;
+    }
+    public void setStoreuuid(Long storeuuid) {
+        this.storeuuid = storeuuid;
+    }
+    public void doInStore() {
+        logger.debug("operaObj is = {}, doInStore doing, storeuuid = {}", this, storeuuid);
+        try {
+            EmpDo user = getLoginUser();
+            if (null == user) {
+                write(ajaxReturn(false, "用户未登录"));
+                return;
+            }
+            orderdetailService.doInStore(id, storeuuid, user.getUuid());
+            write(ajaxReturn(true, "入库成功"));
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, doInStore is error, msg = {}", this, ex.getMessage());
+            write(ajaxReturn(false, "入库失败"));
+        }
+    }
+
+    private EmpDo getLoginUser() {
+        return (EmpDo) ServletActionContext.getContext().getSession().get("user");
     }
 
 }

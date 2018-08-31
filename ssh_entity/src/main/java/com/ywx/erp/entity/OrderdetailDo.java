@@ -89,13 +89,9 @@ public class OrderdetailDo implements Serializable {
 	public void setStoreuuid(Long storeuuid) {
 		this.storeuuid = storeuuid;
 	}
-	public String getState() {		
-		return state;
-	}
 	public void setState(String state) {
 		this.state = state;
 	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -147,5 +143,9 @@ public class OrderdetailDo implements Serializable {
 				", state='" + state + '\'' +
 				", ordersDo=" + ordersDo +
 				'}';
+	}
+
+	public String getState() {
+		return state;
 	}
 }
