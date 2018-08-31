@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class StoreDo implements Serializable {
 	private Long uuid;//编号
 	private String name;//名称
-	private Long empuuid;//员工编号
+	private Long empuuid;//库管员工编号
 
 	public Long getUuid() {		
 		return uuid;

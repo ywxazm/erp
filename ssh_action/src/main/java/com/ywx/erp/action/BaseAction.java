@@ -88,6 +88,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             write(str);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
+            e.printStackTrace();
         }
     }
 

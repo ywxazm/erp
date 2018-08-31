@@ -31,4 +31,20 @@ public class OrdersServiceImpl extends BaseServiceImpl<OrdersDo> implements Orde
         ordersDo.setTotalmoney(total);
         ordersDao.addDo(ordersDo);          //TODO:此处可以实现级联保存
     }
+
+    @Override
+    public void doCheck(long id, long empDoId) {
+        OrdersDo ordersDo = ordersDao.getDo(id);
+        ordersDo.setState(OrdersDo.STATE_CHECK);
+        ordersDo.setChecker(empDoId);
+        ordersDo.setChecktime(new Date());
+    }
+
+    @Override
+    public void doStart(long id, long empDoId) {
+        OrdersDo ordersDo = ordersDao.getDo(id);
+        ordersDo.setState(OrdersDo.STATE_START);
+        ordersDo.setStarter(empDoId);
+        ordersDo.setStarttime(new Date());
+    }
 }

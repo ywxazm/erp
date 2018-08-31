@@ -27,5 +27,8 @@
     <bean id="ordersDao" class="com.ywx.erp.dao.impl.OrdersDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean id="orderdetailDao" class="com.ywx.erp.dao.impl.OrderdetailDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
 </beans>

@@ -1,6 +1,7 @@
 package com.ywx.erp.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,104 +31,178 @@ public class OrdersDo implements Serializable {
 	private java.util.Date endtime;//入库或出库日期
 	private String type;//1:采购 2:销售
 	private Long creater;//下单员
+	private String createrName;//下单员
 	private Long checker;//审核员
+	private String checkerName;//审核员
 	private Long starter;//采购员
+	private String starterName;//采购员
 	private Long ender;//库管员
+	private String enderName;//库管员
 	private Long supplieruuid;//供应商或客户
+	private String supplierName;//供应商或客户
 	private Double totalmoney;//合计金额
 	private String state;//采购: 0:未审核 1:已审核, 2:已确认, 3:已入库；销售：0:未出库 1:已出库
 	private Long waybillsn;//运单号
 	private List<OrderdetailDo> orderDetailDos;//订单明细
 
-	public List<OrderdetailDo> getOrderDetailDos() {
-		return orderDetailDos;
-	}
-	public void setOrderDetailDos(List<OrderdetailDo> orderDetailDos) {
-		this.orderDetailDos = orderDetailDos;
-	}
 	public Long getUuid() {
 		return uuid;
 	}
+
 	public void setUuid(Long uuid) {
 		this.uuid = uuid;
 	}
-	public java.util.Date getCreatetime() {		
+
+	public Date getCreatetime() {
 		return createtime;
 	}
-	public void setCreatetime(java.util.Date createtime) {
+
+	public void setCreatetime(Date createtime) {
 		this.createtime = createtime;
 	}
-	public java.util.Date getChecktime() {		
+
+	public Date getChecktime() {
 		return checktime;
 	}
-	public void setChecktime(java.util.Date checktime) {
+
+	public void setChecktime(Date checktime) {
 		this.checktime = checktime;
 	}
-	public java.util.Date getStarttime() {		
+
+	public Date getStarttime() {
 		return starttime;
 	}
-	public void setStarttime(java.util.Date starttime) {
+
+	public void setStarttime(Date starttime) {
 		this.starttime = starttime;
 	}
-	public java.util.Date getEndtime() {		
+
+	public Date getEndtime() {
 		return endtime;
 	}
-	public void setEndtime(java.util.Date endtime) {
+
+	public void setEndtime(Date endtime) {
 		this.endtime = endtime;
 	}
-	public String getType() {		
+
+	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Long getCreater() {		
+
+	public Long getCreater() {
 		return creater;
 	}
+
 	public void setCreater(Long creater) {
 		this.creater = creater;
 	}
-	public Long getChecker() {		
+
+	public String getCreaterName() {
+		return createrName;
+	}
+
+	public void setCreaterName(String createrName) {
+		this.createrName = createrName;
+	}
+
+	public Long getChecker() {
 		return checker;
 	}
+
 	public void setChecker(Long checker) {
 		this.checker = checker;
 	}
-	public Long getStarter() {		
+
+	public String getCheckerName() {
+		return checkerName;
+	}
+
+	public void setCheckerName(String checkerName) {
+		this.checkerName = checkerName;
+	}
+
+	public Long getStarter() {
 		return starter;
 	}
+
 	public void setStarter(Long starter) {
 		this.starter = starter;
 	}
-	public Long getEnder() {		
+
+	public String getStarterName() {
+		return starterName;
+	}
+
+	public void setStarterName(String starterName) {
+		this.starterName = starterName;
+	}
+
+	public Long getEnder() {
 		return ender;
 	}
+
 	public void setEnder(Long ender) {
 		this.ender = ender;
 	}
-	public Long getSupplieruuid() {		
+
+	public String getEnderName() {
+		return enderName;
+	}
+
+	public void setEnderName(String enderName) {
+		this.enderName = enderName;
+	}
+
+	public Long getSupplieruuid() {
 		return supplieruuid;
 	}
+
 	public void setSupplieruuid(Long supplieruuid) {
 		this.supplieruuid = supplieruuid;
 	}
-	public Double getTotalmoney() {		
+
+	public String getSupplierName() {
+		return supplierName;
+	}
+
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+
+	public Double getTotalmoney() {
 		return totalmoney;
 	}
+
 	public void setTotalmoney(Double totalmoney) {
 		this.totalmoney = totalmoney;
 	}
-	public String getState() {		
+
+	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
-	public Long getWaybillsn() {		
+
+	public Long getWaybillsn() {
 		return waybillsn;
 	}
+
 	public void setWaybillsn(Long waybillsn) {
 		this.waybillsn = waybillsn;
+	}
+
+	public List<OrderdetailDo> getOrderDetailDos() {
+		return orderDetailDos;
+	}
+
+	public void setOrderDetailDos(List<OrderdetailDo> orderDetailDos) {
+		this.orderDetailDos = orderDetailDos;
 	}
 
 	@Override
@@ -144,10 +219,19 @@ public class OrdersDo implements Serializable {
 		if (endtime != null ? !endtime.equals(ordersDo.endtime) : ordersDo.endtime != null) return false;
 		if (type != null ? !type.equals(ordersDo.type) : ordersDo.type != null) return false;
 		if (creater != null ? !creater.equals(ordersDo.creater) : ordersDo.creater != null) return false;
+		if (createrName != null ? !createrName.equals(ordersDo.createrName) : ordersDo.createrName != null)
+			return false;
 		if (checker != null ? !checker.equals(ordersDo.checker) : ordersDo.checker != null) return false;
+		if (checkerName != null ? !checkerName.equals(ordersDo.checkerName) : ordersDo.checkerName != null)
+			return false;
 		if (starter != null ? !starter.equals(ordersDo.starter) : ordersDo.starter != null) return false;
+		if (starterName != null ? !starterName.equals(ordersDo.starterName) : ordersDo.starterName != null)
+			return false;
 		if (ender != null ? !ender.equals(ordersDo.ender) : ordersDo.ender != null) return false;
+		if (enderName != null ? !enderName.equals(ordersDo.enderName) : ordersDo.enderName != null) return false;
 		if (supplieruuid != null ? !supplieruuid.equals(ordersDo.supplieruuid) : ordersDo.supplieruuid != null)
+			return false;
+		if (supplierName != null ? !supplierName.equals(ordersDo.supplierName) : ordersDo.supplierName != null)
 			return false;
 		if (totalmoney != null ? !totalmoney.equals(ordersDo.totalmoney) : ordersDo.totalmoney != null) return false;
 		if (state != null ? !state.equals(ordersDo.state) : ordersDo.state != null) return false;
@@ -164,10 +248,15 @@ public class OrdersDo implements Serializable {
 		result = 31 * result + (endtime != null ? endtime.hashCode() : 0);
 		result = 31 * result + (type != null ? type.hashCode() : 0);
 		result = 31 * result + (creater != null ? creater.hashCode() : 0);
+		result = 31 * result + (createrName != null ? createrName.hashCode() : 0);
 		result = 31 * result + (checker != null ? checker.hashCode() : 0);
+		result = 31 * result + (checkerName != null ? checkerName.hashCode() : 0);
 		result = 31 * result + (starter != null ? starter.hashCode() : 0);
+		result = 31 * result + (starterName != null ? starterName.hashCode() : 0);
 		result = 31 * result + (ender != null ? ender.hashCode() : 0);
+		result = 31 * result + (enderName != null ? enderName.hashCode() : 0);
 		result = 31 * result + (supplieruuid != null ? supplieruuid.hashCode() : 0);
+		result = 31 * result + (supplierName != null ? supplierName.hashCode() : 0);
 		result = 31 * result + (totalmoney != null ? totalmoney.hashCode() : 0);
 		result = 31 * result + (state != null ? state.hashCode() : 0);
 		result = 31 * result + (waybillsn != null ? waybillsn.hashCode() : 0);
@@ -185,10 +274,15 @@ public class OrdersDo implements Serializable {
 				", endtime=" + endtime +
 				", type='" + type + '\'' +
 				", creater=" + creater +
+				", createrName='" + createrName + '\'' +
 				", checker=" + checker +
+				", checkerName='" + checkerName + '\'' +
 				", starter=" + starter +
+				", starterName='" + starterName + '\'' +
 				", ender=" + ender +
+				", enderName='" + enderName + '\'' +
 				", supplieruuid=" + supplieruuid +
+				", supplierName='" + supplierName + '\'' +
 				", totalmoney=" + totalmoney +
 				", state='" + state + '\'' +
 				", waybillsn=" + waybillsn +
