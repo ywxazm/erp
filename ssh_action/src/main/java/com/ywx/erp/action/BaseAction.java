@@ -156,4 +156,12 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         }
     }
 
+    /**
+     * 获取当前用户
+     */
+    protected EmpDo getLoginUser() {
+        return (EmpDo)ServletActionContext.getContext().getSession().get("user");
+    }
+
+
 }

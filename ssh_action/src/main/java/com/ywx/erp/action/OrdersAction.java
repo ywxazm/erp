@@ -31,13 +31,29 @@ public class OrdersAction extends BaseAction<OrdersDo> {
         this.supplierService = supplierService;
     }
 
+
+    /**
+     * 订单查询，如果有用户ID，则只查询当前用户ID下的订单
+     */
+    private String oper;
+    public String getOper() {
+        return oper;
+    }
+    public void setOper(String oper) {
+        this.oper = oper;
+    }
     @Override
     public void listByPage() {
+        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}, oper = {}", this, t, tt, obj, page, rows, oper);
         try {
-            logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}", this, t, tt, obj, page, rows);
+            if ("myorders".equals(oper)) {
+                t.setCreater(getLoginUser().getUuid());
+            }
+
             List<OrdersDo> list = ordersService.listByPage(t, tt, obj, (page - 1) * rows, rows);
             Long count = ordersService.getCount(t, tt, obj);       //统计总条目数
 
+            //查询每一张订单下的明细中的操作人
             for (OrdersDo ordersDo : list) {
                 ordersDo.setSupplierName(getSupplierName(ordersDo.getSupplieruuid()));
                 ordersDo.setEnderName(getEmpName(ordersDo.getEnder()));
@@ -49,29 +65,26 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             HashMap<String, Object> map = new HashMap<>();
             map.put("rows", list);
             map.put("total", count);
-            String str = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
+            String str = JSONObject.toJSONString(map);
             write(str);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
-            e.printStackTrace();
         }
     }
-
     private String getSupplierName(Long id) {
         if (null == id)
             return null;
         return supplierService.getDo(id).getName();
     }
-
     private String getEmpName(Long id) {
         if (null == id)
             return null;
         return empService.getDo(id).getName();
     }
 
-    //订单明细的字符串数据
-    //OrdersDo{uuid=null, createtime=null, checktime=null, starttime=null, endtime=null, type='null', creater=null, checker=null, starter=null, ender=null, supplieruuid=2, totalmoney=null, state='null', waybillsn=null, orderDetailDos=null}
-    //[{"num":"9","money":"21.06","goodsuuid":"1","goodsname":"水蜜桃","price":"2.34"}]
+    /**
+     * 添加订单, 级联添加订单明细
+     */
     private String json;
     public String getJson() {
         return json;
@@ -104,10 +117,6 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             logger.error("operaObj is = {}, addDo is error,  msg = {}", this, ex.getMessage());
             write(ajaxReturn(false, "添加失败"));
         }
-    }
-
-    private EmpDo getLoginUser() {
-        return (EmpDo)ServletActionContext.getContext().getSession().get("user");
     }
 
     /**

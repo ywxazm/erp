@@ -32,8 +32,4 @@ public class StoreAction extends BaseAction<StoreDo> {
         }
     }
 
-    private EmpDo getLoginUser() {
-        return (EmpDo) ServletActionContext.getContext().getSession().get("user");
-    }
-
 }

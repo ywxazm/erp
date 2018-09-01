@@ -18,6 +18,9 @@ public class OrdersDaoImpl extends BaseDaoImpl<OrdersDo> implements OrdersDao {
             if (null != t1.getType()) {
                 dc.add(Restrictions.eq("type", t1.getType()));
             }
+            if (null != t1.getCreater()) {
+                dc.add(Restrictions.eq("creater", t1.getCreater()));
+            }
         }
         return dc;
     }

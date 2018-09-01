@@ -58,12 +58,9 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
             write(ajaxReturn(true, "入库成功"));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, doInStore is error, msg = {}", this, ex.getMessage());
+            ex.printStackTrace();
             write(ajaxReturn(false, "入库失败"));
         }
-    }
-
-    private EmpDo getLoginUser() {
-        return (EmpDo) ServletActionContext.getContext().getSession().get("user");
     }
 
 }
