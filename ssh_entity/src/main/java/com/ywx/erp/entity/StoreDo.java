@@ -10,24 +10,38 @@ public class StoreDo implements Serializable {
 	private Long uuid;//编号
 	private String name;//名称
 	private Long empuuid;//库管员工编号
+	private String empname;//库管员工姓名
 
-	public Long getUuid() {		
+	public Long getUuid() {
 		return uuid;
 	}
+
 	public void setUuid(Long uuid) {
 		this.uuid = uuid;
 	}
-	public String getName() {		
+
+	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getEmpuuid() {		
+
+	public Long getEmpuuid() {
 		return empuuid;
 	}
+
 	public void setEmpuuid(Long empuuid) {
 		this.empuuid = empuuid;
+	}
+
+	public String getEmpname() {
+		return empname;
+	}
+
+	public void setEmpname(String empname) {
+		this.empname = empname;
 	}
 
 	@Override
@@ -39,7 +53,8 @@ public class StoreDo implements Serializable {
 
 		if (uuid != null ? !uuid.equals(storeDo.uuid) : storeDo.uuid != null) return false;
 		if (name != null ? !name.equals(storeDo.name) : storeDo.name != null) return false;
-		return empuuid != null ? empuuid.equals(storeDo.empuuid) : storeDo.empuuid == null;
+		if (empuuid != null ? !empuuid.equals(storeDo.empuuid) : storeDo.empuuid != null) return false;
+		return empname != null ? empname.equals(storeDo.empname) : storeDo.empname == null;
 	}
 
 	@Override
@@ -47,6 +62,7 @@ public class StoreDo implements Serializable {
 		int result = uuid != null ? uuid.hashCode() : 0;
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (empuuid != null ? empuuid.hashCode() : 0);
+		result = 31 * result + (empname != null ? empname.hashCode() : 0);
 		return result;
 	}
 
@@ -56,6 +72,7 @@ public class StoreDo implements Serializable {
 				"uuid=" + uuid +
 				", name='" + name + '\'' +
 				", empuuid=" + empuuid +
+				", empname='" + empname + '\'' +
 				'}';
 	}
 }

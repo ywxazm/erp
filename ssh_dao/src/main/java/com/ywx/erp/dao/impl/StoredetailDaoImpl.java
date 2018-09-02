@@ -3,6 +3,7 @@ package com.ywx.erp.dao.impl;
 import com.ywx.erp.dao.StoredetailDao;
 import com.ywx.erp.entity.StoredetailDo;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class StoredetailDaoImpl extends BaseDaoImpl<StoredetailDo> implements StoredetailDao {
@@ -18,6 +19,7 @@ public class StoredetailDaoImpl extends BaseDaoImpl<StoredetailDo> implements St
                 dc.add(Restrictions.eq("goodsuuid", t1.getGoodsuuid()));
             }
         }
+        dc.addOrder(Order.asc("goodsuuid"));
         return dc;
     }
 }

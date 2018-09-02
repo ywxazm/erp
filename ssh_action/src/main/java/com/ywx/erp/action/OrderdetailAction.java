@@ -39,7 +39,10 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
         }
     }
 
-    private Long storeuuid;
+    /**
+     * 入库
+     */
+    private Long storeuuid;     //仓库ID
     public Long getStoreuuid() {
         return storeuuid;
     }
@@ -62,5 +65,27 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
             write(ajaxReturn(false, "入库失败"));
         }
     }
+
+    /**
+     * 出库
+     */
+    public void doOutStore() {
+        logger.debug("operaObj is = {}, doOutStore doing, storeuuid = {}", this, storeuuid);
+        try {
+            EmpDo user = getLoginUser();
+            if (null == user) {
+                write(ajaxReturn(false, "用户未登录"));
+                return;
+            }
+            orderdetailService.doOutStore(id, storeuuid, user.getUuid());
+            write(ajaxReturn(true, "出库成功"));
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, doOutStore is error, msg = {}", this, ex.getMessage());
+            ex.printStackTrace();
+            write(ajaxReturn(false, "出库失败"));
+        }
+    }
+
+
 
 }

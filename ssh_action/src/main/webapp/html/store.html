@@ -18,7 +18,7 @@
         var columns = [[
             {field: 'uuid', title: '编号', width: 100},
             {field: 'name', title: '名称', width: 100},
-            {field: 'empuuid', title: '员工编号', width: 100},
+            {field: 'empname', title: '仓库管理员', width: 100},
             {
                 field: '-', title: '操作', width: 200, formatter: function (value, row, index) {
                 var oper = "<a href=\"javascript:void(0)\" onclick=\"edit(" + row.uuid + ')">修改</a>';
@@ -35,8 +35,7 @@
 <div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
     <div style="height:2px;"></div>
     <form id="searchForm">
-        名称：<input name="t.name">
-        员工编号：<input name="t.empuuid">
+        仓库名称：<input name="t.name">
         <button type="button" id="btnSearch">查询</button>
     </form>
     <div style="height:2px;"></div>
@@ -53,8 +52,10 @@
                 <td><input name="t.name"></td>
             </tr>
             <tr>
-                <td>员工编号</td>
-                <td><input name="t.empuuid"></td>
+                <td>仓库管理员姓名</td>
+                <td><input name="t.empuuid" class="easyui-combobox" data-options="
+			url:'empAction_list', valueField:'uuid', textField:'name'
+				"></td>
             </tr>
         </table>
         <button id="btnSave" type="button">保存</button>

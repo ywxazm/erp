@@ -1,5 +1,7 @@
 package com.ywx.erp.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,12 +25,21 @@ public class OrdersDo implements Serializable {
 	public static final String TYPE_IN = "1";
 	/** 销售订单 */
 	public static final String TYPE_OUT = "2";
+
+	/**未出库 */
+	public static final String STATE_NOT_OUT = "0";
+	/**已出库*/
+	public static final String STATE_OUT = "1";
 	
 	private Long uuid;//编号
-	private java.util.Date createtime;//生成日期
-	private java.util.Date checktime;//审核日期
-	private java.util.Date starttime;//确认日期
-	private java.util.Date endtime;//入库或出库日期
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	private Date createtime;//生成日期
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	private Date checktime;//审核日期
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	private Date starttime;//确认日期
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
+	private Date endtime;//入库或出库日期
 	private String type;//1:采购 2:销售
 	private Long creater;//下单员
 	private String createrName;//下单员

@@ -79,8 +79,8 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 分页查询
      */
     public void listByPage() {
+        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}", this, t, tt, obj, page, rows);
         try {
-            logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}", this, t, tt, obj, page, rows);
             List<T> list = baseService.listByPage(t, tt, obj, (page - 1) * rows, rows);
             Long count = baseService.getCount(t, tt, obj);       //统计总条目数
             HashMap<String, Object> map = new HashMap<>();

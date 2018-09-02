@@ -47,6 +47,20 @@
 
     <bean id="storeAction" class="com.ywx.erp.action.StoreAction" scope="prototype">
         <property name="storeService" ref="storeService"/>
+        <property name="empService" ref="empService"/>
+    </bean>
+
+    <bean id="storedetailAction" class="com.ywx.erp.action.StoredetailAction" scope="prototype">
+        <property name="storedetailService" ref="storedetailService"/>
+        <property name="goodsService" ref="goodsService"/>
+        <property name="storeService" ref="storeService"/>
+    </bean>
+
+    <bean id="storeoperAction" class="com.ywx.erp.action.StoreoperAction" scope="prototype">
+        <property name="storeoperService" ref="storeoperService"/>
+        <property name="empService" ref="empService"/>
+        <property name="storeService" ref="storeService"/>
+        <property name="goodsService" ref="goodsService"/>
     </bean>
 
 </beans>

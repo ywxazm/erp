@@ -3,6 +3,7 @@ package com.ywx.erp.dao.impl;
 import com.ywx.erp.dao.StoreoperDao;
 import com.ywx.erp.entity.StoreoperDo;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class StoreoperDaoImpl extends BaseDaoImpl<StoreoperDo> implements StoreoperDao {
@@ -21,6 +22,7 @@ public class StoreoperDaoImpl extends BaseDaoImpl<StoreoperDo> implements Storeo
                 dc.add(Restrictions.eq("type", t1.getType()));
             }
         }
+        dc.addOrder(Order.desc("opertime"));
         return dc;
     }
 }

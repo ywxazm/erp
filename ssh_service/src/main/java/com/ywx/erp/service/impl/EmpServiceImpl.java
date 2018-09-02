@@ -19,9 +19,12 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
         this.empDao = empDao;
     }
 
+    /**
+     * 新增用户时，初始化密码为用户名
+     */
     @Override
-    public void addDo(EmpDo empDo) {        //初始化密码设置为用户名
-        Md5Hash md5Hash = new Md5Hash(empDo.getUsername(), empDo.getUsername(), 2);      //TODO:此处对于密码的处理用到了MD5
+    public void addDo(EmpDo empDo) {        //初始化密码设置为"1"
+        Md5Hash md5Hash = new Md5Hash("1", empDo.getUsername(), 2);      //TODO:此处对于密码的处理用到了MD5
         empDo.setPwd(md5Hash.toString());
         empDao.addDo(empDo);
     }

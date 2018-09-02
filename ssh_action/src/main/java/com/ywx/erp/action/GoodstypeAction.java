@@ -15,6 +15,9 @@ public class GoodstypeAction extends BaseAction<GoodsTypeDo> {
         this.goodstypeService = goodstypeService;
     }
 
+    /**
+     * 回显Bean的属性值
+     */
     @Override
     public void getDo() {
         logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);

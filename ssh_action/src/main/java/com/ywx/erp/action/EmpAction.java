@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.exception.ErpException;
 import com.ywx.erp.service.EmpService;
+import org.apache.shiro.crypto.hash.Md5Hash;
 
 import java.util.HashMap;
 

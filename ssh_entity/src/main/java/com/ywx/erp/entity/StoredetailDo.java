@@ -7,32 +7,63 @@ import java.io.Serializable;
  * @author Administrator *
  */
 public class StoredetailDo implements Serializable {
+
+	/**未出库 */
+	public static final String STATE_NOT_OUT = "0";
+	/**已出库*/
+	public static final String STATE_OUT = "1";
+
 	private Long uuid;//编号
 	private Long storeuuid;//仓库编号
+	private String storename;//仓库名称
 	private Long goodsuuid;//商品编号
+	private String goodsname;//商品名称
 	private Long num;//数量
 
-	public Long getUuid() {		
+	public Long getUuid() {
 		return uuid;
 	}
+
 	public void setUuid(Long uuid) {
 		this.uuid = uuid;
 	}
-	public Long getStoreuuid() {		
+
+	public Long getStoreuuid() {
 		return storeuuid;
 	}
+
 	public void setStoreuuid(Long storeuuid) {
 		this.storeuuid = storeuuid;
 	}
-	public Long getGoodsuuid() {		
+
+	public String getStorename() {
+		return storename;
+	}
+
+	public void setStorename(String storename) {
+		this.storename = storename;
+	}
+
+	public Long getGoodsuuid() {
 		return goodsuuid;
 	}
+
 	public void setGoodsuuid(Long goodsuuid) {
 		this.goodsuuid = goodsuuid;
 	}
-	public Long getNum() {		
+
+	public String getGoodsname() {
+		return goodsname;
+	}
+
+	public void setGoodsname(String goodsname) {
+		this.goodsname = goodsname;
+	}
+
+	public Long getNum() {
 		return num;
 	}
+
 	public void setNum(Long num) {
 		this.num = num;
 	}
@@ -46,7 +77,9 @@ public class StoredetailDo implements Serializable {
 
 		if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) return false;
 		if (storeuuid != null ? !storeuuid.equals(that.storeuuid) : that.storeuuid != null) return false;
+		if (storename != null ? !storename.equals(that.storename) : that.storename != null) return false;
 		if (goodsuuid != null ? !goodsuuid.equals(that.goodsuuid) : that.goodsuuid != null) return false;
+		if (goodsname != null ? !goodsname.equals(that.goodsname) : that.goodsname != null) return false;
 		return num != null ? num.equals(that.num) : that.num == null;
 	}
 
@@ -54,7 +87,9 @@ public class StoredetailDo implements Serializable {
 	public int hashCode() {
 		int result = uuid != null ? uuid.hashCode() : 0;
 		result = 31 * result + (storeuuid != null ? storeuuid.hashCode() : 0);
+		result = 31 * result + (storename != null ? storename.hashCode() : 0);
 		result = 31 * result + (goodsuuid != null ? goodsuuid.hashCode() : 0);
+		result = 31 * result + (goodsname != null ? goodsname.hashCode() : 0);
 		result = 31 * result + (num != null ? num.hashCode() : 0);
 		return result;
 	}
@@ -64,7 +99,9 @@ public class StoredetailDo implements Serializable {
 		return "StoredetailDo{" +
 				"uuid=" + uuid +
 				", storeuuid=" + storeuuid +
+				", storename='" + storename + '\'' +
 				", goodsuuid=" + goodsuuid +
+				", goodsname='" + goodsname + '\'' +
 				", num=" + num +
 				'}';
 	}

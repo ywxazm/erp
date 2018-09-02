@@ -13,15 +13,26 @@
     <script type="text/javascript" src="/js/crud.js"></script>
 
     <script type="text/javascript">
-        var name = "storeoper";
+        var name = "storeoperAction";
+        var width = 300;
         var columns = [[
             {field: 'uuid', title: '编号', width: 100},
-            {field: 'empuuid', title: '操作员工编号', width: 100},
-            {field: 'opertime', title: '操作日期', width: 100},
-            {field: 'storeuuid', title: '仓库编号', width: 100},
-            {field: 'goodsuuid', title: '商品编号', width: 100},
+            {field: 'empname', title: '操作员工名称', width: 100},
+            {field: 'opertime', title: '操作日期', width: 150},
+            {field: 'storename', title: '仓库名称', width: 100},
+            {field: 'goodsname', title: '商品名称', width: 100},
             {field: 'num', title: '数量', width: 100},
-            {field: 'type', title: '1：入库 2：出库', width: 100},
+            {
+                field: 'type', title: '出/入库', width: 100, formatter: function (value, row, index) {
+                value = row.type;
+                if (1 == value * 1) {
+                    return '入库';
+                }
+                if (2 == value * 1) {
+                    return '出库';
+                }
+            }
+            },
             {
                 field: '-', title: '操作', width: 200, formatter: function (value, row, index) {
                 var oper = "<a href=\"javascript:void(0)\" onclick=\"edit(" + row.uuid + ')">修改</a>';
@@ -35,7 +46,7 @@
 </head>
 <body>
 
-<div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
+<!--<div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
     <div style="height:2px;"></div>
     <form id="searchForm">
         操作员工编号：<input name="t.empuuid">
@@ -43,11 +54,11 @@
         仓库编号：<input name="t.storeuuid">
         商品编号：<input name="t.goodsuuid">
         数量：<input name="t.num">
-        1：入库 2：出库：<input name="t.type">
+        出/入库：<input name="t.type">
         <button type="button" id="btnSearch">查询</button>
     </form>
     <div style="height:2px;"></div>
-</div>
+</div>-->
 
 <table id="grid"></table>
 
@@ -76,7 +87,7 @@
                 <td><input name="t.num"></td>
             </tr>
             <tr>
-                <td>1：入库 2：出库</td>
+                <td>出/入库</td>
                 <td><input name="t.type"></td>
             </tr>
         </table>

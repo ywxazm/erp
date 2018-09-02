@@ -4,6 +4,7 @@ import com.ywx.erp.dao.OrderdetailDao;
 import com.ywx.erp.entity.OrderdetailDo;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.util.StringUtils;
 
@@ -44,6 +45,7 @@ public class OrderdetailDaoImpl extends BaseDaoImpl<OrderdetailDo> implements Or
                 dc.add(Restrictions.eq("ordersDo", t1.getOrdersDo()));
             }
         }
+        dc.addOrder(Order.desc("endtime"));
         return dc;
     }
 }

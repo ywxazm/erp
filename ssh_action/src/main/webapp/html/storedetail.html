@@ -13,11 +13,12 @@
     <script type="text/javascript" src="/js/crud.js"></script>
 
     <script type="text/javascript">
-        var name = "storedetail";
+        var name = "storedetailAction";
+        var width = 300;
         var columns = [[
             {field: 'uuid', title: '编号', width: 100},
-            {field: 'storeuuid', title: '仓库编号', width: 100},
-            {field: 'goodsuuid', title: '商品编号', width: 100},
+            {field: 'storename', title: '仓库名称', width: 100},
+            {field: 'goodsname', title: '商品名称', width: 100},
             {field: 'num', title: '数量', width: 100},
             {
                 field: '-', title: '操作', width: 200, formatter: function (value, row, index) {
@@ -32,16 +33,15 @@
 </head>
 <body>
 
-<div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
+<!--<div class="easyui-panel" style="padding-left:4px;border-bottom:0px;">
     <div style="height:2px;"></div>
     <form id="searchForm">
-        仓库编号：<input name="t.storeuuid">
-        商品编号：<input name="t.goodsuuid">
-        数量：<input name="t.num">
+        仓库名称：<input name="t.storename">
+        商品名称：<input name="t.goodsname">
         <button type="button" id="btnSearch">查询</button>
     </form>
     <div style="height:2px;"></div>
-</div>
+</div>-->
 
 <table id="grid"></table>
 

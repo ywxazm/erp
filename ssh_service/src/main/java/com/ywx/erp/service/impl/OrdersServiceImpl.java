@@ -18,7 +18,6 @@ public class OrdersServiceImpl extends BaseServiceImpl<OrdersDo> implements Orde
     @Override
     public void addDo(OrdersDo ordersDo) {
         ordersDo.setState(OrdersDo.STATE_CREATE);
-        ordersDo.setType(OrdersDo.TYPE_IN);
         ordersDo.setCreatetime(new Date());
 
         double total = 0.00;

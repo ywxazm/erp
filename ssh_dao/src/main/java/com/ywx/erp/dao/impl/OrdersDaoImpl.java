@@ -4,6 +4,7 @@ import com.ywx.erp.dao.OrdersDao;
 import com.ywx.erp.entity.OrderdetailDo;
 import com.ywx.erp.entity.OrdersDo;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class OrdersDaoImpl extends BaseDaoImpl<OrdersDo> implements OrdersDao {
@@ -22,6 +23,7 @@ public class OrdersDaoImpl extends BaseDaoImpl<OrdersDo> implements OrdersDao {
                 dc.add(Restrictions.eq("creater", t1.getCreater()));
             }
         }
+        dc.addOrder(Order.desc("createtime"));
         return dc;
     }
 }

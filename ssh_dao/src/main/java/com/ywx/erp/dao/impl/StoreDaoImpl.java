@@ -13,10 +13,7 @@ public class StoreDaoImpl extends BaseDaoImpl<StoreDo> implements StoreDao {
         DetachedCriteria dc = DetachedCriteria.forClass(StoreDo.class);
         if (t1 != null) {
             if (null != t1.getName()) {
-                dc.add(Restrictions.eq("name", t1.getName()));
-            }
-            if (null != t1.getEmpuuid()) {
-                dc.add(Restrictions.eq("empuuid", t1.getEmpuuid()));
+                dc.add(Restrictions.like("name", t1.getName(), MatchMode.ANYWHERE));
             }
         }
         return dc;

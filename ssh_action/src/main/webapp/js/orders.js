@@ -13,7 +13,7 @@ $(function(){
 			$('#addOrdersSupplier').html('供应商');
 		}
 		if(Request['type']*1 == 2){
-			url = "ordersAction_myListByPage?t.type=2&t.state=0";
+			url = "ordersAction_listByPage?t.type=2&oper=myorders";
 			document.title="我的销售订单";
 			btnText = "销售订单录入";
 			//显示客户
@@ -21,9 +21,14 @@ $(function(){
 		}
 	}
 	//采购订单查询
-	if(Request['oper'] == 'allorders'){
+	if(Request['oper'] == 'allorders' && Request['type'] == '1'){
 		url +="?t.type=1";
 		document.title="采购订单查询";
+	}
+	//销售订单查询
+	if(Request['oper'] == 'allorders' && Request['type'] == '2'){
+		url +="?t.type=2";
+		document.title="销售订单查询";
 	}
 	//如果审核业务，加上state=0，只查询出未审核的订单
 	if(Request['oper'] == 'doCheck'){
@@ -64,10 +69,10 @@ $(function(){
 			$('#checker').html(rowData.checkerName);
 			$('#starter').html(rowData.starterName);
 			$('#ender').html(rowData.enderName);
-			$('#createtime').html(formatDate(rowData.createtime));
-			$('#checktime').html(formatDate(rowData.checktime));
-			$('#starttime').html(formatDate(rowData.starttime));
-			$('#endtime').html(formatDate(rowData.endtime));
+			$('#createtime').html(rowData.createtime);
+			$('#checktime').html(rowData.checktime);
+			$('#starttime').html(rowData.starttime);
+			$('#endtime').html(rowData.endtime);
 			//打开窗口
 			$('#ordersDlg').dialog('open');
 			//加载明细列表
@@ -171,9 +176,9 @@ $(function(){
  * @param value
  * @returns
  */
-function formatDate(value){
-	return new Date(value).Format('yyyy-MM-dd');
-}
+// function formatDate(value){
+// 	return new Date(value).Format('yyyy-MM-dd');
+// }
 
 /**
  * 获取订单的状态
@@ -339,10 +344,10 @@ function getColumns(){
 	if(Request['type'] * 1 == 1){
 		return [[
 		            {field:'uuid',title:'编号',width:100},
-		  		    {field:'createtime',title:'生成日期',width:100,formatter:formatDate},
-		  		    {field:'checktime',title:'审核日期',width:100,formatter:formatDate},
-		  		    {field:'starttime',title:'确认日期',width:100,formatter:formatDate},
-		  		    {field:'endtime',title:'入库日期',width:100,formatter:formatDate},
+		  		    {field:'createtime',title:'生成日期',width:100},
+		  		    {field:'checktime',title:'审核日期',width:100},
+		  		    {field:'starttime',title:'确认日期',width:100},
+		  		    {field:'endtime',title:'入库日期',width:100},
 		  		    {field:'createrName',title:'下单员',width:100},
 		  		    {field:'checkerName',title:'审核员',width:100},
 		  		    {field:'starterName',title:'采购员',width:100},
@@ -356,8 +361,8 @@ function getColumns(){
 	if(Request['type'] * 1 == 2){
 		return [[
 		            {field:'uuid',title:'编号',width:100},
-		  		    {field:'createtime',title:'生成日期',width:100,formatter:formatDate},
-		  		    {field:'endtime',title:'出库日期',width:100,formatter:formatDate},
+		  		    {field:'createtime',title:'生成日期',width:100},
+		  		    {field:'endtime',title:'出库日期',width:100},
 		  		    {field:'createrName',title:'下单员',width:100},
 		  		    {field:'enderName',title:'库管员',width:100},
 		  		    {field:'supplierName',title:'客户',width:100},
