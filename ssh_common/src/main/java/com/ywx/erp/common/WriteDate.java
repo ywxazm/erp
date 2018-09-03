@@ -14,7 +14,7 @@ public interface WriteDate {
     Logger logger = LoggerFactory.getLogger(WriteDate.class);
 
     /**
-     * 写部门数据到前台
+     * 写数据到前台
      * @param jsonString
      */
     default void write(String jsonString) {

@@ -63,4 +63,8 @@
         <property name="goodsService" ref="goodsService"/>
     </bean>
 
+    <bean id="reportAction" class="com.ywx.erp.action.ReportAction" scope="prototype">
+        <property name="reportService" ref="reportService"/>
+    </bean>
+
 </beans>

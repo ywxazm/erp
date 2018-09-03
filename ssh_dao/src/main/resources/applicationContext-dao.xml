@@ -39,5 +39,8 @@
     <bean id="storeoperDao" class="com.ywx.erp.dao.impl.StoreoperDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean id="reportDao" class="com.ywx.erp.dao.impl.ReportDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
 </beans>
