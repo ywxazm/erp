@@ -1,10 +1,13 @@
 package com.ywx.erp.dao.impl;
 
 import com.ywx.erp.dao.StoreDao;
+import com.ywx.erp.entity.StoreAlertDo;
 import com.ywx.erp.entity.StoreDo;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+
+import java.util.List;
 
 public class StoreDaoImpl extends BaseDaoImpl<StoreDo> implements StoreDao {
 
@@ -17,5 +20,10 @@ public class StoreDaoImpl extends BaseDaoImpl<StoreDo> implements StoreDao {
             }
         }
         return dc;
+    }
+
+    @Override
+    public List<StoreAlertDo> queryInventory() {
+        return (List<StoreAlertDo>)this.getHibernateTemplate().find("From StoreAlertDo", null);
     }
 }

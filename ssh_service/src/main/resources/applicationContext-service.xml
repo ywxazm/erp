@@ -34,6 +34,7 @@
     </bean>
     <bean id="storeService" class="com.ywx.erp.service.impl.StoreServiceImpl">
         <property name="storeDao" ref="storeDao"/>
+        <property name="mailUtil" ref="mailUtil"/>
     </bean>
     <bean id="storedetailService" class="com.ywx.erp.service.impl.StoredetailServiceImpl">
         <property name="storedetailDao" ref="storedetailDao"/>

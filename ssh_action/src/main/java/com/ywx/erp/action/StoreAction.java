@@ -79,4 +79,14 @@ public class StoreAction extends BaseAction<StoreDo> {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
         }
     }
+
+    public void inventoryWarn() {
+        logger.debug("operaObj is = {}, inventoryWarn() doing, currentTime = {}", this, System.currentTimeMillis());
+        try {
+            storeService.sendWarnStoreMail();
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, inventoryWarn is error, msg = {}", this, ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
 }

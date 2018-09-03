@@ -13,7 +13,7 @@ public class ReportServiceTest {
     public void test01() {
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
         ReportService reportService = (ReportService)ac.getBean("reportService");
-        List list = reportService.ordersReport(null, null, 1);
+        List list = reportService.ordersReport(null, null);
         System.out.println(list);
 
     }
