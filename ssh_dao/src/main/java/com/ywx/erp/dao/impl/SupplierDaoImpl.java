@@ -33,6 +33,12 @@ public class SupplierDaoImpl extends BaseDaoImpl<SupplierDo> implements Supplier
                 dc.add(Restrictions.eq("type", t1.getType()));
             }
         }
+        if(null != t2){
+            //精确根据名称查询
+            if(null != t2.getName() && t2.getName().trim().length()>0){
+                dc.add(Restrictions.eq("name", t2.getName()));
+            }
+        }
         return dc;
     }
 

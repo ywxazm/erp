@@ -9,18 +9,36 @@ $(function(){
 		columns:columns,
 		singleSelect: true,
 		pagination: true,
-		toolbar: [{
-			text: '新增',
-			iconCls: 'icon-add',
-			handler: function(){
-				//设置保存按钮提交的方法为add
-				method = "addDo";
-				//关闭编辑窗口
-				$('#editDlg').dialog('open');
-                //清空表单内容
-                $('#editForm').form('clear');
-			}
-		}]
+        toolbar: [{									//刷新页面向后台传递的数据为page: 1   rows: 10
+            text: '新增',
+            iconCls: 'icon-add',
+            handler: function(){
+                //设置保存按钮提交的方法为add
+                method = "addDo";
+                //关闭编辑窗口
+                $('#editDlg').dialog('open');
+            }
+        },'-',{										//此处的'-':表示分隔线,  cloumn下的field中的'-': 无意义字段
+            text: '导出',
+            iconCls: 'icon-excel',
+            handler: function(){
+                var formData = $('#searchForm').serializeJSON();
+                //下载文件
+                $.download(name + "_export" + listParam,formData);
+            }
+        },'-',{
+            text: '导入',
+            iconCls: 'icon-save',
+            handler: function(){
+                $('#importDlg').dialog('open');
+            }
+        },'-',{
+            text: '导入',
+            iconCls: 'icon-save',
+            handler: function(){
+                $('#importDlg').dialog('open');
+            }
+        }]
 	});
 
 	//点击查询按钮
@@ -71,6 +89,41 @@ $(function(){
 		});
 	});
 
+    //判断是否有导入的功能
+    var importForm = document.getElementById('importForm');
+    if(importForm){
+        $('#importDlg').dialog({
+            title:'导入数据',
+            width:330,
+            height:106,
+            modal:true,
+            closed:true,
+            buttons:[
+                {
+                    text: '导入',
+                    handler:function(){
+                        $.ajax({
+                            url: name + '_doImport',
+                            data:new FormData($('#importForm')[0]),
+                            type:'post',
+                            processData:false,
+                            contentType:false,
+                            dataType:'json',
+                            success:function(rtn){
+                                $.messager.alert('提示',rtn.msg,'info',function(){
+                                    if(rtn.success){
+                                        $('#importDlg').dialog('close');
+                                        $('#importForm').form('clear');
+                                        $('#grid').datagrid('reload');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            ]
+        });
+    }
 });
 
 

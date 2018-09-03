@@ -23,6 +23,7 @@
 		<property name="jobDetail" ref="jobDetail" />
 		<!-- cron：7子表达式 -->
 		<property name="cronExpression" value="0 0 22 * * ? *" />
+		<!--<property name="cronExpression" value="0,10,20,30,40,50 * * * * ? *" />-->
 	</bean>
 
 	<!-- 任务调度管理容器 -->

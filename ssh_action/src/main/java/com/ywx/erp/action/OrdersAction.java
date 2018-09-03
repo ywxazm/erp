@@ -12,6 +12,8 @@ import com.ywx.erp.service.OrdersService;
 import com.ywx.erp.service.SupplierService;
 import org.apache.struts2.ServletActionContext;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -144,6 +146,24 @@ public class OrdersAction extends BaseAction<OrdersDo> {
         } catch (Exception e) {
             logger.error("operaObj is = {}, doStart is error, info = {}", this, e.getMessage());
             write(ajaxReturn(false, "确认失败"));
+        }
+    }
+
+    /**
+     * 导出订单
+     */
+    public void export(){
+        String filename = "Orders_" + getId() + ".xls";
+        //响应对象
+        HttpServletResponse response = ServletActionContext.getResponse();
+        try {
+            //设置输出流,实现下载文件
+            response.setHeader("Content-Disposition", "attachment;filename=" +
+                    new String(filename.getBytes(),"ISO-8859-1"));
+
+            ordersService.exportById(response.getOutputStream(), getId());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
