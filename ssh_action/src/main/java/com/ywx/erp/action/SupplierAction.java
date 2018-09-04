@@ -2,9 +2,11 @@ package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ywx.erp.common.PIOConstants;
+import com.ywx.erp.common.PIOUtil;
 import com.ywx.erp.common.StringConstants;
 import com.ywx.erp.entity.SupplierDo;
 import com.ywx.erp.exception.ErpException;
+import com.ywx.erp.service.BaseService;
 import com.ywx.erp.service.SupplierService;
 import org.apache.struts2.ServletActionContext;
 
@@ -13,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 public class SupplierAction extends BaseAction<SupplierDo> {
 
@@ -50,26 +53,26 @@ public class SupplierAction extends BaseAction<SupplierDo> {
         }
     }
 
-//    /**
-//     * 导出excel文件
-//     */
-//    public void export() {
-//        logger.debug("operaObj is = {}, export() doing", this);
-//        String fileName = StringConstants.NULLSTRING;
-//        switch (getT().getType()) {
-//            case StringConstants.ONECHAR: fileName = SUPPLIERFILENAME; break;
-//            case StringConstants.TWOCHAR: fileName = CUSTMERFILENAME;  break;
-//            default: logger.debug("export type error, typeCode = {}", getT().getType());
-//        }
-//
-//        HttpServletResponse response = ServletActionContext.getResponse();
-//        try {
-//            response.setHeader(PIOConstants.ContentDisposition, PIOConstants.PARAM01.concat(new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
-//            supplierService.export(response.getOutputStream(), getT());
-//        } catch (IOException e) {
-//            logger.error("operaObj is = {}, export is error, msg = {} ", this, e.getMessage());
-//        }
-//    }
+    /**
+     * 导出excel文件
+     */
+    public void export() {
+        logger.debug("operaObj is = {}, export() doing", this);
+        String fileName = StringConstants.NULLSTRING;
+        switch (getT().getType()) {
+            case StringConstants.ONECHAR: fileName = SUPPLIERFILENAME; break;
+            case StringConstants.TWOCHAR: fileName = CUSTMERFILENAME;  break;
+            default: logger.debug("export type error, typeCode = {}", getT().getType());
+        }
+
+        HttpServletResponse response = ServletActionContext.getResponse();
+        try {
+            response.setHeader(PIOConstants.ContentDisposition, PIOConstants.PARAM01.concat(new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
+            supplierService.export(response.getOutputStream(), getT());
+        } catch (Exception e) {
+            logger.error("operaObj is = {}, export is error, msg = {} ", this, e.getMessage());
+        }
+    }
 
     private File file;//上传的文件
     private String fileFileName;//上传的文件名称

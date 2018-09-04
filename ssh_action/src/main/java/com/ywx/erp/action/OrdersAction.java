@@ -149,22 +149,22 @@ public class OrdersAction extends BaseAction<OrdersDo> {
         }
     }
 
-    /**
-     * 导出订单
-     */
-    public void export(){
-        String filename = "Orders_" + getId() + ".xls";
-        //响应对象
-        HttpServletResponse response = ServletActionContext.getResponse();
-        try {
-            //设置输出流,实现下载文件
-            response.setHeader("Content-Disposition", "attachment;filename=" +
-                    new String(filename.getBytes(),"ISO-8859-1"));
-
-            ordersService.exportById(response.getOutputStream(), getId());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * 导出订单
+//     */
+//    public void export(){
+//        String filename = "Orders_" + getId() + ".xls";
+//        //响应对象
+//        HttpServletResponse response = ServletActionContext.getResponse();
+//        try {
+//            //设置输出流,实现下载文件
+//            response.setHeader("Content-Disposition", "attachment;filename=" +
+//                    new String(filename.getBytes(),"ISO-8859-1"));
+//
+//            ordersService.exportById(response.getOutputStream(), getId());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

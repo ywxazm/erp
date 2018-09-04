@@ -21,6 +21,6 @@ public interface BaseService<T> {
 
     void updateDo(T t);
 
-    void export(OutputStream os, T t);
+    void export(OutputStream os, T t) throws Exception;
 
 }

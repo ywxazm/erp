@@ -14,5 +14,5 @@ public interface OrdersService extends BaseService<OrdersDo> {
 
     void doStart(long id, long empDoId);
 
-    void exportById(OutputStream os, Long uuid) throws IOException;
+//    void exportById(OutputStream os, Long uuid) throws IOException;
 }

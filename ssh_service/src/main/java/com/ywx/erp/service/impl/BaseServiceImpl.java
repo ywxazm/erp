@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class BaseServiceImpl<T> implements BaseService<T> {
@@ -61,12 +62,12 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public void export(OutputStream os, T t) {
+    public void export(OutputStream os, T t) throws Exception {
         HSSFWorkbook wk = new HSSFWorkbook();               //创建excel文件
-        HSSFSheet sheet = wk.createSheet("仓库");
-        List<T> list = baseDao.list(null, null, null);
+        HSSFSheet sheet = wk.createSheet("Sheet");
+        List<T> list = baseDao.list(t, null, null);
 
-        PIOUtil.export(sheet, list);
+        PIOUtil.export(sheet, list, t.getClass());
         PIOUtil.closeStream(os, wk);
     }
 }

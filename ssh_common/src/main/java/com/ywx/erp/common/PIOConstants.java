@@ -15,6 +15,7 @@ public class PIOConstants {
     public static final String EMPFILRNAME = "员工.xls";
     public static final String GOODSFILRNAME = "商品.xls";
     public static final String GOODSTYPEFILRNAME = "商品类型.xls";
+    public static final String ORDERFILRNAME = "订单.xls";
     public static final String ORDERSALEFILRNAME = "销售订单.xls";
     public static final String ORDERSSHOPPINGFILRNAME = "采购订单.xls";
     public static final String ORDERDETAILFILRNAME = "订单明细.xls";
