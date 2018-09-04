@@ -3,6 +3,8 @@ package com.ywx.erp.action;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ywx.erp.common.PIOConstants;
+import com.ywx.erp.common.StringConstants;
 import com.ywx.erp.common.WriteDate;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.service.BaseService;
@@ -10,6 +12,9 @@ import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -163,5 +168,38 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         return (EmpDo)ServletActionContext.getContext().getSession().get("user");
     }
 
+
+    /**
+     * 导出
+     */
+    public void export() {
+
+        logger.debug("operaObj is = {}, export store doing, currentTime = {}", this, System.currentTimeMillis());
+
+        String fileName = PIOConstants.UNDEFINE;
+        String thisNameClassPath = this.getClass().getName();
+        String actionName = thisNameClassPath.substring(thisNameClassPath.lastIndexOf(".") + 1);
+        switch (actionName) {
+            case "DepAction":           fileName = PIOConstants.DEPFILRNAME; break;
+            case "EmpAction":           fileName = PIOConstants.EMPFILRNAME; break;
+            case "GoodsAction":         fileName = PIOConstants.GOODSFILRNAME; break;
+            case "GoodstypeAction":     fileName = PIOConstants.GOODSTYPEFILRNAME; break;
+            case "OrderdetailAction":   fileName = PIOConstants.ORDERDETAILFILRNAME; break;
+            case "OrdersAction":        fileName = PIOConstants.ORDERSALEFILRNAME; break;
+            case "StoreAction":         fileName = PIOConstants.STOREFILRNAME; break;
+            case "StoredetailAction":   fileName = PIOConstants.STOREODETAILFILRNAME; break;
+            case "StoreoperAction":     fileName = PIOConstants.STOREOPERFILRNAME; break;
+            case "SupplierAction":      fileName = PIOConstants.SUPPLIERFILRNAME; break;
+            default:                    logger.debug("export type error, typeCode = {}", actionName);
+        }
+
+        try {
+            HttpServletResponse response = ServletActionContext.getResponse();
+            response.setHeader(PIOConstants.ContentDisposition, PIOConstants.PARAM01.concat(new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
+            baseService.export(response.getOutputStream(), getT());
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
+        }
+    }
 
 }

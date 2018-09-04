@@ -1,5 +1,6 @@
 package com.ywx.erp.service;
 
+import java.io.OutputStream;
 import java.util.List;
 
 public interface BaseService<T> {
@@ -19,4 +20,7 @@ public interface BaseService<T> {
     T getDo(String id);
 
     void updateDo(T t);
+
+    void export(OutputStream os, T t);
+
 }

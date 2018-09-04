@@ -1,6 +1,8 @@
 package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ywx.erp.common.PIOConstants;
+import com.ywx.erp.common.StringConstants;
 import com.ywx.erp.entity.SupplierDo;
 import com.ywx.erp.exception.ErpException;
 import com.ywx.erp.service.SupplierService;
@@ -10,10 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 public class SupplierAction extends BaseAction<SupplierDo> {
+
+    //导出文件名
+    private static final String SUPPLIERFILENAME = "供应商.xls";
+    private static final String CUSTMERFILENAME = "客户.xls";
+
 
     private SupplierService supplierService;
 
@@ -44,31 +50,26 @@ public class SupplierAction extends BaseAction<SupplierDo> {
         }
     }
 
-    /**
-     * 导出excel文件
-     */
-    public void export() {
-        logger.debug("operaObj is = {}, export() doing", this);
-        String filename = "";
-        // 根据类型生成文件名
-        if (1 == Integer.parseInt(getT().getType().toString())) {
-            filename = "供应商.xls";
-        }
-        if (2 == Integer.parseInt(getT().getType().toString())) {
-            filename = "客户.xls";
-        }
-        HttpServletResponse response = ServletActionContext.getResponse();
-        try {
-            response.setHeader("Content-Disposition", "attachment;filename=" +
-                    new String(filename.getBytes(), "ISO-8859-1"));//中文名称进行转码
-            //调用导出业务
-            supplierService.export(response.getOutputStream(), getT());
-        } catch (UnsupportedEncodingException e) {
-            logger.error("operaObj is = {}, export is error, msg = {} ", this, e.getMessage());
-        } catch (IOException e) {
-            logger.error("operaObj is = {}, export is error, msg = {} ", this, e.getMessage());
-        }
-    }
+//    /**
+//     * 导出excel文件
+//     */
+//    public void export() {
+//        logger.debug("operaObj is = {}, export() doing", this);
+//        String fileName = StringConstants.NULLSTRING;
+//        switch (getT().getType()) {
+//            case StringConstants.ONECHAR: fileName = SUPPLIERFILENAME; break;
+//            case StringConstants.TWOCHAR: fileName = CUSTMERFILENAME;  break;
+//            default: logger.debug("export type error, typeCode = {}", getT().getType());
+//        }
+//
+//        HttpServletResponse response = ServletActionContext.getResponse();
+//        try {
+//            response.setHeader(PIOConstants.ContentDisposition, PIOConstants.PARAM01.concat(new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
+//            supplierService.export(response.getOutputStream(), getT());
+//        } catch (IOException e) {
+//            logger.error("operaObj is = {}, export is error, msg = {} ", this, e.getMessage());
+//        }
+//    }
 
     private File file;//上传的文件
     private String fileFileName;//上传的文件名称

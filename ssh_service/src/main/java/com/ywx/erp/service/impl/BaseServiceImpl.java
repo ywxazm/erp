@@ -1,10 +1,14 @@
 package com.ywx.erp.service.impl;
 
+import com.ywx.erp.common.PIOUtil;
 import com.ywx.erp.dao.BaseDao;
 import com.ywx.erp.service.BaseService;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.OutputStream;
 import java.util.List;
 
 public class BaseServiceImpl<T> implements BaseService<T> {
@@ -54,5 +58,15 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     @Override
     public void updateDo(T t) {
         baseDao.updateDo(t);
+    }
+
+    @Override
+    public void export(OutputStream os, T t) {
+        HSSFWorkbook wk = new HSSFWorkbook();               //创建excel文件
+        HSSFSheet sheet = wk.createSheet("仓库");
+        List<T> list = baseDao.list(null, null, null);
+
+        PIOUtil.export(sheet, list);
+        PIOUtil.closeStream(os, wk);
     }
 }

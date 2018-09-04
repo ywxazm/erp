@@ -2,6 +2,9 @@ package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.ywx.erp.common.PIOConstants;
+import com.ywx.erp.common.PIOUtil;
+import com.ywx.erp.common.StringConstants;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.entity.StoreDo;
 import com.ywx.erp.service.EmpService;
@@ -9,6 +12,7 @@ import com.ywx.erp.service.StoreService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
@@ -80,6 +84,9 @@ public class StoreAction extends BaseAction<StoreDo> {
         }
     }
 
+    /**
+     * 仓库库存报警
+     */
     public void inventoryWarn() {
         logger.debug("operaObj is = {}, inventoryWarn() doing, currentTime = {}", this, System.currentTimeMillis());
         try {
@@ -89,4 +96,5 @@ public class StoreAction extends BaseAction<StoreDo> {
             ex.printStackTrace();
         }
     }
+
 }

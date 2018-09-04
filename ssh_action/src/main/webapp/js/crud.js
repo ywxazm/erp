@@ -24,13 +24,7 @@ $(function(){
             handler: function(){
                 var formData = $('#searchForm').serializeJSON();
                 //下载文件
-                $.download(name + "_export" + listParam,formData);
-            }
-        },'-',{
-            text: '导入',
-            iconCls: 'icon-save',
-            handler: function(){
-                $('#importDlg').dialog('open');
+                $.download(name + "_export" + listParam, formData);
             }
         },'-',{
             text: '导入',

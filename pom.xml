@@ -3,6 +3,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
@@ -117,17 +118,17 @@
         </dependency>
 
         <!--ojdbc6-->
-        <dependency>
+        <!--<dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
-        </dependency>
+        </dependency>-->
         <!--mysql-connect-java-->
-        <!--<dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.12</version>
-        </dependency>-->
+        </dependency>
 
         <!--fastJson-->
         <dependency>
@@ -194,9 +195,6 @@
             <artifactId>poi</artifactId>
             <version>3.12</version>
         </dependency>
-
-
-
 
     </dependencies>
 

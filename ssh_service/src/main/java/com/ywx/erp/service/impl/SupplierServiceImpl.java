@@ -1,5 +1,7 @@
 package com.ywx.erp.service.impl;
 
+import com.ywx.erp.common.PIOUtil;
+import com.ywx.erp.common.StringConstants;
 import com.ywx.erp.dao.SupplierDao;
 import com.ywx.erp.entity.SupplierDo;
 import com.ywx.erp.exception.ErpException;
@@ -12,74 +14,36 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
 public class SupplierServiceImpl extends BaseServiceImpl<SupplierDo> implements SupplierService {
 
-    private SupplierDao supplierDao;
+    //EXCEL工作表间名称
+    private static final String SUPPLIERSHEETNAME = "供应商列表";
+    private static final String CUSTERSHEETNAME = "客户列表";
 
+    private SupplierDao supplierDao;
     public void setSupplierDao(SupplierDao supplierDao) {
         super.setBaseDao(supplierDao);
         this.supplierDao = supplierDao;
     }
 
-    @Override
-    public void export(OutputStream os, SupplierDo t) {
-        // 根据查询条件获取供应商/客户列表
-        List<SupplierDo> supplierList = super.list(t, null, null);
-        // 创建excel工作簿
-        HSSFWorkbook wk = new HSSFWorkbook();
-        HSSFSheet sheet = null;
-        // 根据查询条件中的类型来创建相应名称的工作表
-        System.out.println("------------------------>" + t.getType());
-        if (1 == Integer.parseInt(t.getType().toString())) {
-            sheet = wk.createSheet("供应商");
-        }
-        if (2 == Integer.parseInt(t.getType().toString())) {
-            sheet = wk.createSheet("客户");
-        }
-
-        // 写入表头
-        HSSFRow row = sheet.createRow(0);
-        // 定义好每一列的标题
-        String[] headerNames = {"名称", "地址", "联系人", "电话", "Email"};
-        // 指定每一列的宽度
-        int[] columnWidths = {4000, 8000, 2000, 3000, 8000};
-        HSSFCell cell = null;
-        for (int i = 0; i < headerNames.length; i++) {
-            cell = row.createCell(i);
-            cell.setCellValue(headerNames[i]);
-            sheet.setColumnWidth(i, columnWidths[i]);
-        }
-
-        // 写入内容
-        int i = 1;
-        for (SupplierDo supplierDo : supplierList) {
-            row = sheet.createRow(i);
-            //必须按照hderarNames的顺序来
-            row.createCell(0).setCellValue(supplierDo.getName());//名称
-            row.createCell(1).setCellValue(supplierDo.getAddress());//地址
-            row.createCell(2).setCellValue(supplierDo.getContact());//联系人
-            row.createCell(3).setCellValue(supplierDo.getTele());//联系电话
-            row.createCell(4).setCellValue(supplierDo.getEmail());//邮件地址
-            i++;
-        }
-        try {
-            // 写入到输出流中
-            wk.write(os);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // 关闭工作簿
-                wk.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
+//    @Override
+//    public void export(OutputStream os, SupplierDo t) {
+//        List<SupplierDo> supplierList = super.list(t, null, null);
+//        HSSFWorkbook wk = new HSSFWorkbook();               //创建excel文件
+//        HSSFSheet sheet = null;
+//        switch (t.getType()) {                              //创建工作表
+//            case StringConstants.ONECHAR: sheet = wk.createSheet(SUPPLIERSHEETNAME); break;
+//            case StringConstants.TWOCHAR: sheet = wk.createSheet(CUSTERSHEETNAME);  break;
+//            default: logger.debug("export type error, typeCode = {}", t.getType());
+//        }
+//
+//        PIOUtil.export(sheet, supplierList);
+//        PIOUtil.closeStream(os, wk);
+//    }
 
 
     @Override
