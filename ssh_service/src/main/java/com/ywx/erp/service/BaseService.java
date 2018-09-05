@@ -1,6 +1,10 @@
 package com.ywx.erp.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface BaseService<T> {
@@ -23,4 +27,5 @@ public interface BaseService<T> {
 
     void export(OutputStream os, T t) throws Exception;
 
+    void importData(File file, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 }

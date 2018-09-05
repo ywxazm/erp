@@ -1,23 +1,24 @@
 package com.ywx.erp.common;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class PIOUtil implements Serializable {
 
@@ -32,33 +33,132 @@ public class PIOUtil implements Serializable {
     public static void export(HSSFSheet sheet, List dataList, Class clazz) throws Exception {
 
         if (null == dataList || dataList.size() == 0) {
+            logger.info("the export data is null, end");
             return;
         }
 
-        List<String> nameList = getColumName(clazz);
+        String firstLineDate = JSONObject.toJSONString(dataList.get(0));
+        Map<String, Object> firstLineDataMap = (Map<String, Object>) JSONObject.parse(firstLineDate);
+        List<String> nameList = getColumName(firstLineDataMap, clazz);
         setColumsInfo(sheet, nameList);
 
-        pareProcess(dataList);                  //TODO:这里可以做得更详细，例如例出所有的外键对应的表的数据
-        setValue(sheet, dataList, nameList);
+        List<Map<String, Object>> newList = pareProcess(dataList);
+        setValue(sheet, newList, nameList);
     }
 
-    private static void pareProcess(List dataList) {
-        ListIterator listIterator = dataList.listIterator();
-        while (listIterator.hasNext()) {
-            Object obj = listIterator.next();
-            String dataJson = JSONObject.toJSONString(obj).substring(dataJson.indexOf("{") + 1, dataJson.lastIndexOf("}"));
-            System.out.println(dataJson);
-            if (dataJson.contains("{")) {
-                String dataJson3 = dataJson2.substring(dataJson.indexOf("{") + 1, dataJson.lastIndexOf("}"));
-                if (dataJson3.contains("name")) {
-                    String dataJson4 = dataJson3.substring(dataJson3.indexOf("name"));
-                    String name = dataJson4.substring(dataJson4.indexOf(":") + 1, dataJson4.indexOf(","));
-                    dataJson.replace(newDataJson, name);
+    /**
+     * 通用导入功能
+     */
+    public static void importData(HSSFWorkbook wb, Class clazz) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+        //获取对应的Do,dao的名字
+        String actionName = clazz.getName();
+        int start = actionName.lastIndexOf(".");
+        String doName = "com.ywx.erp.entity" + actionName.substring(start).replace("Action", "Do");
+        String daoName = "com.ywx.erp.dao.impl" + actionName.substring(start).replace("Action", "DaoImpl");
+
+        List<Object> dataList = getDataList(wb, doName);
+
+        //写数据库
+        Class<?> daoClazz = Class.forName(daoName);
+        //Object obj = daoClazz.newInstance();
+        daoName = actionName.substring(start + 1).replace("Action", "Dao");
+        daoName = daoName.substring(0, 1).toLowerCase() + daoName.substring(1);
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext-*.xml");
+        WebApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();     //TODO: 获取正在运行的Spring上下文
+        Object obj = ac.getBean(daoName);                       //TODO: 很重要，如果直接是反射获取Dao对象，HibernateTemplete == null， 需要如上操作
+
+
+        Method[] methods = daoClazz.getMethods();
+        for (Object data : dataList) {
+            for (Method method : methods) {
+                if (method.getName().contains("add")) {
+                    method.invoke(obj, data);
                 }
             }
-            System.out.println(dataJson);
-            dataList.remove(obj);
-            dataList.add(JSONObject.parse(dataJson));
+        }
+    }
+
+    private static List<Object> getDataList(HSSFWorkbook wb, String doName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        //填充匹配的数据,放到List中
+        Class<?> clazz = Class.forName(doName);
+        Method[] methods = clazz.getDeclaredMethods();
+        Field[] fields = clazz.getDeclaredFields();
+        HSSFSheet sheet = wb.getSheetAt(0);
+        int lastRow = sheet.getLastRowNum();
+        List<Object> dataList = new ArrayList<>();
+        for (int i = 1; i <= lastRow; i++) {
+            Object obj = clazz.newInstance();
+            for (int j = 0; j < fields.length; j++) {
+                String columName = sheet.getRow(0).getCell(j).getStringCellValue();
+                String columValue = sheet.getRow(i).getCell(j).getStringCellValue();
+                for (Method method : methods) {
+                    if (method.getName().toLowerCase().contains(columName) && method.getName().contains("set")) {
+                        method.invoke(obj, processParamType(method, columValue));
+                    }
+                }
+            }
+            dataList.add(obj);
+        }
+        return dataList;
+    }
+
+    public static Object processParamType(Method method, String columValue) {
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        Class<?> parameterType = parameterTypes[0];
+        System.out.println(parameterType.getTypeName());
+
+        String typeName = parameterType.getTypeName();
+        if ("java.lang.String".equals(typeName)) {
+            return columValue;
+        } else if ("java.lang.Character".equals(typeName)) {
+            return "0".equals(typeName) ? '0' : '1';
+        } else if ("java.lang.Double".equals(typeName)) {
+            Double.parseDouble(columValue);
+        } else if ("java.lang.Integer".equals(typeName)) {
+            Integer.parseInt(columValue);
+        } else if ("java.lang.Long".equals(typeName)) {
+            Long.parseLong(columValue);
+        } else if ("java.lang.Float".equals(typeName)) {
+            Float.parseFloat(columValue);
+        } else if ("java.lang.Boolean".equals(typeName)) {
+            if ("false".equals(columValue) || "0".equals(columValue)) {
+                return false;
+            } else if ("true".equals(columValue) || "1".equals(columValue)) {
+                return true;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 前处理，处理有外键的数据
+     *
+     * @param dataList
+     */
+    private static List<Map<String, Object>> pareProcess(List dataList) {
+        ArrayList<Map<String, Object>> list = new ArrayList<>();
+        for (int i = 0; i < dataList.size(); i++) {
+            String lineData = JSONObject.toJSONString(dataList.get(i));
+            Map<String, Object> lineDataMap = (Map<String, Object>) JSONObject.parse(lineData);
+            process(lineDataMap);
+            list.add(lineDataMap);
+        }
+        return list;
+    }
+
+    private static void process(Map<String, Object> lineDataMap) {
+        Set<String> keys = lineDataMap.keySet();
+        Iterator<String> iterator = keys.iterator();
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            String value = JSONObject.toJSONString(lineDataMap.get(key));
+            System.out.println("value = " + value);
+            if (value.contains("{")) {
+                Map<String, Object> map = (Map<String, Object>) JSONObject.parse(value);
+                lineDataMap.put(key, map.get("uuid"));
+                if (null != map.get("name"))
+                    lineDataMap.put(key, map.get("name"));
+            }
         }
     }
 
@@ -69,22 +169,15 @@ public class PIOUtil implements Serializable {
      * @param dataList
      * @param nameList
      */
-    private static void setValue(HSSFSheet sheet, List dataList, List<String> nameList) {
+    private static void setValue(HSSFSheet sheet, List<Map<String, Object>> dataList, List<String> nameList) {
+        System.out.println(JSONObject.toJSON(dataList));
         HSSFRow row;// 设置内容
         int i = 1;
-        for (Object o : dataList) {
+        for (Map<String, Object> map : dataList) {
             row = sheet.createRow(i);                       //新建行
-            String json = JSONObject.toJSONString(o).replaceAll("\"", "");
             int j = 0;
-            for (String s : nameList) {
-                int start = json.indexOf(s) + s.length() + 1;
-                String newJson = json.substring(start);
-                if (!newJson.contains(",")) {
-                    row.createCell(j).setCellValue(newJson.substring(0, newJson.length() - 1));
-                } else {
-                    int end = newJson.indexOf(",");
-                    row.createCell(j).setCellValue(newJson.substring(0, end));
-                }
+            for (String name : nameList) {
+                row.createCell(j).setCellValue(JSONObject.toJSONString(map.get(name)).replace("\"", ""));
                 j++;
             }
             i++;
@@ -115,11 +208,16 @@ public class PIOUtil implements Serializable {
      * @param clazz
      * @return
      */
-    private static List<String> getColumName(Class clazz) {
+    private static List<String> getColumName(Map<String, Object> firstLineDataMap, Class clazz) {
         List<String> nameList = new ArrayList<>();
-        Field[] fields = clazz.getDeclaredFields();
-        for (Field field : fields) {
-            nameList.add(field.getName());
+        if (null != clazz) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                nameList.add(field.getName());
+            }
+        } else {
+            Set<String> set = firstLineDataMap.keySet();
+            nameList.addAll(set);
         }
         return nameList;
     }

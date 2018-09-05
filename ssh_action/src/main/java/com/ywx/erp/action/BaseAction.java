@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -173,8 +174,8 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 导出
      */
     public void export() {
-
-        logger.debug("operaObj is = {}, export store doing, currentTime = {}", this, System.currentTimeMillis());
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, export store doing", this);
 
         String fileName = PIOConstants.UNDEFINE;
         String thisNameClassPath = this.getClass().getName();
@@ -197,8 +198,60 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             HttpServletResponse response = ServletActionContext.getResponse();
             response.setHeader(PIOConstants.ContentDisposition, PIOConstants.PARAM01.concat(new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
             baseService.export(response.getOutputStream(), getT());
+
+            Long endTime = System.currentTimeMillis();
+            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
         }catch (Exception ex) {
+            Long endTime = System.currentTimeMillis();
+            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
             logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * 导入
+     */
+    private File file;//上传的文件
+    private String fileFileName;//上传的文件名称
+    private String fileContentType;//上传的文件类型
+    public File getFile() {
+        return file;
+    }
+    public void setFile(File file) {
+        this.file = file;
+    }
+    public String getFileFileName() {
+        return fileFileName;
+    }
+    public void setFileFileName(String fileFileName) {
+        this.fileFileName = fileFileName;
+    }
+    public String getFileContentType() {
+        return fileContentType;
+    }
+    public void setFileContentType(String fileContentType) {
+        this.fileContentType = fileContentType;
+    }
+    public void importData() {
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, export store doing", this);
+
+        if (!PIOConstants.EXCELFILETYPE.equals(fileContentType)) {
+            ajaxReturn(false, "上传文件类型必需为.xls");
+        }
+
+        try {
+            baseService.importData(file, this.getClass());
+            ajaxReturn(true, "上传文件成功");
+            Long endTime = System.currentTimeMillis();
+            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
+        }catch (Exception ex) {
+            ajaxReturn(true, "上传文件失败");
+            Long endTime = System.currentTimeMillis();
+            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
+            logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

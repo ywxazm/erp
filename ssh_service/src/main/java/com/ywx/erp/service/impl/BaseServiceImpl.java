@@ -8,8 +8,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class BaseServiceImpl<T> implements BaseService<T> {
@@ -69,5 +70,12 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 
         PIOUtil.export(sheet, list, t.getClass());
         PIOUtil.closeStream(os, wk);
+    }
+
+    @Override
+    public void importData(File file, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(file));
+        HSSFSheet sheet = wb.getSheetAt(0);
+        PIOUtil.importData(wb, clazz);
     }
 }

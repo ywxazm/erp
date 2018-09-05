@@ -97,7 +97,7 @@ $(function(){
                     text: '导入',
                     handler:function(){
                         $.ajax({
-                            url: name + '_doImport',
+                            url: name + '_importData',
                             data:new FormData($('#importForm')[0]),
                             type:'post',
                             processData:false,

@@ -30,22 +30,6 @@ public class SupplierServiceImpl extends BaseServiceImpl<SupplierDo> implements 
         this.supplierDao = supplierDao;
     }
 
-//    @Override
-//    public void export(OutputStream os, SupplierDo t) {
-//        List<SupplierDo> supplierList = super.list(t, null, null);
-//        HSSFWorkbook wk = new HSSFWorkbook();               //创建excel文件
-//        HSSFSheet sheet = null;
-//        switch (t.getType()) {                              //创建工作表
-//            case StringConstants.ONECHAR: sheet = wk.createSheet(SUPPLIERSHEETNAME); break;
-//            case StringConstants.TWOCHAR: sheet = wk.createSheet(CUSTERSHEETNAME);  break;
-//            default: logger.debug("export type error, typeCode = {}", t.getType());
-//        }
-//
-//        PIOUtil.export(sheet, supplierList);
-//        PIOUtil.closeStream(os, wk);
-//    }
-
-
     @Override
     public void doImport(InputStream is) throws IOException {
         HSSFWorkbook wb = null;

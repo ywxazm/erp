@@ -83,6 +83,9 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
      */
     @Override
     public void addDo(T t) {
+        System.out.println("this = " + this);
+        System.out.println("temp = " + this.getHibernateTemplate());
+        System.out.println("t = " + t);
         this.getHibernateTemplate().save(t);
     }
 

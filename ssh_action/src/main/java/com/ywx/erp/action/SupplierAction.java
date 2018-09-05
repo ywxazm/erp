@@ -74,8 +74,9 @@ public class SupplierAction extends BaseAction<SupplierDo> {
         }
     }
 
-    private File file;//上传的文件
+    /*private File file;//上传的文件
     private String fileFileName;//上传的文件名称
+    private String fileContentType;//上传的文件类型
     public File getFile() {
         return file;
     }
@@ -93,14 +94,12 @@ public class SupplierAction extends BaseAction<SupplierDo> {
     }
     public void setFileContentType(String fileContentType) {
         this.fileContentType = fileContentType;
-    }
-
-    private String fileContentType;//上传的文件类型
+    }*/
 
     /**
      * 导入数据
      */
-    public void doImport(){
+    /*public void doImport(){
         //文件类型判断
         if(!"application/vnd.ms-excel".equals(fileContentType)){
             ajaxReturn(false, "上传的文件必须为excel文件");
@@ -115,6 +114,6 @@ public class SupplierAction extends BaseAction<SupplierDo> {
             ajaxReturn(false, "上传的文件失败");
             e.printStackTrace();
         }
-    }
+    }*/
 
 }

@@ -24,6 +24,9 @@ public class PIOConstants {
     public static final String SUPPLIERFILRNAME = "仓库明细.xls";
     public static final String UNDEFINE = "未定义文件名.xls";
 
+    //Excel文件类型
+    public static final String EXCELFILETYPE = "application/vnd.ms-excel";
+
 
 
 
