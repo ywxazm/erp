@@ -13,7 +13,7 @@
         <property name="inprice" type="java.lang.Double"/>
         <property name="outprice" type="java.lang.Double"/>
 
-        <many-to-one name="goodsTypeDo" class="com.ywx.erp.entity.GoodsTypeDo" column="goodstypeuuid"/>
+        <many-to-one name="goodstypeDo" class="com.ywx.erp.entity.GoodstypeDo" column="goodstypeuuid"/>
 
     </class>
 </hibernate-mapping>

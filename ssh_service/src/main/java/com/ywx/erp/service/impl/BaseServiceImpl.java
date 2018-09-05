@@ -75,7 +75,6 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     @Override
     public void importData(File file, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(file));
-        HSSFSheet sheet = wb.getSheetAt(0);
         PIOUtil.importData(wb, clazz);
     }
 }

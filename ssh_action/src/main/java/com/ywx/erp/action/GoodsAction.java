@@ -29,7 +29,7 @@ public class GoodsAction extends BaseAction<GoodsDo> {
             map.put("t.unit", goodsDo.getUnit());
             map.put("t.inprice", goodsDo.getInprice());
             map.put("t.outprice", goodsDo.getOutprice());
-            map.put("t.goodsTypeDo", goodsDo.getGoodsTypeDo());
+            map.put("t.goodsTypeDo", goodsDo.getGoodstypeDo());
             write(JSONObject.toJSONString(map));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());

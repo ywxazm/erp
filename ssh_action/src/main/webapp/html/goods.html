@@ -25,7 +25,7 @@
             {field: 'inprice', title: '进货价格', width: 100},
             {field: 'outprice', title: '销售价格', width: 100},
             {
-                field: 'goodsTypeDo', title: '商品类型', width: 100, formatter: function (value) {
+                field: 'goodstypeDo', title: '商品类型', width: 100, formatter: function (value) {
                 if (null != value) {
                     return value.name;
                 } else {
@@ -54,7 +54,7 @@
         <input name="t.name">&nbsp;&nbsp;&nbsp;&nbsp;
         产地：<input name="t.origin">&nbsp;&nbsp;&nbsp;&nbsp;
         厂家：<input name="t.producer">&nbsp;&nbsp;&nbsp;&nbsp;
-        商品类型：<input name="t.goodsTypeDo.uuid" class="easyui-combobox" data-options="
+        商品类型：<input name="t.goodstypeDo.uuid" class="easyui-combobox" data-options="
 			url:'goodstypeAction_list', valueField:'uuid', textField:'name'
 		"><br/>
         进货价格：起<input name="t.inprice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;止&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="tt.inprice"><br/>
@@ -101,7 +101,7 @@
             </tr>
             <tr>
                 <td>商品类型</td>
-                <td><input name="t.goodsTypeDo.uuid" class="easyui-combobox" data-options="
+                <td><input name="t.goodstypeDo.uuid" class="easyui-combobox" data-options="
 			url:'goodstypeAction_list', valueField:'uuid', textField:'name'
 				"></td>
             </tr>
@@ -109,6 +109,14 @@
         <button id="btnSave" type="button">保存</button>
     </form>
 </div>
+
+<!-- 导入窗口 -->
+<div id="importDlg" style="padding:2px;">
+    <form id="importForm" enctype="multipart/form-data">
+        导入文件:<input type="file" name="file">
+    </form>
+</div>
+
 
 </body>
 </html>

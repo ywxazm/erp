@@ -2,7 +2,7 @@ package com.ywx.erp.entity;
 
 import java.io.Serializable;
 
-public class GoodsTypeDo implements Serializable{
+public class GoodstypeDo implements Serializable{
 
     private Long uuid;
     private String name;
@@ -28,22 +28,22 @@ public class GoodsTypeDo implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoodsTypeDo that = (GoodsTypeDo) o;
+        GoodstypeDo that = (GoodstypeDo) o;
 
-        if (!uuid.equals(that.uuid)) return false;
-        return name.equals(that.name);
+        if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + name.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "GoodsTypeDo{" +
+        return "GoodstypeDo{" +
                 "uuid=" + uuid +
                 ", name='" + name + '\'' +
                 '}';

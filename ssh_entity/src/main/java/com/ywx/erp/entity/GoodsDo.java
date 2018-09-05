@@ -22,7 +22,7 @@ public class GoodsDo implements Serializable{
     //销售价格
     private Double outprice;
     //商品类型
-    private GoodsTypeDo goodsTypeDo;
+    private GoodstypeDo goodstypeDo;
 
     public Long getUuid() {
         return uuid;
@@ -80,12 +80,12 @@ public class GoodsDo implements Serializable{
         this.outprice = outprice;
     }
 
-    public GoodsTypeDo getGoodsTypeDo() {
-        return goodsTypeDo;
+    public GoodstypeDo getGoodstypeDo() {
+        return goodstypeDo;
     }
 
-    public void setGoodsTypeDo(GoodsTypeDo goodsTypeDo) {
-        this.goodsTypeDo = goodsTypeDo;
+    public void setGoodstypeDo(GoodstypeDo goodstypeDo) {
+        this.goodstypeDo = goodstypeDo;
     }
 
     @Override
@@ -95,26 +95,26 @@ public class GoodsDo implements Serializable{
 
         GoodsDo goodsDo = (GoodsDo) o;
 
-        if (!uuid.equals(goodsDo.uuid)) return false;
-        if (!name.equals(goodsDo.name)) return false;
-        if (!origin.equals(goodsDo.origin)) return false;
-        if (!producer.equals(goodsDo.producer)) return false;
-        if (!unit.equals(goodsDo.unit)) return false;
-        if (!inprice.equals(goodsDo.inprice)) return false;
-        if (!outprice.equals(goodsDo.outprice)) return false;
-        return goodsTypeDo.equals(goodsDo.goodsTypeDo);
+        if (uuid != null ? !uuid.equals(goodsDo.uuid) : goodsDo.uuid != null) return false;
+        if (name != null ? !name.equals(goodsDo.name) : goodsDo.name != null) return false;
+        if (origin != null ? !origin.equals(goodsDo.origin) : goodsDo.origin != null) return false;
+        if (producer != null ? !producer.equals(goodsDo.producer) : goodsDo.producer != null) return false;
+        if (unit != null ? !unit.equals(goodsDo.unit) : goodsDo.unit != null) return false;
+        if (inprice != null ? !inprice.equals(goodsDo.inprice) : goodsDo.inprice != null) return false;
+        if (outprice != null ? !outprice.equals(goodsDo.outprice) : goodsDo.outprice != null) return false;
+        return goodstypeDo != null ? goodstypeDo.equals(goodsDo.goodstypeDo) : goodsDo.goodstypeDo == null;
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + origin.hashCode();
-        result = 31 * result + producer.hashCode();
-        result = 31 * result + unit.hashCode();
-        result = 31 * result + inprice.hashCode();
-        result = 31 * result + outprice.hashCode();
-        result = 31 * result + goodsTypeDo.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (origin != null ? origin.hashCode() : 0);
+        result = 31 * result + (producer != null ? producer.hashCode() : 0);
+        result = 31 * result + (unit != null ? unit.hashCode() : 0);
+        result = 31 * result + (inprice != null ? inprice.hashCode() : 0);
+        result = 31 * result + (outprice != null ? outprice.hashCode() : 0);
+        result = 31 * result + (goodstypeDo != null ? goodstypeDo.hashCode() : 0);
         return result;
     }
 
@@ -128,7 +128,7 @@ public class GoodsDo implements Serializable{
                 ", unit='" + unit + '\'' +
                 ", inprice=" + inprice +
                 ", outprice=" + outprice +
-                ", goodsTypeDo=" + goodsTypeDo +
+                ", goodstypeDo=" + goodstypeDo +
                 '}';
     }
 }

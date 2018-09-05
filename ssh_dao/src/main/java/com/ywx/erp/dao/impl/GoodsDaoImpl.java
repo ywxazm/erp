@@ -22,8 +22,8 @@ public class GoodsDaoImpl extends BaseDaoImpl<GoodsDo> implements GoodsDao {
             if (!StringUtils.isEmpty(t1.getProducer())) {
                 dc.add(Restrictions.like("producer", t1.getProducer(), MatchMode.ANYWHERE));
             }
-            if (null != t1.getGoodsTypeDo() && null != t1.getGoodsTypeDo().getUuid()) {             //TODO：极为重要！！！ 注意前后两个条件， 猜想： hibernate会给它一个实例，但内容为null
-                dc.add(Restrictions.eq("goodsTypeDo", t1.getGoodsTypeDo()));        //TODO： 多对一的情况要注意
+            if (null != t1.getGoodstypeDo() && null != t1.getGoodstypeDo().getUuid()) {             //TODO：极为重要！！！ 注意前后两个条件， 猜想： hibernate会给它一个实例，但内容为null
+                dc.add(Restrictions.eq("goodstypeDo", t1.getGoodstypeDo()));        //TODO： 多对一的情况要注意
             }
             //进价，起点
             if (null != t1.getInprice()) {

@@ -63,10 +63,9 @@ public class PIOUtil implements Serializable {
         //Object obj = daoClazz.newInstance();
         daoName = actionName.substring(start + 1).replace("Action", "Dao");
         daoName = daoName.substring(0, 1).toLowerCase() + daoName.substring(1);
-//        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext-*.xml");
+        //ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext-*.xml");
         WebApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();     //TODO: 获取正在运行的Spring上下文
         Object obj = ac.getBean(daoName);                       //TODO: 很重要，如果直接是反射获取Dao对象，HibernateTemplete == null， 需要如上操作
-
 
         Method[] methods = daoClazz.getMethods();
         for (Object data : dataList) {

@@ -1,10 +1,10 @@
 package com.ywx.erp.service.impl;
 
 import com.ywx.erp.dao.GoodstypeDao;
-import com.ywx.erp.entity.GoodsTypeDo;
+import com.ywx.erp.entity.GoodstypeDo;
 import com.ywx.erp.service.GoodstypeService;
 
-public class GoodstypeServiceImpl extends BaseServiceImpl<GoodsTypeDo> implements GoodstypeService {
+public class GoodstypeServiceImpl extends BaseServiceImpl<GoodstypeDo> implements GoodstypeService {
 
     private GoodstypeDao goodstypeDao;
 

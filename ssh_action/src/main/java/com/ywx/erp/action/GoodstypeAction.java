@@ -1,12 +1,12 @@
 package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ywx.erp.entity.GoodsTypeDo;
+import com.ywx.erp.entity.GoodstypeDo;
 import com.ywx.erp.service.GoodstypeService;
 
 import java.util.HashMap;
 
-public class GoodstypeAction extends BaseAction<GoodsTypeDo> {
+public class GoodstypeAction extends BaseAction<GoodstypeDo> {
 
     private GoodstypeService goodstypeService;
 
@@ -22,10 +22,10 @@ public class GoodstypeAction extends BaseAction<GoodsTypeDo> {
     public void getDo() {
         logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
         try {
-            GoodsTypeDo goodsTypeDo = goodstypeService.getDo(id);
+            GoodstypeDo goodstypeDo = goodstypeService.getDo(id);
             HashMap<String, Object> map = new HashMap<>();
-            map.put("t.uuid", goodsTypeDo.getUuid());
-            map.put("t.name", goodsTypeDo.getName());
+            map.put("t.uuid", goodstypeDo.getUuid());
+            map.put("t.name", goodstypeDo.getName());
             write(JSONObject.toJSONString(map));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());

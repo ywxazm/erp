@@ -243,15 +243,14 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
 
         try {
             baseService.importData(file, this.getClass());
-            ajaxReturn(true, "上传文件成功");
             Long endTime = System.currentTimeMillis();
             logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
+            write(ajaxReturn(true, "上传文件成功"));
         }catch (Exception ex) {
-            ajaxReturn(true, "上传文件失败");
             Long endTime = System.currentTimeMillis();
             logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
             logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
-            ex.printStackTrace();
+            write(ajaxReturn(true, "上传文件失败"));
         }
     }
 
