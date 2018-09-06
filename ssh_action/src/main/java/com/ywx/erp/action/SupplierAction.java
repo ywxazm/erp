@@ -17,6 +17,7 @@ public class SupplierAction extends BaseAction<SupplierDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
         try {
             SupplierDo supplierDo = supplierService.getDo(id);
@@ -29,8 +30,10 @@ public class SupplierAction extends BaseAction<SupplierDo> {
             map.put(BaseConstants.TEMAIL, supplierDo.getEmail());
             map.put(BaseConstants.TTYPE, supplierDo.getType());
             write(JSONObject.toJSONString(map));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {} ", this, ex.getMessage());
+            logger.error("operaObj is = {}, getDo() is error, msg = {} ", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

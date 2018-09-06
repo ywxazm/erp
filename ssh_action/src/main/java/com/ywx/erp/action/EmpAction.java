@@ -39,6 +39,7 @@ public class EmpAction extends BaseAction<EmpDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
         try {
             EmpDo empDo = baseService.getDo(id);
@@ -56,8 +57,10 @@ public class EmpAction extends BaseAction<EmpDo> {
             map.put(BaseConstants.TDEPDO, empDo.getDepDo());
             //TODO: 将日期按格式转换成字符串的方式
             write(JSONObject.toJSONStringWithDateFormat(map, BaseConstants.DATEFORMAT));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 

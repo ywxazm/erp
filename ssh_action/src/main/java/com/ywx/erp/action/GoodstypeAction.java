@@ -17,6 +17,7 @@ public class GoodstypeAction extends BaseAction<GoodstypeDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
         try {
             GoodstypeDo goodstypeDo = goodstypeService.getDo(id);
@@ -24,8 +25,10 @@ public class GoodstypeAction extends BaseAction<GoodstypeDo> {
             map.put(BaseConstants.TUUID, goodstypeDo.getUuid());
             map.put(BaseConstants.TNAME, goodstypeDo.getName());
             write(JSONObject.toJSONString(map));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 

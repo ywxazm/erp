@@ -88,14 +88,18 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 查询t
      */
     public void list() {
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, query list param is t = {}, tt = {}, obj = {}", this, t, tt, obj);
         try {
-            logger.debug("operaObj is = {}, query list param is t = {}, tt = {}, obj = {}", this, t, tt, obj);
             List<T> list = baseService.list(t, tt, obj);
             //fastJson参数用于关联查询时，关闭循环引用
             String str = JSONObject.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
             write(str);
+
+            logger.debug("operaObj is = {}, list() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query list is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, list() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -103,6 +107,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 分页查询
      */
     public void listByPage() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}",
                 this, t, tt, obj, page, rows);
         try {
@@ -113,8 +118,11 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             map.put(TOTAL, count);
             String json = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
             write(json);
+
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -122,13 +130,17 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 添加
      */
     public void addDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, addDo doing, addDo = {}", this,  t);
+
         try {
             baseService.addDo(t);
             write(ajaxReturn(BaseConstants.TRUE, ADDSUCCESS));
+            logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, addDo is error,  msg = {}", this, ex.getMessage());
             write(ajaxReturn(BaseConstants.FALSE, ADDFAIL));
+            logger.error("operaObj is = {}, addDo() is error,  msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, list cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -136,12 +148,15 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 删除部门
      */
     public void delDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, delDo() doing, id = {}", this, id);
         try {
             baseService.delDo(id);
             write(ajaxReturn(BaseConstants.TRUE, DELSUCCESS));
+            logger.debug("operaObj is = {}, delDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, delDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, delDo() cast time = {}", this, System.currentTimeMillis() - startTime);
             write(ajaxReturn(BaseConstants.FALSE, DELFAIL));
         }
     }
@@ -150,12 +165,15 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 根据ID去获取
      */
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
         try {
             T t = baseService.getDo(id);
             write(JSONObject.toJSONString(t));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -163,13 +181,16 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 更新
      */
     public void updateDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, updateDo() doing, Do = {}", this, t);
         try {
             baseService.updateDo(t);
             write(ajaxReturn(BaseConstants.TRUE, UPDATASUCCESS));
+            logger.debug("operaObj is = {}, updateDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, updateDep is error, msg = {}", this, ex.getMessage());
             write(ajaxReturn(BaseConstants.FALSE, UPDATAFAIL));
+            logger.error("operaObj is = {}, updateDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, updateDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 

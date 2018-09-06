@@ -26,6 +26,7 @@ public class MenuAction extends BaseAction<MenuDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
         try {
             MenuDo menuDo = menuService.getDo(id.toString());
@@ -46,12 +47,15 @@ public class MenuAction extends BaseAction<MenuDo> {
      * 要注意表的设计及hibernate自关联的配置
      */
     public void getMenuTree() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getMenuTree() doing, menuId = {}", this, menuId);
         try {
             MenuDo menuDo = menuService.getDo(menuId);
             write(JSONObject.toJSONString(menuDo));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getMenuTree is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

@@ -38,13 +38,15 @@ public class ReportAction implements WriteDate {
      * 采购订单和销售订单报表
      */
     public void ordersReport() {
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, ordersReport param is startDate = {}, endDate = {}", this, startDate, endDate);
         try {
-            logger.debug("operaObj is = {}, ordersReport param is startDate = {}, endDate = {}", this, startDate, endDate);
             List list = reportService.ordersReport(startDate, endDate);
             write(JSONObject.toJSONString(list));
+            logger.debug("operaObj is = {}, orderReport() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             logger.error("operaObj is = {}, ordersReport is error, info = {}", this, e.getMessage());
-            e.printStackTrace();
+            logger.debug("operaObj is = {}, orderReport() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

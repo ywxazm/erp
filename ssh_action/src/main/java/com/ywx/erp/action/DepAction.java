@@ -17,6 +17,7 @@ public class DepAction extends BaseAction<DepDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {},  getDo() doing, uuid = {}", this, id);
         try {
             DepDo depDo = depService.getDo(id);
@@ -25,8 +26,10 @@ public class DepAction extends BaseAction<DepDo> {
             map.put(BaseConstants.TTELE, depDo.getTele());
             map.put(BaseConstants.TNAME, depDo.getName());
             write(JSONObject.toJSONString(map));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {},  getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

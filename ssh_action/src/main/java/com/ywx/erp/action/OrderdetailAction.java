@@ -32,6 +32,7 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
         try {
             OrderdetailDo orderdetailDo = orderdetailService.getDo(id);
@@ -48,8 +49,10 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
             map.put(BaseConstants.TGOODSUUID, orderdetailDo.getGoodsuuid());
             map.put(BaseConstants.TUUID, orderdetailDo.getUuid());
             write(JSONObject.toJSONString(map));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -57,6 +60,7 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
      * 入库
      */
     public void doInStore() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, doInStore doing, storeuuid = {}", this, storeuuid);
         try {
             EmpDo user = getLoginUser();
@@ -66,9 +70,11 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
             }
             orderdetailService.doInStore(id, storeuuid, user.getUuid());
             write(ajaxReturn(BaseConstants.TRUE, DOINSTORESUCCESS));
+            logger.debug("operaObj is = {}, doInStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, doInStore is error, msg = {}", this, ex.getMessage());
             write(ajaxReturn(BaseConstants.FALSE, DOINSTOREFAIL));
+            logger.error("operaObj is = {}, doInStore is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, doInStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -76,6 +82,7 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
      * 出库
      */
     public void doOutStore() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, doOutStore doing, storeuuid = {}", this, storeuuid);
         try {
             EmpDo user = getLoginUser();
@@ -85,9 +92,11 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
             }
             orderdetailService.doOutStore(id, storeuuid, user.getUuid());
             write(ajaxReturn(BaseConstants.TRUE, DOINSTORESUCCESS));
+            logger.debug("operaObj is = {}, doOutStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, doOutStore is error, msg = {}", this, ex.getMessage());
             write(ajaxReturn(BaseConstants.FALSE, DOINSTOREFAIL));
+            logger.error("operaObj is = {}, doOutStore is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, doOutStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 

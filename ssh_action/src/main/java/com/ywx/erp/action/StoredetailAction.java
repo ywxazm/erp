@@ -29,6 +29,7 @@ public class StoredetailAction extends BaseAction<StoredetailDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
         try {
             StoredetailDo storedetailDo = storedetailService.getDo(id);
@@ -40,13 +41,16 @@ public class StoredetailAction extends BaseAction<StoredetailDo> {
             map.put(BaseConstants.TSTOREUUID, storedetailDo.getStoreuuid());
             map.put(BaseConstants.TUUID, storedetailDo.getUuid());
             write(JSONObject.toJSONString(map));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
     @Override
     public void listByPage() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, " +
                 "rows = {}", this, t, tt, obj, page, rows);
         try {
@@ -62,9 +66,10 @@ public class StoredetailAction extends BaseAction<StoredetailDo> {
             map.put(TOTAL, count);
             String json = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
             write(json);
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
-            e.printStackTrace();
+            logger.error("operaObj is = {}, listByPage() is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

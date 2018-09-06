@@ -34,6 +34,7 @@ public class StoreoperAction extends BaseAction<StoreoperDo> {
 
     @Override
     public void getDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
         try {
             StoreoperDo storeoperDo = storeoperService.getDo(id);
@@ -49,13 +50,16 @@ public class StoreoperAction extends BaseAction<StoreoperDo> {
             map.put(BaseConstants.TTYPE, storeoperDo.getType());
             map.put(BaseConstants.TUUID, storeoperDo.getUuid());
             write(JSONObject.toJSONString(map));
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
     @Override
     public void listByPage() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, " +
                 "rows = {}", this, t, tt, obj, page, rows);
         try {
@@ -73,8 +77,10 @@ public class StoreoperAction extends BaseAction<StoreoperDo> {
             map.put(TOTAL, count);
             String str = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
             write(str);
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
+            logger.error("operaObj is = {}, listByPage() is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

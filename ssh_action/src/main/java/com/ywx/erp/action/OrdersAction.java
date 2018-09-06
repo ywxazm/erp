@@ -59,6 +59,7 @@ public class OrdersAction extends BaseAction<OrdersDo> {
      */
     @Override
     public void listByPage() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}, " +
                 "oper = {}", this, t, tt, obj, page, rows, oper);
         try {
@@ -83,8 +84,10 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             map.put(TOTAL, count);
             String json = JSONObject.toJSONString(map);
             write(json);
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
     private String getSupplierName(Long id) {
@@ -103,15 +106,18 @@ public class OrdersAction extends BaseAction<OrdersDo> {
      */
     @Override
     public void addDo() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, addDo doing, json = {}", this, json);
         try {
             EmpDo loginUser = getLoginUser();
             if (null == loginUser) {
                 write(ajaxReturn(BaseConstants.TRUE, NOLOGIN));
+                logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
                 return;
             }
             if (null == json) {
                 write(ajaxReturn(BaseConstants.FALSE, ORDERISNULL));
+                logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
                 return;
             }
 
@@ -122,9 +128,11 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             ordersService.addDo(ordersDo);
 
             write(ajaxReturn(BaseConstants.TRUE, ADDSUCCESS));
+            logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, addDo is error,  msg = {}", this, ex.getMessage());
             write(ajaxReturn(BaseConstants.FALSE, ADDFAIL));
+            logger.error("operaObj is = {}, addDo() is error,  msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -132,13 +140,16 @@ public class OrdersAction extends BaseAction<OrdersDo> {
      * 审核
      */
     public void doCheck() {
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, doCheck param is id = {}", this, id);
         try {
-            logger.debug("operaObj is = {}, doCheck param is id = {}", this, id);
             ordersService.doCheck(id, getLoginUser().getUuid());
             write(ajaxReturn(BaseConstants.TRUE, CHECKSUCCESS));
+            logger.debug("operaObj is = {}, doCheck() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, query list is error, info = {}", this, e.getMessage());
             write(ajaxReturn(BaseConstants.FALSE, CHECKFAIL));
+            logger.error("operaObj is = {}, query list is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, doCheck() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -146,13 +157,16 @@ public class OrdersAction extends BaseAction<OrdersDo> {
      * 确认
      */
     public void doStart() {
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, doStart param is id = {}", this, id);
         try {
-            logger.debug("operaObj is = {}, doStart param is id = {}", this, id);
             ordersService.doStart(id, getLoginUser().getUuid());
             write(ajaxReturn(BaseConstants.TRUE, DOSTARTSUCCESS));
+            logger.debug("operaObj is = {}, doStart() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, doStart is error, info = {}", this, e.getMessage());
             write(ajaxReturn(BaseConstants.FALSE, DOSTARTFAIL));
+            logger.error("operaObj is = {}, doStart is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, doStart() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

@@ -47,6 +47,7 @@ public class LoginAction extends ActionSupport implements WriteDate{
      *         如果找到了，则将user存储在Session中, 返回登录成功，并跳转的首页
      */
     public void checkUser() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, checkUser() doing, username = {}, pwd = {}", this, username, pwd);
         try{
             EmpDo empDo = empService.findByUsernameAndPwd(username.trim(), pwd.trim());
@@ -68,6 +69,7 @@ public class LoginAction extends ActionSupport implements WriteDate{
      *  逻辑： 前台发送ajax请求，直接从Session中去取“user”,TODO:这个逻辑是有问题的，无法区分用户，只能够登录1个用户
      */
     public void showName() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, showName() doing", this);
         try {
             EmpDo user = (EmpDo) ActionContext.getContext().getSession().get("user");
@@ -86,6 +88,7 @@ public class LoginAction extends ActionSupport implements WriteDate{
      * TODO: 同上，这个逻辑也是有问题
      */
     public void loginOut() {
+        Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, loginOut() doing", this);
         try {
             ActionContext.getContext().getSession().remove(USER);
