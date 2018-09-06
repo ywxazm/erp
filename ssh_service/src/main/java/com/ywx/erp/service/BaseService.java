@@ -27,5 +27,5 @@ public interface BaseService<T> {
 
     void export(OutputStream os, T t) throws Exception;
 
-    void importData(File file, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
+    void importData(File file, String fileFileName, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 }

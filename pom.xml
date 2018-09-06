@@ -118,17 +118,17 @@
         </dependency>
 
         <!--ojdbc6-->
-        <!--<dependency>
+        <dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
-        </dependency>-->
+        </dependency>
         <!--mysql-connect-java-->
-        <dependency>
+        <!--<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.12</version>
-        </dependency>
+        </dependency>-->
 
         <!--fastJson-->
         <dependency>

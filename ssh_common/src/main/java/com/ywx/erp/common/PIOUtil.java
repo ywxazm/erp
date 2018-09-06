@@ -49,11 +49,12 @@ public class PIOUtil implements Serializable {
     /**
      * 通用导入功能
      */
-    public static void importData(File file, Class clazz) throws ClassNotFoundException, IllegalAccessException,
+    public static void importData(File file, String fileFileName, Class clazz) throws ClassNotFoundException, IllegalAccessException,
             InstantiationException, NoSuchMethodException, InvocationTargetException, IOException {
+
         //获取对应的Do,dao的名字
         FileInputStream is = new FileInputStream(file);
-        Workbook wb = getWorkbook(file, is);
+        Workbook wb = getWorkbook(file, fileFileName, is);
         String actionName = clazz.getName();
         int start = actionName.lastIndexOf(".");
         String doName = "com.ywx.erp.entity" + actionName.substring(start).replace("Action", "Do");
@@ -78,7 +79,6 @@ public class PIOUtil implements Serializable {
                 }
             }
         }
-
         closeWk(is);
     }
 
@@ -89,15 +89,13 @@ public class PIOUtil implements Serializable {
      * @return
      * @throws IOException
      */
-    public static Workbook getWorkbook(File file, InputStream is) throws IOException {
-        String fileName = file.getName();
-        System.out.println(fileName);
-        String extendNmae = fileName.substring(fileName.lastIndexOf(".") + 1);
+    public static Workbook getWorkbook(File file, String fileFileName, InputStream is) throws IOException {
+        String extendName = fileFileName.substring(fileFileName.lastIndexOf(".") + 1);
         Workbook wb = null;
-        switch (extendNmae) {
+        switch (extendName) {
             case "xls"  :   wb = new HSSFWorkbook(is); break;
             case "xlsx" :   wb = new XSSFWorkbook(is); break;
-            default     :   throw new ErpException("Import file type error, the file name is " + extendNmae);
+            default     :   throw new ErpException("Import file type error, the file name is " + extendName);
         }
         return wb;
     }

@@ -76,8 +76,8 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public void importData(File file, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException,
+    public void importData(File file, String fileFileName, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException,
             InvocationTargetException, InstantiationException, IllegalAccessException {
-        PIOUtil.importData(file, clazz);
+        PIOUtil.importData(file, fileFileName, clazz);
     }
 }
