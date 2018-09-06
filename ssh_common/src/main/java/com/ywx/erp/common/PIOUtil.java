@@ -1,18 +1,20 @@
 package com.ywx.erp.common;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ywx.erp.exception.ErpException;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -47,9 +49,11 @@ public class PIOUtil implements Serializable {
     /**
      * 通用导入功能
      */
-    public static void importData(HSSFWorkbook wb, Class clazz) throws ClassNotFoundException, IllegalAccessException,
-            InstantiationException, NoSuchMethodException, InvocationTargetException {
+    public static void importData(File file, Class clazz) throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException, NoSuchMethodException, InvocationTargetException, IOException {
         //获取对应的Do,dao的名字
+        FileInputStream is = new FileInputStream(file);
+        Workbook wb = getWorkbook(file, is);
         String actionName = clazz.getName();
         int start = actionName.lastIndexOf(".");
         String doName = "com.ywx.erp.entity" + actionName.substring(start).replace("Action", "Do");
@@ -74,6 +78,28 @@ public class PIOUtil implements Serializable {
                 }
             }
         }
+
+        closeWk(is);
+    }
+
+    /**
+     * 判断导入文件版本
+     * @param file
+     * @param is
+     * @return
+     * @throws IOException
+     */
+    public static Workbook getWorkbook(File file, InputStream is) throws IOException {
+        String fileName = file.getName();
+        System.out.println(fileName);
+        String extendNmae = fileName.substring(fileName.lastIndexOf(".") + 1);
+        Workbook wb = null;
+        switch (extendNmae) {
+            case "xls"  :   wb = new HSSFWorkbook(is); break;
+            case "xlsx" :   wb = new XSSFWorkbook(is); break;
+            default     :   throw new ErpException("Import file type error, the file name is " + extendNmae);
+        }
+        return wb;
     }
 
     /**
@@ -87,13 +113,13 @@ public class PIOUtil implements Serializable {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    private static List<Object> getDataList(HSSFWorkbook wb, String doName) throws ClassNotFoundException,
+    private static List<Object> getDataList(Workbook wb, String doName) throws ClassNotFoundException,
             InstantiationException, IllegalAccessException, InvocationTargetException {
         //填充匹配的数据,放到List中
         Class<?> clazz = Class.forName(doName);
         Method[] methods = clazz.getDeclaredMethods();
         Field[] fields = clazz.getDeclaredFields();
-        HSSFSheet sheet = wb.getSheetAt(0);
+        Sheet sheet = wb.getSheetAt(0);
         int lastRow = sheet.getLastRowNum();
         List<Object> dataList = new ArrayList<>();
         for (int i = 1; i <= lastRow; i++) {
@@ -265,17 +291,17 @@ public class PIOUtil implements Serializable {
     }
 
     /**
-     * 关闭Wk
+     * 关闭is
      * * @param wb
      */
-    public static void closeWk(HSSFWorkbook wb) {
+    public static void closeWk(InputStream is) {
         try {
-            wb.close();
+            is.close();
         } catch (IOException e) {
             logger.error("error msg = {}", e.getMessage());
         } finally {
             try {
-                wb.close();
+                is.close();
             } catch (IOException e) {
                 logger.error("close stream error, msg = {}", e.getMessage());
             }

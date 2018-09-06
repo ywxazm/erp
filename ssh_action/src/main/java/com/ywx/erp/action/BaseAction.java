@@ -244,7 +244,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 导入
      */
     private File file;//上传的文件
-    private String fileFileName;//上传的文件名称
+    private String fileName;//上传的文件名称
     private String fileContentType;//上传的文件类型
     public File getFile() {
         return file;
@@ -252,19 +252,21 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     public void setFile(File file) {
         this.file = file;
     }
-    public String getFileFileName() {
-        return fileFileName;
-    }
-    public void setFileFileName(String fileFileName) {
-        this.fileFileName = fileFileName;
-    }
     public String getFileContentType() {
         return fileContentType;
     }
     public void setFileContentType(String fileContentType) {
         this.fileContentType = fileContentType;
     }
+    public String getFileName() {
+        return fileName;
+    }
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public void importData() {
+        System.out.println(fileName);
         Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, export store doing", this);
 
