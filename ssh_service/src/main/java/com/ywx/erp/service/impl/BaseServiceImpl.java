@@ -1,5 +1,6 @@
 package com.ywx.erp.service.impl;
 
+import com.ywx.erp.common.PIOConstants;
 import com.ywx.erp.common.PIOUtil;
 import com.ywx.erp.dao.BaseDao;
 import com.ywx.erp.service.BaseService;
@@ -8,8 +9,10 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.lang.reflect.Field;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -65,7 +68,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     @Override
     public void export(OutputStream os, T t) throws Exception {
         HSSFWorkbook wk = new HSSFWorkbook();               //创建excel文件
-        HSSFSheet sheet = wk.createSheet("Sheet");
+        HSSFSheet sheet = wk.createSheet(PIOConstants.SHEETNAME);
         List<T> list = baseDao.list(t, null, null);
 
         PIOUtil.export(sheet, list, t.getClass());
@@ -73,8 +76,10 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public void importData(File file, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void importData(File file, Class clazz) throws IOException, ClassNotFoundException, NoSuchMethodException,
+            InvocationTargetException, InstantiationException, IllegalAccessException {
         HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(file));
         PIOUtil.importData(wb, clazz);
+        PIOUtil.closeWk(wb);
     }
 }

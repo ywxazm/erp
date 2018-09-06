@@ -2,18 +2,14 @@ package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.entity.OrderdetailDo;
 import com.ywx.erp.entity.OrdersDo;
-import com.ywx.erp.entity.SupplierDo;
 import com.ywx.erp.service.EmpService;
 import com.ywx.erp.service.OrdersService;
 import com.ywx.erp.service.SupplierService;
-import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,33 +18,51 @@ public class OrdersAction extends BaseAction<OrdersDo> {
     private OrdersService ordersService;
     private EmpService empService;
     private SupplierService supplierService;
-    public void setOrdersService(OrdersService ordersService) {
-        super.setBaseService(ordersService);
-        this.ordersService = ordersService;
-    }
     public void setEmpService(EmpService empService) {
         this.empService = empService;
     }
     public void setSupplierService(SupplierService supplierService) {
         this.supplierService = supplierService;
     }
+    public void setOrdersService(OrdersService ordersService) {
+        super.setBaseService(ordersService);
+        this.ordersService = ordersService;
+    }
 
+    //定义常量
+    private static final String MYORDERS = "myorders";
+    private static final String NOLOGIN = "No Login";
+    private static final String ORDERISNULL = "Orders Is Null";
+    private static final String CHECKSUCCESS = "Check Success";
+    private static final String CHECKFAIL = "Check Fail";
+    private static final String DOSTARTSUCCESS = "DoStart Success";
+    private static final String DOSTARTFAIL = "DoStart Fail";
 
-    /**
-     * 订单查询，如果有用户ID，则只查询当前用户ID下的订单
-     */
+    //接收数据
     private String oper;
+    private String json;
+    public String getJson() {
+        return json;
+    }
+    public void setJson(String json) {
+        this.json = json;
+    }
     public String getOper() {
         return oper;
     }
     public void setOper(String oper) {
         this.oper = oper;
     }
+
+    /**
+     * 订单查询，如果有用户ID，则只查询当前用户ID下的订单
+     */
     @Override
     public void listByPage() {
-        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}, oper = {}", this, t, tt, obj, page, rows, oper);
+        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}, " +
+                "oper = {}", this, t, tt, obj, page, rows, oper);
         try {
-            if ("myorders".equals(oper)) {
+            if (MYORDERS.equals(oper)) {
                 t.setCreater(getLoginUser().getUuid());
             }
 
@@ -65,10 +79,10 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             }
 
             HashMap<String, Object> map = new HashMap<>();
-            map.put("rows", list);
-            map.put("total", count);
-            String str = JSONObject.toJSONString(map);
-            write(str);
+            map.put(ROWS, list);
+            map.put(TOTAL, count);
+            String json = JSONObject.toJSONString(map);
+            write(json);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
         }
@@ -87,24 +101,17 @@ public class OrdersAction extends BaseAction<OrdersDo> {
     /**
      * 添加订单, 级联添加订单明细
      */
-    private String json;
-    public String getJson() {
-        return json;
-    }
-    public void setJson(String json) {
-        this.json = json;
-    }
     @Override
     public void addDo() {
         logger.debug("operaObj is = {}, addDo doing, json = {}", this, json);
         try {
             EmpDo loginUser = getLoginUser();
             if (null == loginUser) {
-                write(ajaxReturn(false, "用户未登录"));
+                write(ajaxReturn(BaseConstants.TRUE, NOLOGIN));
                 return;
             }
             if (null == json) {
-                write(ajaxReturn(false, "订单为空"));
+                write(ajaxReturn(BaseConstants.FALSE, ORDERISNULL));
                 return;
             }
 
@@ -114,10 +121,10 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             ordersDo.setOrderDetailDos(orderdetailDos);
             ordersService.addDo(ordersDo);
 
-            write(ajaxReturn(true, "添加成功"));
+            write(ajaxReturn(BaseConstants.TRUE, ADDSUCCESS));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, addDo is error,  msg = {}", this, ex.getMessage());
-            write(ajaxReturn(false, "添加失败"));
+            write(ajaxReturn(BaseConstants.FALSE, ADDFAIL));
         }
     }
 
@@ -128,10 +135,10 @@ public class OrdersAction extends BaseAction<OrdersDo> {
         try {
             logger.debug("operaObj is = {}, doCheck param is id = {}", this, id);
             ordersService.doCheck(id, getLoginUser().getUuid());
-            write(ajaxReturn(true, "审核成功"));
+            write(ajaxReturn(BaseConstants.TRUE, CHECKSUCCESS));
         } catch (Exception e) {
             logger.error("operaObj is = {}, query list is error, info = {}", this, e.getMessage());
-            write(ajaxReturn(false, "审核失败"));
+            write(ajaxReturn(BaseConstants.FALSE, CHECKFAIL));
         }
     }
 
@@ -142,29 +149,10 @@ public class OrdersAction extends BaseAction<OrdersDo> {
         try {
             logger.debug("operaObj is = {}, doStart param is id = {}", this, id);
             ordersService.doStart(id, getLoginUser().getUuid());
-            write(ajaxReturn(true, "确认成功"));
+            write(ajaxReturn(BaseConstants.TRUE, DOSTARTSUCCESS));
         } catch (Exception e) {
             logger.error("operaObj is = {}, doStart is error, info = {}", this, e.getMessage());
-            write(ajaxReturn(false, "确认失败"));
+            write(ajaxReturn(BaseConstants.FALSE, DOSTARTFAIL));
         }
     }
-
-//    /**
-//     * 导出订单
-//     */
-//    public void export(){
-//        String filename = "Orders_" + getId() + ".xls";
-//        //响应对象
-//        HttpServletResponse response = ServletActionContext.getResponse();
-//        try {
-//            //设置输出流,实现下载文件
-//            response.setHeader("Content-Disposition", "attachment;filename=" +
-//                    new String(filename.getBytes(),"ISO-8859-1"));
-//
-//            ordersService.exportById(response.getOutputStream(), getId());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 }

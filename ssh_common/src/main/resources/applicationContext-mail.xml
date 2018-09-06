@@ -6,31 +6,23 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd">  
 	
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<!-- 发送邮件的协议 -->
-        <property name="protocol" value="smtp"/>
-        <!-- 邮件服务器地址 -->
-        <property name="host" value="smtp.139.com"/>
-        <!-- 发送邮件的端口 -->
-        <property name="port" value="465" />
-        <!-- 账号 -->
-        <property name="username" value="18824278018@139.com"/>
-        <!-- 账号的密码 -->
-        <property name="password" value="Over1234"/>
-        <!-- mail的配置 -->
-        <property name="javaMailProperties">
+        <property name="protocol" value="smtp"/>                    <!-- 发送邮件的协议 -->
+        <property name="host" value="smtp.139.com"/>                <!-- 邮件服务器地址 -->
+        <property name="port" value="465" />                        <!-- 发送邮件的端口 -->
+        <property name="username" value="18824278018@139.com"/>     <!-- 账号 -->
+        <property name="password" value="Over1234"/>                <!-- 账号的密码 -->
+        <property name="javaMailProperties">                        <!-- mail的配置 -->
             <props>
-            	<!-- 验证：用户名username 与发件是否一致 -->
-                <prop key="mail.smtp.auth">true</prop>
-                <!-- 传输层的加密 -->
-                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.smtp.auth">true</prop>              <!-- 验证：用户名username 与发件是否一致 -->
+                <prop key="mail.smtp.ssl.enable">true</prop>        <!-- 传输层的加密 -->
             </props>
         </property>
     </bean>
 	
 	<bean id="mailUtil" class="com.ywx.erp.common.MailUtil">
 		<property name="javaMailSender" ref="javaMailSender" />
-		<!-- 发件人 -->
-		<property name="from" value="18824278018@139.com" />
+		<property name="from" value="18824278018@139.com" />        <!-- 发件人 -->
 	</bean>
+
 </beans>
 	

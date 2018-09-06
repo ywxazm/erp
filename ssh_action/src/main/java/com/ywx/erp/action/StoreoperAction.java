@@ -2,6 +2,7 @@ package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.StoreoperDo;
 import com.ywx.erp.service.EmpService;
 import com.ywx.erp.service.GoodsService;
@@ -17,10 +18,6 @@ public class StoreoperAction extends BaseAction<StoreoperDo> {
     private EmpService empService;
     private StoreService storeService;
     private GoodsService goodsService;
-    public void setStoreoperService(StoreoperService storeoperService) {
-        super.setBaseService(storeoperService);
-        this.storeoperService = storeoperService;
-    }
     public void setEmpService(EmpService empService) {
         this.empService = empService;
     }
@@ -30,10 +27,37 @@ public class StoreoperAction extends BaseAction<StoreoperDo> {
     public void setGoodsService(GoodsService goodsService) {
         this.goodsService = goodsService;
     }
+    public void setStoreoperService(StoreoperService storeoperService) {
+        super.setBaseService(storeoperService);
+        this.storeoperService = storeoperService;
+    }
+
+    @Override
+    public void getDo() {
+        logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
+        try {
+            StoreoperDo storeoperDo = storeoperService.getDo(id);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put(BaseConstants.TEMPNAME, storeoperDo.getEmpname());
+            map.put(BaseConstants.TEMPUUID, storeoperDo.getEmpuuid());
+            map.put(BaseConstants.TGOODSNAME, storeoperDo.getGoodsname());
+            map.put(BaseConstants.TGOODSUUID, storeoperDo.getGoodsuuid());
+            map.put(BaseConstants.TNUM, storeoperDo.getNum());
+            map.put(BaseConstants.TOPERTIIME, storeoperDo.getOpertime());
+            map.put(BaseConstants.TSTORENAME, storeoperDo.getStorename());
+            map.put(BaseConstants.TSTOREUUID, storeoperDo.getStoreuuid());
+            map.put(BaseConstants.TTYPE, storeoperDo.getType());
+            map.put(BaseConstants.TUUID, storeoperDo.getUuid());
+            write(JSONObject.toJSONString(map));
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+        }
+    }
 
     @Override
     public void listByPage() {
-        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}", this, t, tt, obj, page, rows);
+        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, " +
+                "rows = {}", this, t, tt, obj, page, rows);
         try {
             List<StoreoperDo> storeoperDoList = storeoperService.listByPage(t, tt, obj, (page - 1) * rows, rows);
             Long count = storeoperService.getCount(t, tt, obj);       //统计总条目数
@@ -45,35 +69,12 @@ public class StoreoperAction extends BaseAction<StoreoperDo> {
             }
 
             HashMap<String, Object> map = new HashMap<>();
-            map.put("rows", storeoperDoList);
-            map.put("total", count);
+            map.put(ROWS, storeoperDoList);
+            map.put(TOTAL, count);
             String str = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
             write(str);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void getDo() {
-        logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
-        try {
-            StoreoperDo storeoperDo = storeoperService.getDo(id);
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("t.empname", storeoperDo.getEmpname());
-            map.put("t.empuuid", storeoperDo.getEmpuuid());
-            map.put("t.goodsname", storeoperDo.getGoodsname());
-            map.put("t.goodsuuid", storeoperDo.getGoodsuuid());
-            map.put("t.num", storeoperDo.getNum());
-            map.put("t.opertime", storeoperDo.getOpertime());
-            map.put("t.storename", storeoperDo.getStorename());
-            map.put("t.storeuuid", storeoperDo.getStoreuuid());
-            map.put("t.type", storeoperDo.getType());
-            map.put("t.uuid", storeoperDo.getUuid());
-            write(JSONObject.toJSONString(map));
-        }catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
         }
     }
 }

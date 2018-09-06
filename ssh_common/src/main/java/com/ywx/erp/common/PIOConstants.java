@@ -2,12 +2,10 @@ package com.ywx.erp.common;
 
 public class PIOConstants {
 
+    //Http设置相关
     public static final String ISO_8859_1 = "ISO-8859-1";
-
     public static final String ContentDisposition = "Content-Disposition";
-
     public static final String PARAM01 = "attachment;filename=";
-
 
     //文件名
     public static final String STOREFILRNAME = "仓库.xls";
@@ -27,8 +25,7 @@ public class PIOConstants {
     //Excel文件类型
     public static final String EXCELFILETYPE = "application/vnd.ms-excel";
 
-
-
-
+    //工作薄名称
+    public static final String SHEETNAME = "Sheet";
 
 }

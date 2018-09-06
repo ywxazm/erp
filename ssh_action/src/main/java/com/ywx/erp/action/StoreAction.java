@@ -2,6 +2,7 @@ package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.common.PIOConstants;
 import com.ywx.erp.common.PIOUtil;
 import com.ywx.erp.common.StringConstants;
@@ -20,17 +21,33 @@ public class StoreAction extends BaseAction<StoreDo> {
 
     private StoreService storeService;
     private EmpService empService;
+    public void setEmpService(EmpService empService) {
+        this.empService = empService;
+    }
     public void setStoreService(StoreService storeService) {
         super.setBaseService(storeService);
         this.storeService = storeService;
     }
-    public void setEmpService(EmpService empService) {
-        this.empService = empService;
+
+    @Override
+    public void getDo() {
+        logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
+        try {
+            StoreDo storeDo = storeService.getDo(id);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put(BaseConstants.TUUID, storeDo.getUuid());
+            map.put(BaseConstants.TNAME , storeDo.getName());
+            map.put(BaseConstants.TEMPUUID, storeDo.getEmpuuid());
+            write(JSONObject.toJSONString(map));
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+        }
     }
 
     @Override
     public void listByPage() {
-        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}", this, t, tt, obj, page, rows);
+        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, " +
+                "rows = {}", this, t, tt, obj, page, rows);
         try {
             List<StoreDo> storeDoList = storeService.listByPage(t, tt, obj, (page - 1) * rows, rows);
             Long count = storeService.getCount(t, tt, obj);       //统计总条目数
@@ -40,13 +57,12 @@ public class StoreAction extends BaseAction<StoreDo> {
             }
 
             HashMap<String, Object> map = new HashMap<>();
-            map.put("rows", storeDoList);
-            map.put("total", count);
+            map.put(ROWS, storeDoList);
+            map.put(TOTAL, count);
             String str = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
             write(str);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -66,21 +82,6 @@ public class StoreAction extends BaseAction<StoreDo> {
             super.list();
         }catch (Exception ex) {
             logger.error("operaObj is = {}, myListStore is error, msg = {}", this, ex.getMessage());
-        }
-    }
-
-    @Override
-    public void getDo() {
-        logger.debug("operaObj is = {}, getDo() doing, id = {}", this, id);
-        try {
-            StoreDo storeDo = storeService.getDo(id);
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("t.uuid", storeDo.getUuid());
-            map.put("t.empuuid", storeDo.getEmpuuid());
-            map.put("t.name", storeDo.getName());
-            write(JSONObject.toJSONString(map));
-        }catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
         }
     }
 

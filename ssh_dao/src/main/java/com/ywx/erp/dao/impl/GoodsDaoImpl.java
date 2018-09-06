@@ -12,7 +12,8 @@ public class GoodsDaoImpl extends BaseDaoImpl<GoodsDo> implements GoodsDao {
     @Override
     protected DetachedCriteria getDetachedCriteria(GoodsDo t1, GoodsDo t2, Object obj) {
         DetachedCriteria dc = DetachedCriteria.forClass(GoodsDo.class);
-        if (null != t1) {                                                                            //TODO: 是不是可以用switch来代替
+        //TODO: 是不是可以用switch来代替
+        if (null != t1) {
             if (!StringUtils.isEmpty(t1.getName())) {
                 dc.add(Restrictions.like("name", t1.getName(), MatchMode.ANYWHERE));
             }
@@ -22,8 +23,10 @@ public class GoodsDaoImpl extends BaseDaoImpl<GoodsDo> implements GoodsDao {
             if (!StringUtils.isEmpty(t1.getProducer())) {
                 dc.add(Restrictions.like("producer", t1.getProducer(), MatchMode.ANYWHERE));
             }
-            if (null != t1.getGoodstypeDo() && null != t1.getGoodstypeDo().getUuid()) {             //TODO：极为重要！！！ 注意前后两个条件， 猜想： hibernate会给它一个实例，但内容为null
-                dc.add(Restrictions.eq("goodstypeDo", t1.getGoodstypeDo()));        //TODO： 多对一的情况要注意
+            //TODO：极为重要！！！ 注意前后两个条件， 猜想： hibernate会给它一个实例，但内容为null
+            if (null != t1.getGoodstypeDo() && null != t1.getGoodstypeDo().getUuid()) {
+                //TODO： 多对一的情况要注意
+                dc.add(Restrictions.eq("goodstypeDo", t1.getGoodstypeDo()));
             }
             //进价，起点
             if (null != t1.getInprice()) {

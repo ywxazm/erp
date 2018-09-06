@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class StoreAlertDo implements Serializable {
 
-    private Long guuid;
-    private String gname;
-    private String sname;
-    private Long sdnum;
-    private Long odnum;
+    private Long guuid;     //商品ID
+    private String gname;   //商品名称
+    private String sname;   //仓库名称
+    private Long sdnum;     //库存数量
+    private Long odnum;     //订单需求数量
 
     public Long getGuuid() {
         return guuid;

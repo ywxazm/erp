@@ -1,7 +1,6 @@
 package com.ywx.erp.dao.impl;
 
 import com.ywx.erp.dao.OrdersDao;
-import com.ywx.erp.entity.OrderdetailDo;
 import com.ywx.erp.entity.OrdersDo;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;

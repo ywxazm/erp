@@ -1,7 +1,6 @@
 package com.ywx.erp.dao.impl;
 
 import com.ywx.erp.dao.BaseDao;
-import com.ywx.erp.entity.DepDo;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.slf4j.Logger;
@@ -83,9 +82,6 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
      */
     @Override
     public void addDo(T t) {
-        System.out.println("this = " + this);
-        System.out.println("temp = " + this.getHibernateTemplate());
-        System.out.println("t = " + t);
         this.getHibernateTemplate().save(t);
     }
 
@@ -113,7 +109,6 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
     /**
      * 如果ID是Stirng类型
      * @param id
-     * @return
      */
     @Override
     public T getDo(String id) {

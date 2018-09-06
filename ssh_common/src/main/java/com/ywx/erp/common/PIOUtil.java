@@ -7,12 +7,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -26,7 +25,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 通用导出功能
-     *
      * @param sheet
      * @param dataList
      */
@@ -49,7 +47,8 @@ public class PIOUtil implements Serializable {
     /**
      * 通用导入功能
      */
-    public static void importData(HSSFWorkbook wb, Class clazz) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    public static void importData(HSSFWorkbook wb, Class clazz) throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException, NoSuchMethodException, InvocationTargetException {
         //获取对应的Do,dao的名字
         String actionName = clazz.getName();
         int start = actionName.lastIndexOf(".");
@@ -64,8 +63,8 @@ public class PIOUtil implements Serializable {
         daoName = actionName.substring(start + 1).replace("Action", "Dao");
         daoName = daoName.substring(0, 1).toLowerCase() + daoName.substring(1);
         //ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext-*.xml");
-        WebApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();     //TODO: 获取正在运行的Spring上下文
-        Object obj = ac.getBean(daoName);                       //TODO: 很重要，如果直接是反射获取Dao对象，HibernateTemplete == null， 需要如上操作
+        WebApplicationContext ac = ContextLoader.getCurrentWebApplicationContext(); //TODO: 获取正在运行的Spring上下文
+        Object obj = ac.getBean(daoName);//TODO: 很重要，如果直接是反射获取Dao对象，HibernateTemplete == null， 需要如上操作
 
         Method[] methods = daoClazz.getMethods();
         for (Object data : dataList) {
@@ -77,7 +76,18 @@ public class PIOUtil implements Serializable {
         }
     }
 
-    private static List<Object> getDataList(HSSFWorkbook wb, String doName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    /**
+     * 读取提交Excel,组装成List集合
+     * @param wb
+     * @param doName
+     * @return
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     */
+    private static List<Object> getDataList(HSSFWorkbook wb, String doName) throws ClassNotFoundException,
+            InstantiationException, IllegalAccessException, InvocationTargetException {
         //填充匹配的数据,放到List中
         Class<?> clazz = Class.forName(doName);
         Method[] methods = clazz.getDeclaredMethods();
@@ -101,6 +111,12 @@ public class PIOUtil implements Serializable {
         return dataList;
     }
 
+    /**
+     * 根据方法定义参数类型，将值转化为对应类型
+     * @param method
+     * @param columValue
+     * @return
+     */
     public static Object processParamType(Method method, String columValue) {
         Class<?>[] parameterTypes = method.getParameterTypes();
         Class<?> parameterType = parameterTypes[0];
@@ -131,7 +147,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 前处理，处理有外键的数据
-     *
      * @param dataList
      */
     private static List<Map<String, Object>> pareProcess(List dataList) {
@@ -145,6 +160,10 @@ public class PIOUtil implements Serializable {
         return list;
     }
 
+    /**
+     * 导出时，如果在JOSN中带有另一个JavaBean的Json格式数据，则只有名字
+     * @param lineDataMap
+     */
     private static void process(Map<String, Object> lineDataMap) {
         Set<String> keys = lineDataMap.keySet();
         Iterator<String> iterator = keys.iterator();
@@ -163,14 +182,13 @@ public class PIOUtil implements Serializable {
 
     /**
      * 设置Cell内容
-     *
      * @param sheet
      * @param dataList
      * @param nameList
      */
     private static void setValue(HSSFSheet sheet, List<Map<String, Object>> dataList, List<String> nameList) {
         System.out.println(JSONObject.toJSON(dataList));
-        HSSFRow row;// 设置内容
+        HSSFRow row;
         int i = 1;
         for (Map<String, Object> map : dataList) {
             row = sheet.createRow(i);                       //新建行
@@ -185,7 +203,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 设置第一行的列信息
-     *
      * @param sheet
      * @param nameList
      */
@@ -203,7 +220,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 获取列信息
-     *
      * @param clazz
      * @return
      */
@@ -223,18 +239,35 @@ public class PIOUtil implements Serializable {
 
     /**
      * 关闭流
-     *
      * @param os
      * @param wk
      */
     public static void closeStream(OutputStream os, HSSFWorkbook wk) {
         try {
-            wk.write(os);                                                   //写流
+            wk.write(os);      //写流
         } catch (IOException e) {
             logger.error("error msg is = {}", e.getMessage());
         } finally {
             try {
-                wk.close();                                                 //关流
+                wk.close();    //关流
+            } catch (IOException e) {
+                logger.error("close stream error, msg = {}", e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * 关闭Wk
+     ** @param wb
+     */
+    public static void closeWk(HSSFWorkbook wb) {
+        try {
+            wb.close();
+        } catch (IOException e) {
+            logger.error("error msg = {}", e.getMessage());
+        } finally {
+            try {
+                wb.close();
             } catch (IOException e) {
                 logger.error("close stream error, msg = {}", e.getMessage());
             }

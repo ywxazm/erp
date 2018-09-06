@@ -7,27 +7,17 @@ import java.util.Date;
 
 public class EmpDo implements Serializable {
 
-    //编号
-    private Long uuid;
-    //登录名
-    private String username;
-    //登录密码
+    private Long uuid;          //编号
+    private String username;    //登录名
     @JSONField(serialize = false)       //fastJson提供的不进行序列化
-    private String pwd;
-    //真实姓名
-    private String name;
-    //性别
-    private Long gender;
-    //邮箱
-    private String email;
-    //联系电话
-    private String tele;
-    //联系地址
-    private String address;
-    //生日
-    private Date birthday;
-    //部门编号
-    private DepDo depDo;
+    private String pwd;         //登录密码
+    private String name;        //真实姓名
+    private Long gender;        //性别
+    private String email;       //邮箱
+    private String tele;        //联系电话
+    private String address;     //联系地址
+    private Date birthday;      //生日
+    private DepDo depDo;        //部门编号
 
     public Long getUuid() {
         return uuid;

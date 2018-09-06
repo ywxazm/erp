@@ -1,6 +1,7 @@
 package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.DepDo;
 import com.ywx.erp.service.DepService;
 
@@ -18,16 +19,14 @@ public class DepAction extends BaseAction<DepDo> {
     public void getDo() {
         logger.debug("operaObj is = {},  getDo() doing, uuid = {}", this, id);
         try {
-            DepDo depDo = (DepDo) baseService.getDo(id);
+            DepDo depDo = depService.getDo(id);
             HashMap<String, Object> map = new HashMap<>();
-            map.put("t.uuid", depDo.getUuid());
-            map.put("t.tele", depDo.getTele());
-            map.put("t.name", depDo.getName());
+            map.put(BaseConstants.TUUID, depDo.getUuid());
+            map.put(BaseConstants.TTELE, depDo.getTele());
+            map.put(BaseConstants.TNAME, depDo.getName());
             write(JSONObject.toJSONString(map));
         }catch (Exception ex) {
             logger.error("operaObj is = {},  getDo is error, msg = {}", this, ex.getMessage());
         }
     }
-
-
 }

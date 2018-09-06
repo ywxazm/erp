@@ -7,7 +7,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.Collections;
 import java.util.List;
 
 public class EmpDaoImpl extends BaseDaoImpl<EmpDo> implements EmpDao {
@@ -40,12 +39,14 @@ public class EmpDaoImpl extends BaseDaoImpl<EmpDo> implements EmpDao {
             }
             //时间区间查询,起始时间
             if (null != e1.getBirthday()) {
-                dc.add(Restrictions.ge("birthday", e1.getBirthday()));      //ge >   greater than     // >= great than or equal to
+                //ge >   greater than     // >= great than or equal to
+                dc.add(Restrictions.ge("birthday", e1.getBirthday()));
             }
         }
         //时间区间查询，结束时间
         if (null != e2 && null != e2.getBirthday()) {
-            dc.add(Restrictions.le("birthday", e2.getBirthday()));          //le  <   less than
+            //le  <   less than
+            dc.add(Restrictions.le("birthday", e2.getBirthday()));
         }
         return dc;
     }

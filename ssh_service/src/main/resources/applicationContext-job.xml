@@ -12,17 +12,14 @@
 
 	<!-- 任务类描述 -->
 	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<!-- 调用的哪个类 -->
-		<property name="targetObject" ref="mailJob" />
-		<!-- 调用的是哪个方法 -->
-		<property name="targetMethod" value="sendStoreWarnMail" />
+		<property name="targetObject" ref="mailJob" />				<!-- 调用的哪个类 -->
+		<property name="targetMethod" value="sendStoreWarnMail" />	<!-- 调用的是哪个方法 -->
 	</bean>
 
 	<!-- 触发器  -->
 	<bean id="mailTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="jobDetail" />
-		<!-- cron：7子表达式 -->
-		<property name="cronExpression" value="0 0 22 * * ? *" />
+		<property name="cronExpression" value="0 0 22 * * ? *" />	<!-- cron：7子表达式 -->
 		<!--<property name="cronExpression" value="0,10,20,30,40,50 * * * * ? *" />-->
 	</bean>
 

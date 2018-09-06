@@ -8,17 +8,15 @@ import java.io.Serializable;
  */
 public class StoredetailDo implements Serializable {
 
-	/**未出库 */
-	public static final String STATE_NOT_OUT = "0";
-	/**已出库*/
-	public static final String STATE_OUT = "1";
+	public static final String STATE_NOT_OUT = "0";	//未出库
+	public static final String STATE_OUT = "1";		//已出库
 
-	private Long uuid;//编号
-	private Long storeuuid;//仓库编号
-	private String storename;//仓库名称
-	private Long goodsuuid;//商品编号
-	private String goodsname;//商品名称
-	private Long num;//数量
+	private Long uuid;			//编号
+	private Long storeuuid;		//仓库编号
+	private String storename;	//仓库名称
+	private Long goodsuuid;		//商品编号
+	private String goodsname;	//商品名称
+	private Long num;			//数量
 
 	public Long getUuid() {
 		return uuid;

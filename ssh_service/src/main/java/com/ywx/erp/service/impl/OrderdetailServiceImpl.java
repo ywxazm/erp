@@ -1,5 +1,6 @@
 package com.ywx.erp.service.impl;
 
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.dao.OrderdetailDao;
 import com.ywx.erp.dao.StoredetailDao;
 import com.ywx.erp.dao.StoreoperDao;
@@ -30,12 +31,18 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         this.orderdetailDao = orderdetailDao;
     }
 
+    //常量定义
+    private static final String GOODSDONEINSTORE = "Goods In Store Done";        //商品已入库
+    private static final String INVENTORYDEFICIENCY = "Inventory Deficiency";    //库存不足
+    private static final String NOINVENTORYOFGOODS = "No Inventory Of Goods";    //无此商品库存
+    private static final String ORDERSINVENTORYOUTSTORE = "Orders Inventory Out Store";        //订单已出库
+
     @Override
     public void doInStore(long uuid, long storeId, long empId) {
         //更新商品明细
         OrderdetailDo orderdetailDo = orderdetailDao.getDo(uuid);
         if (OrderdetailDo.STATE_IN.equals(orderdetailDo.getState())) {
-            throw new ErpException("商品已经入库");
+            throw new ErpException(GOODSDONEINSTORE);
         }
         orderdetailDo.setState(OrderdetailDo.STATE_IN);
         orderdetailDo.setEnder(empId);
@@ -70,7 +77,7 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         paramCount.setState(OrderdetailDo.STATE_NOT_IN);
         paramCount.setOrdersDo(ordersDo);
         Long count = orderdetailDao.getCount(paramCount, null, null);
-        if (null != count && count == 0) {
+        if (null != count && count == BaseConstants.ZEROSTR) {
             ordersDo.setState(OrdersDo.STATE_END);
             ordersDo.setEnder(empId);
             ordersDo.setEndtime(Calendar.getInstance().getTime());
@@ -88,7 +95,7 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         //判断此商品是否已经出库
         OrderdetailDo orderdetailDo = getDo(uuid);
         if ("1".equals(orderdetailDo.getState())) {
-            throw new ErpException("订单已出库存");
+            throw new ErpException(ORDERSINVENTORYOUTSTORE);
         }
 
         //判断用户名下的仓库是否有足够的库存
@@ -104,10 +111,10 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
             if (num > 0) {
                 sdd.setNum(num);      //更新仓库明细表
             }else {
-                throw new ErpException("库存不足");
+                throw new ErpException(INVENTORYDEFICIENCY);
             }
         }else {
-            throw new ErpException("无此商品库存");
+            throw new ErpException(NOINVENTORYOFGOODS);
         }
 
         //更新订单明细
@@ -123,14 +130,14 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         storeoperDo.setNum(orderdetailDo.getNum());
         storeoperDo.setOpertime(new Date());
         storeoperDo.setStoreuuid(storeId);
-        storeoperDo.setType("2");
+        storeoperDo.setType(StoreoperDo.TYPE_0UT);
         storeoperDao.addDo(storeoperDo);
 
         //检查订单下所有明细是否已出库
         OrderdetailDo orderdetailDo1 = new OrderdetailDo();
         OrdersDo ordersDo = orderdetailDo.getOrdersDo();
         orderdetailDo1.setOrdersDo(orderdetailDo.getOrdersDo());
-        orderdetailDo1.setState("0");
+        orderdetailDo1.setState(StoreoperDo.STATE_NOT_OUT);
         Long count = orderdetailDao.getCount(orderdetailDo1, null, null);
         if (0 == count) {
             ordersDo.setEnder(empId);

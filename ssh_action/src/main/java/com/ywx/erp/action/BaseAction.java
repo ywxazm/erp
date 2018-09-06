@@ -3,8 +3,8 @@ package com.ywx.erp.action;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.common.PIOConstants;
-import com.ywx.erp.common.StringConstants;
 import com.ywx.erp.common.WriteDate;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.service.BaseService;
@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,10 +26,39 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         this.baseService = baseService;
     }
 
-    //前台提交参数
+    //常量定义
+    protected static final String ROWS = "rows";
+    protected static final String TOTAL = "total";
+    private static final String USER = "user";
+    protected static final String ADDSUCCESS= "ADD SUCCESS";
+    protected static final String ADDFAIL = "ADD FAIL";
+    private static final String UPDATASUCCESS = "UPDATA SUCCESS";
+    private static final String UPDATAFAIL = "UPDATA FAIL";
+    private static final String DELSUCCESS = "DEL SUCCESS";
+    private static final String DELFAIL = "DEL FAIL";
+    private static final String UPLOADSUCCESS = "UPLOAD SUCCESS";
+    private static final String UPLOADFAIL = "UPLOAD FAIL";
+    private static final String UPLOADMSG = "UPLOAD FILE MUST TYPE IS .xls";
+
+    //接收数据
     protected T t;
     protected T tt;
     protected Object obj;
+    protected Long id;
+    protected int page;     //第几页
+    protected int rows;     //每页显示条目数
+    public int getPage() {
+        return page;
+    }
+    public void setPage(int page) {
+        this.page = page;
+    }
+    public int getRows() {
+        return rows;
+    }
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
     public T getT() {
         return t;
     }
@@ -50,6 +77,12 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     public void setObj(Object obj) {
         this.obj = obj;
     }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
      * 查询t
@@ -58,45 +91,30 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         try {
             logger.debug("operaObj is = {}, query list param is t = {}, tt = {}, obj = {}", this, t, tt, obj);
             List<T> list = baseService.list(t, tt, obj);
-            String str = JSONObject.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);           //fastJson参数用于关联查询时，关闭循环引用
+            //fastJson参数用于关联查询时，关闭循环引用
+            String str = JSONObject.toJSONString(list, SerializerFeature.DisableCircularReferenceDetect);
             write(str);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query list is error, info = {}", this, e.getMessage());
         }
     }
 
-    //第几页
-    protected int page;
-    //每页显示条目数
-    protected int rows;
-    public int getPage() {
-        return page;
-    }
-    public void setPage(int page) {
-        this.page = page;
-    }
-    public int getRows() {
-        return rows;
-    }
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
     /**
      * 分页查询
      */
     public void listByPage() {
-        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}", this, t, tt, obj, page, rows);
+        logger.debug("operaObj is = {}, query listByPage param is t = {}, tt = {}, obj = {}, page = {}, rows = {}",
+                this, t, tt, obj, page, rows);
         try {
             List<T> list = baseService.listByPage(t, tt, obj, (page - 1) * rows, rows);
             Long count = baseService.getCount(t, tt, obj);       //统计总条目数
             HashMap<String, Object> map = new HashMap<>();
-            map.put("rows", list);
-            map.put("total", count);
-            String str = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
-            write(str);
+            map.put(ROWS, list);
+            map.put(TOTAL, count);
+            String json = JSONObject.toJSONString(map, SerializerFeature.DisableCircularReferenceDetect);
+            write(json);
         } catch (Exception e) {
             logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -107,20 +125,13 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         logger.debug("operaObj is = {}, addDo doing, addDo = {}", this,  t);
         try {
             baseService.addDo(t);
-            write(ajaxReturn(true, "添加成功"));
+            write(ajaxReturn(BaseConstants.TRUE, ADDSUCCESS));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, addDo is error,  msg = {}", this, ex.getMessage());
-            write(ajaxReturn(false, "添加失败"));
+            write(ajaxReturn(BaseConstants.FALSE, ADDFAIL));
         }
     }
 
-    protected Long id;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
     /**
      * 删除部门
      */
@@ -128,10 +139,10 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         logger.debug("operaObj is = {}, delDo() doing, id = {}", this, id);
         try {
             baseService.delDo(id);
-            write(ajaxReturn(true, "删除成功"));
+            write(ajaxReturn(BaseConstants.TRUE, DELSUCCESS));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, delDo is error, msg = {}", this, ex.getMessage());
-            write(ajaxReturn(false, "删除失败"));
+            write(ajaxReturn(BaseConstants.FALSE, DELFAIL));
         }
     }
 
@@ -155,10 +166,10 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         logger.debug("operaObj is = {}, updateDo() doing, Do = {}", this, t);
         try {
             baseService.updateDo(t);
-            write(ajaxReturn(true, "更新成功"));
+            write(ajaxReturn(BaseConstants.TRUE, UPDATASUCCESS));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, updateDep is error, msg = {}", this, ex.getMessage());
-            write(ajaxReturn(false, "更新失败"));
+            write(ajaxReturn(BaseConstants.FALSE, UPDATAFAIL));
         }
     }
 
@@ -166,9 +177,8 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 获取当前用户
      */
     protected EmpDo getLoginUser() {
-        return (EmpDo)ServletActionContext.getContext().getSession().get("user");
+        return (EmpDo)ServletActionContext.getContext().getSession().get(USER);
     }
-
 
     /**
      * 导出
@@ -181,22 +191,23 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         String thisNameClassPath = this.getClass().getName();
         String actionName = thisNameClassPath.substring(thisNameClassPath.lastIndexOf(".") + 1);
         switch (actionName) {
-            case "DepAction":           fileName = PIOConstants.DEPFILRNAME; break;
-            case "EmpAction":           fileName = PIOConstants.EMPFILRNAME; break;
-            case "GoodsAction":         fileName = PIOConstants.GOODSFILRNAME; break;
-            case "GoodstypeAction":     fileName = PIOConstants.GOODSTYPEFILRNAME; break;
-            case "OrderdetailAction":   fileName = PIOConstants.ORDERDETAILFILRNAME; break;
-            case "OrdersAction":        fileName = PIOConstants.ORDERFILRNAME; break;
-            case "StoreAction":         fileName = PIOConstants.STOREFILRNAME; break;
-            case "StoredetailAction":   fileName = PIOConstants.STOREODETAILFILRNAME; break;
-            case "StoreoperAction":     fileName = PIOConstants.STOREOPERFILRNAME; break;
-            case "SupplierAction":      fileName = PIOConstants.SUPPLIERFILRNAME; break;
-            default:                    logger.debug("export type error, typeCode = {}", actionName);
+            case BaseConstants.DEPACTION:           fileName = PIOConstants.DEPFILRNAME; break;
+            case BaseConstants.EMPACTION:           fileName = PIOConstants.EMPFILRNAME; break;
+            case BaseConstants.GOODSACTION:         fileName = PIOConstants.GOODSFILRNAME; break;
+            case BaseConstants.GOODSTYPEACTION:     fileName = PIOConstants.GOODSTYPEFILRNAME; break;
+            case BaseConstants.ORDERDETAILACTION:   fileName = PIOConstants.ORDERDETAILFILRNAME; break;
+            case BaseConstants.ORDERSACTION:        fileName = PIOConstants.ORDERFILRNAME; break;
+            case BaseConstants.STOREACTION:         fileName = PIOConstants.STOREFILRNAME; break;
+            case BaseConstants.STOREDETAILACTION:   fileName = PIOConstants.STOREODETAILFILRNAME; break;
+            case BaseConstants.STOREOPERACTION:     fileName = PIOConstants.STOREOPERFILRNAME; break;
+            case BaseConstants.SUPPLIERACTION:      fileName = PIOConstants.SUPPLIERFILRNAME; break;
+            default:                                logger.debug("export type error, typeCode = {}", actionName);
         }
 
         try {
             HttpServletResponse response = ServletActionContext.getResponse();
-            response.setHeader(PIOConstants.ContentDisposition, PIOConstants.PARAM01.concat(new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
+            response.setHeader(PIOConstants.ContentDisposition, PIOConstants.PARAM01.concat(
+                                new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
             baseService.export(response.getOutputStream(), getT());
 
             Long endTime = System.currentTimeMillis();
@@ -205,7 +216,6 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             Long endTime = System.currentTimeMillis();
             logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
             logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
-            ex.printStackTrace();
         }
     }
 
@@ -238,19 +248,19 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
         logger.debug("operaObj is = {}, export store doing", this);
 
         if (!PIOConstants.EXCELFILETYPE.equals(fileContentType)) {
-            ajaxReturn(false, "上传文件类型必需为.xls");
+            write(ajaxReturn(BaseConstants.FALSE, UPLOADMSG));
         }
 
         try {
             baseService.importData(file, this.getClass());
             Long endTime = System.currentTimeMillis();
             logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
-            write(ajaxReturn(true, "上传文件成功"));
+            write(ajaxReturn(BaseConstants.TRUE, UPLOADSUCCESS));
         }catch (Exception ex) {
             Long endTime = System.currentTimeMillis();
             logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
             logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
-            write(ajaxReturn(true, "上传文件失败"));
+            write(ajaxReturn(BaseConstants.TRUE, UPLOADFAIL));
         }
     }
 

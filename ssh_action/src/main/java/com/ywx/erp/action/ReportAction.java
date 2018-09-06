@@ -11,16 +11,14 @@ import java.util.List;
 
 public class ReportAction implements WriteDate {
 
-    static final Logger logger = LoggerFactory.getLogger(BaseAction.class);
+    static final Logger logger = LoggerFactory.getLogger(ReportAction.class);
 
     private ReportService reportService;
     public void setReportService(ReportService reportService) {
         this.reportService = reportService;
     }
 
-    /**
-     * 采购订单和销售订单报表
-     */
+    //接收数据
     private Date startDate;
     private Date endDate;
     public Date getStartDate() {
@@ -35,6 +33,10 @@ public class ReportAction implements WriteDate {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    /**
+     * 采购订单和销售订单报表
+     */
     public void ordersReport() {
         try {
             logger.debug("operaObj is = {}, ordersReport param is startDate = {}, endDate = {}", this, startDate, endDate);

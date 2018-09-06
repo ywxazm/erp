@@ -13,25 +13,32 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService {
 
     private EmpDao empDao;
-
     public void setEmpDao(EmpDao empDao) {
         super.setBaseDao(empDao);
         this.empDao = empDao;
     }
+
+    //常量定义
+    public static final int HASHITERATIONS = 2;
+    public static final String DEFAULTPWD = "1";
+    public static final String USER = "user";
+    public static final String PWDERROR = "Pwd Error";
 
     /**
      * 新增用户时，初始化密码为用户名
      */
     @Override
     public void addDo(EmpDo empDo) {        //初始化密码设置为"1"
-        Md5Hash md5Hash = new Md5Hash("1", empDo.getUsername(), 2);      //TODO:此处对于密码的处理用到了MD5
+        //TODO:此处对于密码的处理用到了MD5
+        Md5Hash md5Hash = new Md5Hash(DEFAULTPWD, empDo.getUsername(), HASHITERATIONS);
         empDo.setPwd(md5Hash.toString());
         empDao.addDo(empDo);
     }
 
     @Override
     public EmpDo findByUsernameAndPwd(String username, String pwd) {
-        return empDao.findByUsernameAndPwd(username, new Md5Hash(pwd, username,2).toString());   //TODO:验证密码用到了MD5
+        //TODO:验证密码用到了MD5
+        return empDao.findByUsernameAndPwd(username, new Md5Hash(pwd, username,HASHITERATIONS).toString());
     }
 
     /**
@@ -40,7 +47,7 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
      */
     @Override
     public EmpDo getCurrentUser() {
-        EmpDo empDo = (EmpDo) ActionContext.getContext().getSession().get("user");
+        EmpDo empDo = (EmpDo) ActionContext.getContext().getSession().get(USER);
         if (null != empDo) {
             return empDo;
         }
@@ -57,12 +64,12 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
     public void updatePwd(Long uuid, String oldPwd, String newPwd) {
         EmpDo empDo = empDao.getDo(uuid);
         //旧密码比较
-        String md5 = new Md5Hash(oldPwd, empDo.getUsername(), 2).toString();
+        String md5 = new Md5Hash(oldPwd, empDo.getUsername(), HASHITERATIONS).toString();
         if (!empDo.getPwd().equals(md5)) {
-            throw new ErpException("原密码错误");        //TODO: 错误将被Action捕获，不会中断业务
+            throw new ErpException(PWDERROR);        //TODO: 错误将被Action捕获，不会中断业务
         }
 
-        Md5Hash md5Hash = new Md5Hash(newPwd, empDo.getUsername(), 2);
+        Md5Hash md5Hash = new Md5Hash(newPwd, empDo.getUsername(), HASHITERATIONS);
         empDo.setPwd(md5Hash.toString());       //TODO:这个地方用到了持久态
     }
 
@@ -73,6 +80,6 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
     @Override
     public void resetPwd(long id) {
         EmpDo empDo = empDao.getDo(id);
-        empDo.setPwd(new Md5Hash("1", empDo.getUsername(), 2).toString());
+        empDo.setPwd(new Md5Hash(DEFAULTPWD, empDo.getUsername(), HASHITERATIONS).toString());
     }
 }

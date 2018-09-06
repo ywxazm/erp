@@ -2,6 +2,7 @@ package com.ywx.erp.action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.common.WriteDate;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.service.EmpService;
@@ -17,10 +18,14 @@ public class LoginAction extends ActionSupport implements WriteDate{
         this.empService = empService;
     }
 
-    //用户名
-    private String username;
-    //密码
-    private String pwd;
+    //常量定义
+    private static final String USER = "user";
+    private static final String LOGINSUCCESS = "Login Sucess";
+    private static final String LOGINFAIL = "Login Fail";
+
+    //接收数据
+    private String username;    //用户名
+    private String pwd;         //密码
     public String getUsername() {
         return username;
     }
@@ -47,10 +52,10 @@ public class LoginAction extends ActionSupport implements WriteDate{
             EmpDo empDo = empService.findByUsernameAndPwd(username.trim(), pwd.trim());
 
             if (null != empDo) {
-                ActionContext.getContext().getSession().put("user", empDo);
-                write(ajaxReturn(true, "登录成功."));
+                ActionContext.getContext().getSession().put(USER, empDo);
+                write(ajaxReturn(BaseConstants.TRUE, LOGINSUCCESS));
             }else {
-                write(ajaxReturn(false, "登录失败."));
+                write(ajaxReturn(BaseConstants.FALSE, LOGINFAIL));
             }
         }catch (Exception ex){
             logger.error("operaObj is = {}, checkUser is error, msg = {}", this, ex.getMessage());
@@ -67,9 +72,9 @@ public class LoginAction extends ActionSupport implements WriteDate{
         try {
             EmpDo user = (EmpDo) ActionContext.getContext().getSession().get("user");
             if (null != user) {
-                write(ajaxReturn(true, user.getName()));
+                write(ajaxReturn(BaseConstants.TRUE, user.getName()));
             } else {
-                write(ajaxReturn(false, ""));
+                write(ajaxReturn(BaseConstants.FALSE, BaseConstants.NULLSTR));
             }
         }catch (Exception ex) {
             logger.error("operaObj is = {}, showName is error, msg = {}", this, ex.getMessage());
@@ -83,7 +88,7 @@ public class LoginAction extends ActionSupport implements WriteDate{
     public void loginOut() {
         logger.debug("operaObj is = {}, loginOut() doing", this);
         try {
-            ActionContext.getContext().getSession().remove("user");
+            ActionContext.getContext().getSession().remove(USER);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, loginOut is error, msg = {}", this, ex.getMessage());
         }

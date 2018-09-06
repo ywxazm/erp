@@ -1,7 +1,6 @@
 package com.ywx.erp.dao.impl;
 
 import com.ywx.erp.dao.SupplierDao;
-import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.entity.SupplierDo;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;

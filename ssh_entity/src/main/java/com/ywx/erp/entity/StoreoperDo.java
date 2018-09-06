@@ -1,6 +1,7 @@
 package com.ywx.erp.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.ywx.erp.common.BaseConstants;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,27 +12,24 @@ import java.util.Date;
  */
 public class StoreoperDo implements Serializable {
 
-	/**未入库 */
-	public static final String STATE_NOT_IN = "0";
-	/**已入库*/
-	public static final String STATE_IN = "1";
+	public static final String STATE_NOT_IN = "0";	//未入库
+	public static final String STATE_IN = "1";		//已入库
+	public static final String STATE_NOT_OUT = "0";	//未出库
+	public static final String STATE_OUT = "1";		//已出库
+	public static final String TYPE_IN = "1";		//入库
+	public static final String TYPE_0UT = "2";		//出库
 
-	/**未出库 */
-	public static final String STATE_NOT_OUT = "0";
-	/**已出库*/
-	public static final String STATE_OUT = "1";
-
-	private Long uuid;//编号
-	private Long empuuid;//操作员工编号
-	private String empname;//操作员工名称
-	@JSONField(format="yyyy-MM-dd HH:mm:ss")
-	private Date opertime;//操作日期
-	private Long storeuuid;//仓库编号
+	private Long uuid;		//编号
+	private Long empuuid;	//操作员工编号
+	private String empname;	//操作员工名称
+	@JSONField(format = BaseConstants.DATEFORMAT)
+	private Date opertime;	//操作日期
+	private Long storeuuid;	//仓库编号
 	private String storename;//仓库名称
-	private Long goodsuuid;//商品编号
+	private Long goodsuuid;	//商品编号
 	private String goodsname;//商品名称
-	private Long num;//数量
-	private String type;//1：入库 2：出库
+	private Long num;		//数量
+	private String type;	//1：入库 2：出库
 
 	public Long getUuid() {
 		return uuid;

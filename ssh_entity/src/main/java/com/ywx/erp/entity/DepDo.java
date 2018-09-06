@@ -4,12 +4,10 @@ import java.io.Serializable;
 
 public class DepDo implements Serializable {
 
-    //部门ID
-    private Long uuid;
-    //部门名称
-    private String name;
-    //部门电话
-    private String tele;
+
+    private Long uuid;      //部门ID
+    private String name;    //部门名称
+    private String tele;    //部门电话
 
     public Long getUuid() {
         return uuid;

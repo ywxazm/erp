@@ -7,22 +7,14 @@ import java.io.Serializable;
 * */
 public class GoodsDo implements Serializable{
 
-    //编号
-    private Long uuid;
-    //名称
-    private String name;
-    //产地
-    private String origin;
-    //厂家
-    private String producer;
-    //计量单位
-    private String unit;
-    //进货价格
-    private Double inprice;
-    //销售价格
-    private Double outprice;
-    //商品类型
-    private GoodstypeDo goodstypeDo;
+    private Long uuid;      //编号
+    private String name;    //名称
+    private String origin;  //产地
+    private String producer;    //厂家
+    private String unit;    //计量单位
+    private Double inprice; //进货价格
+    private Double outprice;    //销售价格
+    private GoodstypeDo goodstypeDo;    //商品类型
 
     public Long getUuid() {
         return uuid;

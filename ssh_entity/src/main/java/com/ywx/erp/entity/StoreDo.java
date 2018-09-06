@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 /**
  * 仓库实体类
- * @author Administrator *
  */
 public class StoreDo implements Serializable {
+
 	private Long uuid;//编号
 	private String name;//名称
 	private Long empuuid;//库管员工编号

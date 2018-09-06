@@ -5,12 +5,12 @@ import java.util.List;
 
 public class MenuDo implements Serializable {
 
-    private String menuid;
-    private String menuname;
-    private String icon;
-    private String url;
-    private String pid;
-    private List<MenuDo>menus;
+    private String menuid;      //菜单ID
+    private String menuname;    //菜单名称
+    private String icon;        //菜单图标
+    private String url;         //菜单链接
+    private String pid;         //菜单父ID
+    private List<MenuDo>menus;  //子菜单集合
 
     public String getMenuid() {
         return menuid;

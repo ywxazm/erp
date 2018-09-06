@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class GoodstypeDo implements Serializable{
 
-    private Long uuid;
-    private String name;
+    private Long uuid;      //商品类型ID
+    private String name;    //商品类型名称
 
     public Long getUuid() {
         return uuid;

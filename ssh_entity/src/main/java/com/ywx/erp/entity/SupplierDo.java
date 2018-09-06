@@ -3,13 +3,14 @@ package com.ywx.erp.entity;
 import java.io.Serializable;
 
 public class SupplierDo implements Serializable {
-    private Integer uuid;
-    private String name;
-    private String address;
-    private String contact;
-    private String tele;
-    private String email;
-    private Character type;
+
+    private Integer uuid;   //
+    private String name;    //名称
+    private String address; //地址
+    private String contact; //联系人
+    private String tele;    //电话
+    private String email;   //邮件
+    private Character type; //供应商、客户
 
     public Integer getUuid() {
         return uuid;

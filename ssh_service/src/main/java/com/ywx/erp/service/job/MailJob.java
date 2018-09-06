@@ -16,9 +16,13 @@ public class MailJob {
     }
 
     public void sendStoreWarnMail() {
-        logger.debug("operaObj is = {}, sendStoreWarnMail doing, currentTime = {}", this, System.currentTimeMillis());
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, sendStoreWarnMail doing", this);
         try {
             storeService.sendWarnStoreMail();
+
+            Long endTime = System.currentTimeMillis();
+            logger.error("operaObj is = {}, sendStoreWarnMail case time = {}", this, endTime - startTime);
         } catch (MessagingException e) {
             logger.error("operaObj is = {}, sendStoreWarnMail is error, msg = {}", this, e.getMessage());
         }

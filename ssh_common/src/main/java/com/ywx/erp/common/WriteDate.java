@@ -20,7 +20,7 @@ public interface WriteDate {
     default void write(String jsonString) {
         try {
             HttpServletResponse response = ServletActionContext.getResponse();
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType(BaseConstants.CONTENTTYPE_JSON);
             response.getWriter().print(jsonString);
         } catch (IOException e) {
             logger.error("operaObj is = {},  is write error, info = {}", this, e.getMessage());
@@ -31,12 +31,11 @@ public interface WriteDate {
      * 写结果数据到前台
      * @param success
      * @param msg
-     * @return
      */
     default String ajaxReturn(boolean success, String msg) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("success", success);
-        map.put("msg", msg);
+        map.put(BaseConstants.SUCCESS, success);
+        map.put(BaseConstants.MSG, msg);
         return JSONObject.toJSONString(map);
     }
 }

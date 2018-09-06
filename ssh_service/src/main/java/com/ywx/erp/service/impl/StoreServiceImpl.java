@@ -1,19 +1,14 @@
 package com.ywx.erp.service.impl;
 
 import com.ywx.erp.common.MailUtil;
-import com.ywx.erp.common.PIOUtil;
 import com.ywx.erp.dao.StoreDao;
 import com.ywx.erp.entity.StoreAlertDo;
 import com.ywx.erp.entity.StoreDo;
 import com.ywx.erp.service.StoreService;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 public class StoreServiceImpl extends BaseServiceImpl<StoreDo> implements StoreService {
@@ -30,6 +25,10 @@ public class StoreServiceImpl extends BaseServiceImpl<StoreDo> implements StoreS
         this.mailUtil = mailUtil;
     }
 
+    //常量定义
+    private static final String RECEIVEMAIL = "18824278018@139.com";
+    private static final String MAILSUBJECT = "库存报警";
+
     @Override
     public void sendWarnStoreMail() throws MessagingException {
         logger.debug("库存定时任务,检测库存,发送预警邮件");
@@ -44,7 +43,7 @@ public class StoreServiceImpl extends BaseServiceImpl<StoreDo> implements StoreS
                 msg.append("库存数量: ").append(storeAlertDo.getSdnum()).append(",      ");
                 msg.append("订单数量: ").append(storeAlertDo.getOdnum()).append("       ").append("\n");
             }
-            mailUtil.sendMail("18824278018@139.com", "库存报警", msg.toString());
+            mailUtil.sendMail(RECEIVEMAIL, MAILSUBJECT, msg.toString());
         }else{
             logger.debug("库存充足, 不发送库存预警邮件");
         }

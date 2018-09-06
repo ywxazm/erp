@@ -1,50 +1,29 @@
 package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.exception.ErpException;
 import com.ywx.erp.service.EmpService;
-import org.apache.shiro.crypto.hash.Md5Hash;
 
 import java.util.HashMap;
 
 public class EmpAction extends BaseAction<EmpDo> {
 
     private EmpService empService;
-
     public void setEmpService(EmpService empService) {
         super.setBaseService(empService);
         this.empService = empService;
     }
 
-    /**
-     * 根据ID去获取部门信息
-     */
-    @Override
-    public void getDo() {
-        logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
-        try {
-            EmpDo empDo = baseService.getDo(id);
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("t.uuid", empDo.getUuid());
-            map.put("t.username", empDo.getUsername());
-            map.put("t.pwd", empDo.getPwd());
-            map.put("t.name", empDo.getName());
-            map.put("t.gender", empDo.getGender());
-            map.put("t.email", empDo.getEmail());
-            map.put("t.tele", empDo.getTele());
-            map.put("t.address", empDo.getAddress());
-            //map.put("t.birthday", DateTranf.Date2String(empDo.getBirthday()));          //提交上来的，如果无法解析，可能导致找不到Action的错误
-            map.put("t.birthday", empDo.getBirthday());
-            map.put("t.depDo", empDo.getDepDo());
-            write(JSONObject.toJSONStringWithDateFormat(map, "yyyy-MM-dd HH:mm:ss"));       //TODO: 将日期按格式转换成字符串的方式
-        }catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
-        }
-    }
+    //常量定义
+    private static final String NOLOGIN = "no login";
+    private static final String UPDATEPWDSUCCESS = "update pwd success";
+    private static final String UPDATEPWDFAIL = "update pwd fail";
 
-    private String oldPwd;
-    private String newPwd;
+    //接收数据
+    private String oldPwd;  //旧密码
+    private String newPwd;  //新密码
     public String getOldPwd() {
         return oldPwd;
     }
@@ -57,6 +36,31 @@ public class EmpAction extends BaseAction<EmpDo> {
     public void setNewPwd(String newPwd) {
         this.newPwd = newPwd;
     }
+
+    @Override
+    public void getDo() {
+        logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
+        try {
+            EmpDo empDo = baseService.getDo(id);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put(BaseConstants.TUUID, empDo.getUuid());
+            map.put(BaseConstants.TUSERNAME, empDo.getUsername());
+            map.put(BaseConstants.TPWD, empDo.getPwd());
+            map.put(BaseConstants.TNAME, empDo.getName());
+            map.put(BaseConstants.TGENDER, empDo.getGender());
+            map.put(BaseConstants.TEMAIL, empDo.getEmail());
+            map.put(BaseConstants.TTELE, empDo.getTele());
+            map.put(BaseConstants.TADDERSS, empDo.getAddress());
+            //提交上来的，如果无法解析，可能导致找不到Action的错误
+            map.put(BaseConstants.TBIRTHDAY, empDo.getBirthday());
+            map.put(BaseConstants.TDEPDO, empDo.getDepDo());
+            //TODO: 将日期按格式转换成字符串的方式
+            write(JSONObject.toJSONStringWithDateFormat(map, BaseConstants.DATEFORMAT));
+        }catch (Exception ex) {
+            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+        }
+    }
+
     /**
      * 更新密码
      */
@@ -65,16 +69,16 @@ public class EmpAction extends BaseAction<EmpDo> {
         try {
             EmpDo empDo = empService.getCurrentUser();
             if (null == empDo) {
-                write(ajaxReturn(false, "用户未登录"));
+                write(ajaxReturn(BaseConstants.FALSE, NOLOGIN));
             }
             empService.updatePwd(empDo.getUuid(), oldPwd, newPwd);
-            write(ajaxReturn(true, "密码修改成功"));
+            write(ajaxReturn(BaseConstants.TRUE, UPDATEPWDSUCCESS));
         }catch (ErpException ex) {
             logger.error("operaObj is = {}, updatePwd is error, msg = {}", this, ex.getMessage());
-            write(ajaxReturn(true, ex.getMessage()));
+            write(ajaxReturn(BaseConstants.FALSE, ex.getMessage()));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, updatePwd is error, msg = {}", this, ex.getMessage());
-            write(ajaxReturn(true, "密码修改失败"));
+            write(ajaxReturn(BaseConstants.FALSE, UPDATEPWDFAIL));
         }
     }
 
@@ -85,10 +89,10 @@ public class EmpAction extends BaseAction<EmpDo> {
         logger.debug("operaObj is = {}, resetPwd doing, id = {}", this, id);
         try {
             empService.resetPwd(id);
-            write(ajaxReturn(true, "密码修改成功"));
+            write(ajaxReturn(BaseConstants.TRUE, UPDATEPWDSUCCESS));
         }catch (Exception ex) {
             logger.error("operaObj is = {}, resetPwd is error, msg = {}", this, ex.getMessage());
-            write(ajaxReturn(false, "密码修改失败"));
+            write(ajaxReturn(BaseConstants.FALSE, UPDATEPWDFAIL));
         }
     }
 }

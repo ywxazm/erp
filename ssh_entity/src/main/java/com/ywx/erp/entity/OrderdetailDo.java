@@ -7,34 +7,27 @@ import java.util.Date;
 
 /**
  * 订单明细实体类
- * @author Administrator *
  */
 public class OrderdetailDo implements Serializable {
 
-	/**未入库 */
-	public static final String STATE_NOT_IN = "0";
-	/**已入库*/
-	public static final String STATE_IN = "1";
-
-	/**未出库 */
-	public static final String STATE_NOT_OUT = "0";
-	/**已出库*/
-	public static final String STATE_OUT = "1";
+	public static final String STATE_NOT_IN = "0";	//未入库
+	public static final String STATE_IN = "1";		//已入库
+	public static final String STATE_NOT_OUT = "0";	//未出库
+	public static final String STATE_OUT = "1";		//已出库
 	
-	private Long uuid;//编号
-	private Long goodsuuid;//商品编号
-	private String goodsname;//商品名称
-	private Double price;//价格
-	private Long num;//数量
-	private Double money;//金额
+	private Long uuid;			//编号
+	private Long goodsuuid;		//商品编号
+	private String goodsname;	//商品名称
+	private Double price;		//价格
+	private Long num;			//数量
+	private Double money;		//金额
 	@JSONField(format="yyyy-MM-dd HH:mm:ss")
-	private Date endtime;//结束日期
-	private Long ender;//库管员
-	private Long storeuuid;//仓库编号
-	private String state;//采购：0=未入库，1=已入库  销售：0=未出库，1=已出库
-	/** 导到死循环 */
+	private Date endtime;		//结束日期
+	private Long ender;			//库管员
+	private Long storeuuid;		//仓库编号
+	private String state;		//采购：0=未入库，1=已入库  销售：0=未出库，1=已出库
 	@JSONField(serialize=false)
-	private OrdersDo ordersDo;//订单
+	private OrdersDo ordersDo;	//订单
 
 	public OrdersDo getOrdersDo() {
 		return ordersDo;
