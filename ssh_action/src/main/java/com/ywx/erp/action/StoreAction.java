@@ -3,17 +3,11 @@ package com.ywx.erp.action;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ywx.erp.common.BaseConstants;
-import com.ywx.erp.common.PIOConstants;
-import com.ywx.erp.common.PIOUtil;
-import com.ywx.erp.common.StringConstants;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.entity.StoreDo;
 import com.ywx.erp.service.EmpService;
 import com.ywx.erp.service.StoreService;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
