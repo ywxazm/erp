@@ -74,6 +74,8 @@ $(function(){
             //alert(JSON.stringify(rowData));
             //显示详情的属性, 并对详情窗口进行赋值
             $('#uuid').html(rowData.uuid);
+            //运单号
+            $('#waybillsn').html(rowData.waybillsn);
             $('#suppliername').html(rowData.supplierName);
             $('#state').html(getState(rowData.state));
             $('#creater').html(rowData.createrName);

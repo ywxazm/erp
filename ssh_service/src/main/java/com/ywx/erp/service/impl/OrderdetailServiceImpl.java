@@ -1,13 +1,12 @@
 package com.ywx.erp.service.impl;
 
+import com.redsum.bos.ws.impl.IWaybillWs;
 import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.dao.OrderdetailDao;
 import com.ywx.erp.dao.StoredetailDao;
 import com.ywx.erp.dao.StoreoperDao;
-import com.ywx.erp.entity.OrderdetailDo;
-import com.ywx.erp.entity.OrdersDo;
-import com.ywx.erp.entity.StoredetailDo;
-import com.ywx.erp.entity.StoreoperDo;
+import com.ywx.erp.dao.SupplierDao;
+import com.ywx.erp.entity.*;
 import com.ywx.erp.exception.ErpException;
 import com.ywx.erp.service.OrderdetailService;
 
@@ -20,6 +19,15 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
     private OrderdetailDao orderdetailDao;
     private StoreoperDao storeoperDao;
     private StoredetailDao storedetailDao;
+    private IWaybillWs waybillWs;
+    private SupplierDao supplierDao;
+    public void setWaybillWs(IWaybillWs waybillWs) {
+        this.waybillWs = waybillWs;
+    }
+    public void setSupplierDao(SupplierDao supplierDao) {
+        this.supplierDao = supplierDao;
+    }
+
     public void setStoreoperDao(StoreoperDao storeoperDao) {
         this.storeoperDao = storeoperDao;
     }
@@ -143,6 +151,9 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
             ordersDo.setEnder(empId);
             ordersDo.setEndtime(new Date());
             ordersDo.setState("1");
+            SupplierDo supplierDo = supplierDao.getDo(ordersDo.getSupplieruuid());
+            Long waybillSn = waybillWs.addWaybill(1l, supplierDo.getAddress(), supplierDo.getName(), supplierDo.getAddress(), "--");
+            ordersDo.setWaybillsn(waybillSn);
         }
     }
 }

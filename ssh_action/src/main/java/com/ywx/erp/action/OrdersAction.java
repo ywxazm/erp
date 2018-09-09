@@ -2,6 +2,8 @@ package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.redsum.bos.ws.Waybilldetail;
+import com.redsum.bos.ws.impl.IWaybillWs;
 import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.entity.OrderdetailDo;
@@ -18,6 +20,13 @@ public class OrdersAction extends BaseAction<OrdersDo> {
     private OrdersService ordersService;
     private EmpService empService;
     private SupplierService supplierService;
+    private IWaybillWs waybillWs;
+    public IWaybillWs getWaybillWs() {
+        return waybillWs;
+    }
+    public void setWaybillWs(IWaybillWs waybillWs) {
+        this.waybillWs = waybillWs;
+    }
     public void setEmpService(EmpService empService) {
         this.empService = empService;
     }
@@ -28,8 +37,8 @@ public class OrdersAction extends BaseAction<OrdersDo> {
         super.setBaseService(ordersService);
         this.ordersService = ordersService;
     }
-
     //定义常量
+
     private static final String MYORDERS = "myorders";
     private static final String NOLOGIN = "No Login";
     private static final String ORDERISNULL = "Orders Is Null";
@@ -37,10 +46,17 @@ public class OrdersAction extends BaseAction<OrdersDo> {
     private static final String CHECKFAIL = "Check Fail";
     private static final String DOSTARTSUCCESS = "DoStart Success";
     private static final String DOSTARTFAIL = "DoStart Fail";
-
     //接收数据
+
     private String oper;
     private String json;
+    private Long waybillSn; //运单号
+    public Long getWaybillSn() {
+        return waybillSn;
+    }
+    public void setWaybillSn(Long waybillSn) {
+        this.waybillSn = waybillSn;
+    }
     public String getJson() {
         return json;
     }
@@ -168,5 +184,13 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             logger.error("operaObj is = {}, doStart is error, info = {}", this, e.getMessage());
             logger.debug("operaObj is = {}, doStart() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
+    }
+
+    /**
+     * 查询运单详情
+     */
+    public void waybilldetailList() {
+        List<Waybilldetail> waybilldetails = waybillWs.waybilldetailList(waybillSn);
+        write(JSONObject.toJSONString(waybilldetails));
     }
 }

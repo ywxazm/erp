@@ -31,6 +31,8 @@
         <property name="orderdetailDao" ref="orderdetailDao"/>
         <property name="storedetailDao" ref="storedetailDao"/>
         <property name="storeoperDao" ref="storeoperDao"/>
+        <property name="waybillWs" ref="waybillWsClient"/>
+        <property name="supplierDao" ref="supplierDao"/>
     </bean>
     <bean id="storeService" class="com.ywx.erp.service.impl.StoreServiceImpl">
         <property name="storeDao" ref="storeDao"/>

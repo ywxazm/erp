@@ -31,6 +31,8 @@
             <td id="state"></td>
         </tr>
         <tr>
+            <td width="10%" class="bg">运单号</td>
+            <td width="15%" id="waybillSn"></td>
             <td width="10%" class="bg">下单员</td>
             <td width="15%" id="creater"></td>
             <td width="10%" class="bg">审核员</td>
@@ -88,5 +90,12 @@
     </form>
     <table id="ordersgrid"></table>
 </div>
+
+<!--运单详情-->
+<div id="waybillDlg" style="padding:2px;" class="easyui-dialog" data-options="
+		title:'运单详情',width:500,height:300,modal:true,closed:true	">
+    <table id="waybillgrid"></table>
+</div>
+
 </body>
 </html>

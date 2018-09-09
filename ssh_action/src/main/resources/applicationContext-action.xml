@@ -39,6 +39,7 @@
         <property name="ordersService" ref="ordersService"/>
         <property name="supplierService" ref="supplierService"/>
         <property name="empService" ref="empService"/>
+        <property name="waybillWs" ref="waybillWsClient"/>
     </bean>
 
     <bean id="orderdetailAction" class="com.ywx.erp.action.OrderdetailAction" scope="prototype">
