@@ -60,6 +60,7 @@ public class LoginAction extends ActionSupport implements WriteDate{
             }
         }catch (Exception ex){
             logger.error("operaObj is = {}, checkUser is error, msg = {}", this, ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

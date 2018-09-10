@@ -18,9 +18,9 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="exedate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="exetime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="info" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="sn" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *         &lt;element name="sn" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -41,9 +41,9 @@ public class Waybilldetail {
 
     protected String exedate;
     protected String exetime;
-    protected Long id;
+    protected Integer id;
     protected String info;
-    protected Long sn;
+    protected Integer sn;
 
     /**
      * 获取exedate属性的值。
@@ -98,10 +98,10 @@ public class Waybilldetail {
      * 
      * @return
      *     possible object is
-     *     {@link Long }
+     *     {@link Integer }
      *     
      */
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -110,10 +110,10 @@ public class Waybilldetail {
      * 
      * @param value
      *     allowed object is
-     *     {@link Long }
+     *     {@link Integer }
      *     
      */
-    public void setId(Long value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 
@@ -146,10 +146,10 @@ public class Waybilldetail {
      * 
      * @return
      *     possible object is
-     *     {@link Long }
+     *     {@link Integer }
      *     
      */
-    public Long getSn() {
+    public Integer getSn() {
         return sn;
     }
 
@@ -158,10 +158,10 @@ public class Waybilldetail {
      * 
      * @param value
      *     allowed object is
-     *     {@link Long }
+     *     {@link Integer }
      *     
      */
-    public void setSn(Long value) {
+    public void setSn(Integer value) {
         this.sn = value;
     }
 

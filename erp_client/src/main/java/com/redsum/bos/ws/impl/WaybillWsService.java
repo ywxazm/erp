@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "WaybillWsService", targetNamespace = "http://impl.ws.bos.redsum.com/", wsdlLocation = "http://localhost:8080/redsun_web-0.0.1-SNAPSHOT/ws/waybill?wsdl")
+@WebServiceClient(name = "WaybillWsService", targetNamespace = "http://impl.ws.bos.redsum.com/", wsdlLocation = "http://localhost:8080/redsun_web/ws/waybill?wsdl")
 public class WaybillWsService
     extends Service
 {
@@ -30,7 +30,7 @@ public class WaybillWsService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:8080/redsun_web-0.0.1-SNAPSHOT/ws/waybill?wsdl");
+            url = new URL("http://localhost:8080/redsun_web/ws/waybill?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

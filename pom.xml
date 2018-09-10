@@ -119,17 +119,17 @@
         </dependency>
 
         <!--ojdbc6-->
-        <!--<dependency>
+        <dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
-        </dependency>-->
+        </dependency>
         <!--mysql-connect-java-->
-        <dependency>
+        <!--<dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.12</version>
-        </dependency>
+        </dependency>-->
 
         <!--fastJson-->
         <dependency>
@@ -221,7 +221,7 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/</path>
-                    <port>8080</port>
+                    <port>8888</port>
                     <uriEncoding>UTF-8</uriEncoding>        <!--Tomcat对url解码是IOS-8859-1-->
                 </configuration>
             </plugin>

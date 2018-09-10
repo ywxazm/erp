@@ -151,8 +151,8 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
             ordersDo.setEndtime(new Date());
             ordersDo.setState("1");
             SupplierDo supplierDo = supplierDao.getDo(ordersDo.getSupplieruuid());
-            Long waybillSn = waybillWs.addWaybill(1L, supplierDo.getAddress(), supplierDo.getName(), supplierDo.getAddress(), "--");
-            ordersDo.setWaybillsn(Integer.parseInt(waybillSn.toString()));
+            int waybillSn = waybillWs.addWaybill(1, supplierDo.getAddress(), supplierDo.getName(), supplierDo.getAddress(), "--");
+            ordersDo.setWaybillsn(waybillSn);
         }
     }
 }

@@ -190,7 +190,7 @@ public class OrdersAction extends BaseAction<OrdersDo> {
      * 查询运单详情
      */
     public void waybilldetailList() {
-        List<Waybilldetail> waybilldetails = waybillWs.waybilldetailList(Long.valueOf(waybillSn));
+        List<Waybilldetail> waybilldetails = waybillWs.waybilldetailList(waybillSn);
         write(JSONObject.toJSONString(waybilldetails));
     }
 }

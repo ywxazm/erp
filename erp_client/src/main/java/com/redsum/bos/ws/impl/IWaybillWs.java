@@ -34,15 +34,15 @@ public interface IWaybillWs {
      * @param arg1
      * @param arg0
      * @return
-     *     returns java.lang.Long
+     *     returns java.lang.Integer
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "addWaybill", targetNamespace = "http://ws.bos.redsum.com/", className = "com.redsum.bos.ws.AddWaybill")
     @ResponseWrapper(localName = "addWaybillResponse", targetNamespace = "http://ws.bos.redsum.com/", className = "com.redsum.bos.ws.AddWaybillResponse")
-    public Long addWaybill(
+    public Integer addWaybill(
         @WebParam(name = "arg0", targetNamespace = "")
-        Long arg0,
+        int arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
@@ -64,6 +64,6 @@ public interface IWaybillWs {
     @ResponseWrapper(localName = "waybilldetailListResponse", targetNamespace = "http://ws.bos.redsum.com/", className = "com.redsum.bos.ws.WaybilldetailListResponse")
     public List<Waybilldetail> waybilldetailList(
         @WebParam(name = "arg0", targetNamespace = "")
-        Long arg0);
+        int arg0);
 
 }

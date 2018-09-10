@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class AddWaybill {
 
-    protected Long arg0;
+    protected int arg0;
     protected String arg1;
     protected String arg2;
     protected String arg3;
@@ -48,24 +48,16 @@ public class AddWaybill {
     /**
      * 获取arg0属性的值。
      * 
-     * @return
-     *     possible object is
-     *     {@link Long }
-     *     
      */
-    public Long getArg0() {
+    public int getArg0() {
         return arg0;
     }
 
     /**
      * 设置arg0属性的值。
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Long }
-     *     
      */
-    public void setArg0(Long value) {
+    public void setArg0(int value) {
         this.arg0 = value;
     }
 
