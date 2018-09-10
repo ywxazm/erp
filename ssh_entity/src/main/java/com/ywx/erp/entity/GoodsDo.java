@@ -7,7 +7,7 @@ import java.io.Serializable;
 * */
 public class GoodsDo implements Serializable{
 
-    private Long uuid;      //编号
+    private Integer uuid;      //编号
     private String name;    //名称
     private String origin;  //产地
     private String producer;    //厂家
@@ -16,11 +16,11 @@ public class GoodsDo implements Serializable{
     private Double outprice;    //销售价格
     private GoodstypeDo goodstypeDo;    //商品类型
 
-    public Long getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 
-    public void setUuid(Long uuid) {
+    public void setUuid(Integer uuid) {
         this.uuid = uuid;
     }
 

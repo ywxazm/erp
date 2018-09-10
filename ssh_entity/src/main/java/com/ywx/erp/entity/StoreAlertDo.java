@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class StoreAlertDo implements Serializable {
 
-    private Long guuid;     //商品ID
+    private Integer guuid;     //商品ID
     private String gname;   //商品名称
     private String sname;   //仓库名称
-    private Long sdnum;     //库存数量
-    private Long odnum;     //订单需求数量
+    private Integer sdnum;     //库存数量
+    private Integer odnum;     //订单需求数量
 
-    public Long getGuuid() {
+    public Integer getGuuid() {
         return guuid;
     }
 
-    public void setGuuid(Long guuid) {
+    public void setGuuid(Integer guuid) {
         this.guuid = guuid;
     }
 
@@ -34,19 +34,19 @@ public class StoreAlertDo implements Serializable {
         this.sname = sname;
     }
 
-    public Long getSdnum() {
+    public Integer getSdnum() {
         return sdnum;
     }
 
-    public void setSdnum(Long sdnum) {
+    public void setSdnum(Integer sdnum) {
         this.sdnum = sdnum;
     }
 
-    public Long getOdnum() {
+    public Integer getOdnum() {
         return odnum;
     }
 
-    public void setOdnum(Long odnum) {
+    public void setOdnum(Integer odnum) {
         this.odnum = odnum;
     }
 

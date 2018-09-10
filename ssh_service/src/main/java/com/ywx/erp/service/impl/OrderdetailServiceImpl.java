@@ -46,7 +46,7 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
     private static final String ORDERSINVENTORYOUTSTORE = "Orders Inventory Out Store";        //订单已出库
 
     @Override
-    public void doInStore(long uuid, long storeId, long empId) {
+    public void doInStore(int uuid, int storeId, int empId) {
         //更新商品明细
         OrderdetailDo orderdetailDo = orderdetailDao.getDo(uuid);
         if (OrderdetailDo.STATE_IN.equals(orderdetailDo.getState())) {
@@ -99,7 +99,7 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
      * @param empId   用户ID
      */
     @Override
-    public void doOutStore(long uuid, long storeId, long empId) {
+    public void doOutStore(int uuid, int storeId, int empId) {
         //判断此商品是否已经出库
         OrderdetailDo orderdetailDo = getDo(uuid);
         if ("1".equals(orderdetailDo.getState())) {
@@ -112,10 +112,9 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         storedetailDo.setGoodsuuid(orderdetailDo.getGoodsuuid());
         List<StoredetailDo> list = storedetailDao.list(storedetailDo, null, null);
 
-        Long num = -1L;
         if (null != list && list.size() > 0) {
             StoredetailDo sdd = list.get(0);
-            num = sdd.getNum() - orderdetailDo.getNum();
+            int num = sdd.getNum() - orderdetailDo.getNum();
             if (num > 0) {
                 sdd.setNum(num);      //更新仓库明细表
             }else {
@@ -152,8 +151,8 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
             ordersDo.setEndtime(new Date());
             ordersDo.setState("1");
             SupplierDo supplierDo = supplierDao.getDo(ordersDo.getSupplieruuid());
-            Long waybillSn = waybillWs.addWaybill(1l, supplierDo.getAddress(), supplierDo.getName(), supplierDo.getAddress(), "--");
-            ordersDo.setWaybillsn(waybillSn);
+            Long waybillSn = waybillWs.addWaybill(1L, supplierDo.getAddress(), supplierDo.getName(), supplierDo.getAddress(), "--");
+            ordersDo.setWaybillsn(Integer.parseInt(waybillSn.toString()));
         }
     }
 }

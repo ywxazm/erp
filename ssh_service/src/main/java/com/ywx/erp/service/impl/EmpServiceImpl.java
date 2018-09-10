@@ -1,11 +1,19 @@
 package com.ywx.erp.service.impl;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.dao.EmpDao;
+import com.ywx.erp.dao.RoleDao;
 import com.ywx.erp.entity.EmpDo;
+import com.ywx.erp.entity.RoleDo;
 import com.ywx.erp.exception.ErpException;
 import com.ywx.erp.service.EmpService;
+import com.ywx.erp.vo.TreeVo;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import sun.reflect.generics.tree.Tree;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 1.在添加用户，查询用户，更改密码，重置密码的功能上，都会对提交的密码进行加密处理，且处理方式应该一致
@@ -13,6 +21,10 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService {
 
     private EmpDao empDao;
+    private RoleDao roleDao;
+    public void setRoleDao(RoleDao roleDao) {
+        this.roleDao = roleDao;
+    }
     public void setEmpDao(EmpDao empDao) {
         super.setBaseDao(empDao);
         this.empDao = empDao;
@@ -61,7 +73,7 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
      * @param newPwd
      */
     @Override
-    public void updatePwd(Long uuid, String oldPwd, String newPwd) {
+    public void updatePwd(int uuid, String oldPwd, String newPwd) {
         EmpDo empDo = empDao.getDo(uuid);
         //旧密码比较
         String md5 = new Md5Hash(oldPwd, empDo.getUsername(), HASHITERATIONS).toString();
@@ -78,8 +90,38 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
      * @param id
      */
     @Override
-    public void resetPwd(long id) {
+    public void resetPwd(int id) {
         EmpDo empDo = empDao.getDo(id);
         empDo.setPwd(new Md5Hash(DEFAULTPWD, empDo.getUsername(), HASHITERATIONS).toString());
+    }
+
+    @Override
+    public List<TreeVo> readEmpRoles(int id) {
+        List<TreeVo> rstList = new ArrayList<>();
+        EmpDo empDo = empDao.getDo(id);
+        List<RoleDo> empRoles = empDo.getRoleDoList();
+        List<RoleDo> allRoles = roleDao.list(null, null, null);
+        for (RoleDo roleDo : allRoles) {
+            TreeVo t1 = new TreeVo();
+            t1.setId(roleDo.getUuid());
+            t1.setText(roleDo.getName());
+            if (empRoles.contains(roleDo)) {
+                t1.setChecked(true);
+            }
+            rstList.add(t1);
+        }
+        return rstList;
+    }
+
+    @Override
+    public void updateEmpRoles(int id, String checkedStr) {
+        EmpDo empDo = empDao.getDo(id);
+        String[] roleIds = checkedStr.split(BaseConstants.DOUHAOSTR);
+        List<RoleDo> roleList = new ArrayList<>();
+        for (String s : roleIds) {
+            RoleDo roleDo = roleDao.getDo(Integer.parseInt(s));
+            roleList.add(roleDo);
+        }
+        empDo.setRoleDoList(roleList);
     }
 }

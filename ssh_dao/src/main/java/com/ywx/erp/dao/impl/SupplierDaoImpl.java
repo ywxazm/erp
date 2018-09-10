@@ -42,7 +42,7 @@ public class SupplierDaoImpl extends BaseDaoImpl<SupplierDo> implements Supplier
     }
 
     @Override
-    public SupplierDo getDo(long id) {
-        return this.getHibernateTemplate().load(SupplierDo.class, (int)id);         //强转有风险
+    public SupplierDo getDo(int id) {
+        return this.getHibernateTemplate().load(SupplierDo.class, id);
     }
 }

@@ -46,17 +46,12 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
-    public void delDo(long id) {
+    public void delDo(int id) {
         baseDao.delDo(id);
     }
 
     @Override
-    public T getDo(long id) {
-        return baseDao.getDo(id);
-    }
-
-    @Override
-    public T getDo(String id) {
+    public T getDo(int id) {
         return baseDao.getDo(id);
     }
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class SupplierDo implements Serializable {
 
-    private Integer uuid;   //
+    private Integer uuid;   //ID
     private String name;    //名称
     private String address; //地址
     private String contact; //联系人

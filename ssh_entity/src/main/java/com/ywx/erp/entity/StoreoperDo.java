@@ -19,31 +19,31 @@ public class StoreoperDo implements Serializable {
 	public static final String TYPE_IN = "1";		//入库
 	public static final String TYPE_0UT = "2";		//出库
 
-	private Long uuid;		//编号
-	private Long empuuid;	//操作员工编号
+	private Integer uuid;		//编号
+	private Integer empuuid;	//操作员工编号
 	private String empname;	//操作员工名称
 	@JSONField(format = BaseConstants.DATEFORMAT)
 	private Date opertime;	//操作日期
-	private Long storeuuid;	//仓库编号
+	private Integer storeuuid;	//仓库编号
 	private String storename;//仓库名称
-	private Long goodsuuid;	//商品编号
+	private Integer goodsuuid;	//商品编号
 	private String goodsname;//商品名称
-	private Long num;		//数量
+	private Integer num;		//数量
 	private String type;	//1：入库 2：出库
 
-	public Long getUuid() {
+	public Integer getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(Long uuid) {
+	public void setUuid(Integer uuid) {
 		this.uuid = uuid;
 	}
 
-	public Long getEmpuuid() {
+	public Integer getEmpuuid() {
 		return empuuid;
 	}
 
-	public void setEmpuuid(Long empuuid) {
+	public void setEmpuuid(Integer empuuid) {
 		this.empuuid = empuuid;
 	}
 
@@ -63,11 +63,11 @@ public class StoreoperDo implements Serializable {
 		this.opertime = opertime;
 	}
 
-	public Long getStoreuuid() {
+	public Integer getStoreuuid() {
 		return storeuuid;
 	}
 
-	public void setStoreuuid(Long storeuuid) {
+	public void setStoreuuid(Integer storeuuid) {
 		this.storeuuid = storeuuid;
 	}
 
@@ -79,11 +79,11 @@ public class StoreoperDo implements Serializable {
 		this.storename = storename;
 	}
 
-	public Long getGoodsuuid() {
+	public Integer getGoodsuuid() {
 		return goodsuuid;
 	}
 
-	public void setGoodsuuid(Long goodsuuid) {
+	public void setGoodsuuid(Integer goodsuuid) {
 		this.goodsuuid = goodsuuid;
 	}
 
@@ -95,11 +95,11 @@ public class StoreoperDo implements Serializable {
 		this.goodsname = goodsname;
 	}
 
-	public Long getNum() {
+	public Integer getNum() {
 		return num;
 	}
 
-	public void setNum(Long num) {
+	public void setNum(Integer num) {
 		this.num = num;
 	}
 

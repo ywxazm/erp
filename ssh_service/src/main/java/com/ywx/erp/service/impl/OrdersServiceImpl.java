@@ -39,7 +39,7 @@ public class OrdersServiceImpl extends BaseServiceImpl<OrdersDo> implements Orde
     }
 
     @Override
-    public void doCheck(long id, long empDoId) {
+    public void doCheck(int id, int empDoId) {
         OrdersDo ordersDo = ordersDao.getDo(id);
         ordersDo.setState(OrdersDo.STATE_CHECK);
         ordersDo.setChecker(empDoId);
@@ -47,7 +47,7 @@ public class OrdersServiceImpl extends BaseServiceImpl<OrdersDo> implements Orde
     }
 
     @Override
-    public void doStart(long id, long empDoId) {
+    public void doStart(int id, int empDoId) {
         OrdersDo ordersDo = ordersDao.getDo(id);
         ordersDo.setState(OrdersDo.STATE_START);
         ordersDo.setStarter(empDoId);

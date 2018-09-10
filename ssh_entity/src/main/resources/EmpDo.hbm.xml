@@ -4,18 +4,24 @@
 
 <hibernate-mapping>
     <class name="com.ywx.erp.entity.EmpDo" table="emp">
-        <id name="uuid" type="java.lang.Long">
+        <id name="uuid" type="java.lang.Integer">
             <generator class="increment" />
         </id>
         <property name="username" type="java.lang.String"/>
         <property name="pwd" type="java.lang.String"/>
         <property name="name" type="java.lang.String"/>
-        <property name="gender" type="java.lang.Long"/>
+        <property name="gender" type="java.lang.Integer"/>
         <property name="email" type="java.lang.String"/>
         <property name="tele" type="java.lang.String"/>
         <property name="address" type="java.lang.String"/>
         <property name="birthday" type="java.util.Date"/>
 
         <many-to-one name="depDo" class="com.ywx.erp.entity.DepDo" column="depuuid" />
+
+        <bag name="roleDoList" table="emp_role" order-by="roleuuid">
+            <key column="empuuid" />
+            <many-to-many class="com.ywx.erp.entity.RoleDo" column="roleuuid" />
+        </bag>
+
     </class>
 </hibernate-mapping>

@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class GoodstypeDo implements Serializable{
 
-    private Long uuid;      //商品类型ID
+    private Integer uuid;      //商品类型ID
     private String name;    //商品类型名称
 
-    public Long getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 
-    public void setUuid(Long uuid) {
+    public void setUuid(Integer uuid) {
         this.uuid = uuid;
     }
 

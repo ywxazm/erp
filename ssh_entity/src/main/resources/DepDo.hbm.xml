@@ -4,10 +4,11 @@
 
 <hibernate-mapping>
     <class name="com.ywx.erp.entity.DepDo" table="Dep">
-        <id name="uuid" type="java.lang.Long">
+        <id name="uuid" type="java.lang.Integer">
             <generator class="increment" />
         </id>
         <property name="name" type="java.lang.String"/>
         <property name="tele" type="java.lang.String"/>
+        
     </class>
 </hibernate-mapping>

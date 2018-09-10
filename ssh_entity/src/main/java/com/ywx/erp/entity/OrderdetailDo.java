@@ -15,83 +15,108 @@ public class OrderdetailDo implements Serializable {
 	public static final String STATE_NOT_OUT = "0";	//未出库
 	public static final String STATE_OUT = "1";		//已出库
 	
-	private Long uuid;			//编号
-	private Long goodsuuid;		//商品编号
+	private Integer uuid;			//编号
+	private Integer goodsuuid;		//商品编号
 	private String goodsname;	//商品名称
 	private Double price;		//价格
-	private Long num;			//数量
+	private Integer num;			//数量
 	private Double money;		//金额
 	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	private Date endtime;		//结束日期
-	private Long ender;			//库管员
-	private Long storeuuid;		//仓库编号
+	private Integer ender;			//库管员
+	private Integer storeuuid;		//仓库编号
 	private String state;		//采购：0=未入库，1=已入库  销售：0=未出库，1=已出库
 	@JSONField(serialize=false)
 	private OrdersDo ordersDo;	//订单
 
-	public OrdersDo getOrdersDo() {
-		return ordersDo;
-	}
-	public void setOrdersDo(OrdersDo ordersDo) {
-		this.ordersDo = ordersDo;
-	}
-	public Long getUuid() {
+	public Integer getUuid() {
 		return uuid;
 	}
-	public void setUuid(Long uuid) {
+
+	public void setUuid(Integer uuid) {
 		this.uuid = uuid;
 	}
-	public Long getGoodsuuid() {		
+
+	public Integer getGoodsuuid() {
 		return goodsuuid;
 	}
-	public void setGoodsuuid(Long goodsuuid) {
+
+	public void setGoodsuuid(Integer goodsuuid) {
 		this.goodsuuid = goodsuuid;
 	}
-	public String getGoodsname() {		
+
+	public String getGoodsname() {
 		return goodsname;
 	}
+
 	public void setGoodsname(String goodsname) {
 		this.goodsname = goodsname;
 	}
-	public Double getPrice() {		
+
+	public Double getPrice() {
 		return price;
 	}
+
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public Long getNum() {		
+
+	public Integer getNum() {
 		return num;
 	}
-	public void setNum(Long num) {
+
+	public void setNum(Integer num) {
 		this.num = num;
 	}
-	public Double getMoney() {		
+
+	public Double getMoney() {
 		return money;
 	}
+
 	public void setMoney(Double money) {
 		this.money = money;
 	}
-	public java.util.Date getEndtime() {		
+
+	public Date getEndtime() {
 		return endtime;
 	}
-	public void setEndtime(java.util.Date endtime) {
+
+	public void setEndtime(Date endtime) {
 		this.endtime = endtime;
 	}
-	public Long getEnder() {		
+
+	public Integer getEnder() {
 		return ender;
 	}
-	public void setEnder(Long ender) {
+
+	public void setEnder(Integer ender) {
 		this.ender = ender;
 	}
-	public Long getStoreuuid() {		
+
+	public Integer getStoreuuid() {
 		return storeuuid;
 	}
-	public void setStoreuuid(Long storeuuid) {
+
+	public void setStoreuuid(Integer storeuuid) {
 		this.storeuuid = storeuuid;
 	}
+
+	public String getState() {
+		return state;
+	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
+	public OrdersDo getOrdersDo() {
+		return ordersDo;
+	}
+
+	public void setOrdersDo(OrdersDo ordersDo) {
+		this.ordersDo = ordersDo;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -143,9 +168,5 @@ public class OrderdetailDo implements Serializable {
 				", state='" + state + '\'' +
 				", ordersDo=" + ordersDo +
 				'}';
-	}
-
-	public String getState() {
-		return state;
 	}
 }

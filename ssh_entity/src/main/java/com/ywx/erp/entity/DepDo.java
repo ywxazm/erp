@@ -4,16 +4,15 @@ import java.io.Serializable;
 
 public class DepDo implements Serializable {
 
-
-    private Long uuid;      //部门ID
+    private Integer uuid;      //部门ID
     private String name;    //部门名称
     private String tele;    //部门电话
 
-    public Long getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 
-    public void setUuid(Long uuid) {
+    public void setUuid(Integer uuid) {
         this.uuid = uuid;
     }
 
@@ -40,16 +39,16 @@ public class DepDo implements Serializable {
 
         DepDo depDo = (DepDo) o;
 
-        if (!uuid.equals(depDo.uuid)) return false;
-        if (!name.equals(depDo.name)) return false;
-        return tele.equals(depDo.tele);
+        if (uuid != null ? !uuid.equals(depDo.uuid) : depDo.uuid != null) return false;
+        if (name != null ? !name.equals(depDo.name) : depDo.name != null) return false;
+        return tele != null ? tele.equals(depDo.tele) : depDo.tele == null;
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + tele.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (tele != null ? tele.hashCode() : 0);
         return result;
     }
 

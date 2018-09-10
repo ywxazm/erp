@@ -146,7 +146,7 @@ public class PIOUtil implements Serializable {
     public static Object processParamType(Method method, String columValue) {
         Class<?>[] parameterTypes = method.getParameterTypes();
         Class<?> parameterType = parameterTypes[0];
-        System.out.println(parameterType.getTypeName());
+        //System.out.println(parameterType.getTypeName());
 
         String typeName = parameterType.getTypeName();
         if ("java.lang.String".equals(typeName)) {

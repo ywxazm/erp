@@ -50,11 +50,11 @@ public class OrdersAction extends BaseAction<OrdersDo> {
 
     private String oper;
     private String json;
-    private Long waybillSn; //运单号
-    public Long getWaybillSn() {
+    private Integer waybillSn; //运单号
+    public Integer getWaybillSn() {
         return waybillSn;
     }
-    public void setWaybillSn(Long waybillSn) {
+    public void setWaybillSn(Integer waybillSn) {
         this.waybillSn = waybillSn;
     }
     public String getJson() {
@@ -106,12 +106,12 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
-    private String getSupplierName(Long id) {
+    private String getSupplierName(Integer id) {
         if (null == id)
             return null;
         return supplierService.getDo(id).getName();
     }
-    private String getEmpName(Long id) {
+    private String getEmpName(Integer id) {
         if (null == id)
             return null;
         return empService.getDo(id).getName();
@@ -190,7 +190,7 @@ public class OrdersAction extends BaseAction<OrdersDo> {
      * 查询运单详情
      */
     public void waybilldetailList() {
-        List<Waybilldetail> waybilldetails = waybillWs.waybilldetailList(waybillSn);
+        List<Waybilldetail> waybilldetails = waybillWs.waybilldetailList(Long.valueOf(waybillSn));
         write(JSONObject.toJSONString(waybilldetails));
     }
 }

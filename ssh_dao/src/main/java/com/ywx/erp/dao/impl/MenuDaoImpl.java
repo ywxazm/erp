@@ -23,17 +23,17 @@ public class MenuDaoImpl extends BaseDaoImpl<MenuDo> implements MenuDao {
             if (!StringUtils.isEmpty(t1.getUrl())) {
                 dc.add(Restrictions.like("url", t1.getUrl(), MatchMode.ANYWHERE));
             }
-            if (!StringUtils.isEmpty(t1.getPid())) {
-                dc.add(Restrictions.like("pid", t1.getPid(), MatchMode.ANYWHERE));
+            if (null != t1.getPid()) {
+                dc.add(Restrictions.eq("pid", t1.getPid()));
             }
         }
         return dc;
     }
 
     @Override
-    public void delDo(long id) {
+    public void delDo(int id) {
         HibernateTemplate hibernateTemplate = this.getHibernateTemplate();
-        MenuDo menuDo = hibernateTemplate.get(MenuDo.class, Long.valueOf(id).toString());       //id：数据库是string, 如果这里写成Long, hibernate是不会自动转化的
+        MenuDo menuDo = hibernateTemplate.get(MenuDo.class, Integer.valueOf(id).toString());       //id：数据库是string, 如果这里写成Long, hibernate是不会自动转化的
         hibernateTemplate.delete(menuDo);
     }
 

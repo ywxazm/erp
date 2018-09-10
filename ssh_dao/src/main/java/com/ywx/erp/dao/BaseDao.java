@@ -12,11 +12,9 @@ public interface BaseDao<T> {
 
     void addDo(T t);
 
-    void delDo(long id);
+    void delDo(int id);
 
-    T getDo(long id);
-
-    T getDo(String id);
+    T getDo(int id);
 
     void updateDo(T t);
 

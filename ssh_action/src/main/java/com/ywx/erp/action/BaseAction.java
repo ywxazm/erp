@@ -27,26 +27,26 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     }
 
     //常量定义
-    protected static final String ROWS = "rows";
-    protected static final String TOTAL = "total";
-    private static final String USER = "user";
-    protected static final String ADDSUCCESS= "ADD SUCCESS";
-    protected static final String ADDFAIL = "ADD FAIL";
-    private static final String UPDATASUCCESS = "UPDATA SUCCESS";
-    private static final String UPDATAFAIL = "UPDATA FAIL";
-    private static final String DELSUCCESS = "DEL SUCCESS";
-    private static final String DELFAIL = "DEL FAIL";
-    private static final String UPLOADSUCCESS = "UPLOAD SUCCESS";
-    private static final String UPLOADFAIL = "UPLOAD FAIL";
-    private static final String UPLOADMSG = "UPLOAD FILE MUST TYPE IS .xls";
+        protected static final String ROWS = "rows";
+        protected static final String TOTAL = "total";
+        private static final String USER = "user";
+        protected static final String ADDSUCCESS= "ADD SUCCESS";
+        protected static final String ADDFAIL = "ADD FAIL";
+        private static final String UPDATASUCCESS = "UPDATA SUCCESS";
+        private static final String UPDATAFAIL = "UPDATA FAIL";
+        private static final String DELSUCCESS = "DEL SUCCESS";
+        private static final String DELFAIL = "DEL FAIL";
+        private static final String UPLOADSUCCESS = "UPLOAD SUCCESS";
+        private static final String UPLOADFAIL = "UPLOAD FAIL";
+        private static final String UPLOADMSG = "UPLOAD FILE MUST TYPE IS .xls";
 
-    //接收数据
-    protected T t;
-    protected T tt;
-    protected Object obj;
-    protected Long id;
-    protected int page;     //第几页
-    protected int rows;     //每页显示条目数
+        //接收数据
+        protected T t;
+        protected T tt;
+        protected Object obj;
+        protected Integer id;
+        protected int page;     //第几页
+        protected int rows;     //每页显示条目数
     public int getPage() {
         return page;
     }
@@ -77,10 +77,10 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     public void setObj(Object obj) {
         this.obj = obj;
     }
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

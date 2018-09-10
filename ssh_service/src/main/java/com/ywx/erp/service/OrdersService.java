@@ -6,7 +6,7 @@ public interface OrdersService extends BaseService<OrdersDo> {
 
     void addDo(OrdersDo ordersDo);
 
-    void doCheck(long id, long empDoId);
+    void doCheck(int id, int empDoId);
 
-    void doStart(long id, long empDoId);
+    void doStart(int id, int empDoId);
 }

@@ -3,7 +3,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.ywx.erp.entity.GoodsDo" table="goods">
-        <id name="uuid" type="java.lang.Long">
+        <id name="uuid" type="java.lang.Integer">
             <generator class="increment" />
         </id>
         <property name="name" type="java.lang.String"/>

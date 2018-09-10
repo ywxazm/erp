@@ -22,11 +22,11 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
     private static final String DOINSTOREFAIL = "DoInStore Fail";
 
     //接收数据
-    private Long storeuuid;     //仓库ID
-    public Long getStoreuuid() {
+    private Integer storeuuid;     //仓库ID
+    public Integer getStoreuuid() {
         return storeuuid;
     }
-    public void setStoreuuid(Long storeuuid) {
+    public void setStoreuuid(Integer storeuuid) {
         this.storeuuid = storeuuid;
     }
 

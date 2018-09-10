@@ -5,8 +5,10 @@ import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.exception.ErpException;
 import com.ywx.erp.service.EmpService;
+import com.ywx.erp.vo.TreeVo;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class EmpAction extends BaseAction<EmpDo> {
 
@@ -24,6 +26,13 @@ public class EmpAction extends BaseAction<EmpDo> {
     //接收数据
     private String oldPwd;  //旧密码
     private String newPwd;  //新密码
+    private String checkedStr; //角色ID
+    public String getCheckedStr() {
+        return checkedStr;
+    }
+    public void setCheckedStr(String checkedStr) {
+        this.checkedStr = checkedStr;
+    }
     public String getOldPwd() {
         return oldPwd;
     }
@@ -98,4 +107,44 @@ public class EmpAction extends BaseAction<EmpDo> {
             write(ajaxReturn(BaseConstants.FALSE, UPDATEPWDFAIL));
         }
     }
+
+    /**
+     * 读取角色
+     */
+    public void readEmpRoles() {
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, readEmpRoles doing, id = {}", this, id);
+        try {
+            List<TreeVo> treeVoList = empService.readEmpRoles(id);
+            write(JSONObject.toJSONString(treeVoList));
+
+            Long endTime = System.currentTimeMillis();
+            logger.debug("operaObj is = {}, readEmpRoles done, cast time = {}", this, endTime - startTime);
+        }catch (Exception ex) {
+            Long endTime = System.currentTimeMillis();
+            logger.error("operaObj is = {}, readEmpRoles is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, readEmpRoles done, cast time = {}", this, endTime - startTime);
+        }
+    }
+
+    /**
+     * 更新角色
+     */
+    public void updateEmpRoles() {
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, readEmpRoles doing, id = {}", this, id);
+        try {
+            empService.updateEmpRoles(id, checkedStr);
+            write(ajaxReturn(true, "更新成功"));
+            Long endTime = System.currentTimeMillis();
+            logger.debug("operaObj is = {}, updateEmpRoles done, cast time = {}", this, endTime - startTime);
+        }catch (Exception ex) {
+            write(ajaxReturn(true, "更新失败"));
+            Long endTime = System.currentTimeMillis();
+            logger.error("operaObj is = {}, updateEmpRoles is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, updateEmpRoles done, cast time = {}", this, endTime - startTime);
+        }
+    }
+
+
 }

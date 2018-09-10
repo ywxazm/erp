@@ -11,6 +11,7 @@
     </bean>
     <bean id="empService" class="com.ywx.erp.service.impl.EmpServiceImpl">
         <property name="empDao" ref="empDao"/>
+        <property name="roleDao" ref="roleDao"/>
     </bean>
     <bean id="goodsService" class="com.ywx.erp.service.impl.GoodsServiceImpl">
         <property name="goodsDao" ref="goodsDao"/>
@@ -46,5 +47,9 @@
     </bean>
     <bean id="reportService" class="com.ywx.erp.service.impl.ReportServiceImpl">
         <property name="reportDao" ref="reportDao"/>
+    </bean>
+    <bean id="roleService" class="com.ywx.erp.service.impl.RoleServiceImpl">
+        <property name="roleDao" ref="roleDao"/>
+        <property name="menuDao" ref="menuDao"/>
     </bean>
 </beans>

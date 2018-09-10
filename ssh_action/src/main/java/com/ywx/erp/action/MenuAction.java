@@ -16,11 +16,11 @@ public class MenuAction extends BaseAction<MenuDo> {
     }
 
     //接收数据
-    private String menuId;      //父类ID
-    public String getMenuId() {
+    private Integer menuId;      //父类ID
+    public Integer getMenuId() {
         return menuId;
     }
-    public void setMenuId(String menuId) {
+    public void setMenuId(Integer menuId) {
         this.menuId = menuId;
     }
 
@@ -29,7 +29,7 @@ public class MenuAction extends BaseAction<MenuDo> {
         Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getDo() doing, uuid = {}", this, id);
         try {
-            MenuDo menuDo = menuService.getDo(id.toString());
+            MenuDo menuDo = menuService.getDo(id);
             HashMap<String, Object> map = new HashMap<>();
             map.put(BaseConstants.TICON, menuDo.getIcon());
             map.put(BaseConstants.TMENUID, menuDo.getMenuid());

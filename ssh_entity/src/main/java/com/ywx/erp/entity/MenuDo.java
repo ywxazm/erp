@@ -5,18 +5,18 @@ import java.util.List;
 
 public class MenuDo implements Serializable {
 
-    private String menuid;      //菜单ID
+    private Integer menuid;      //菜单ID
     private String menuname;    //菜单名称
     private String icon;        //菜单图标
     private String url;         //菜单链接
-    private String pid;         //菜单父ID
+    private Integer pid;         //菜单父ID
     private List<MenuDo>menus;  //子菜单集合
 
-    public String getMenuid() {
+    public Integer getMenuid() {
         return menuid;
     }
 
-    public void setMenuid(String menuid) {
+    public void setMenuid(Integer menuid) {
         this.menuid = menuid;
     }
 
@@ -44,11 +44,11 @@ public class MenuDo implements Serializable {
         this.url = url;
     }
 
-    public String getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(String pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
@@ -89,11 +89,11 @@ public class MenuDo implements Serializable {
     @Override
     public String toString() {
         return "MenuDo{" +
-                "menuid='" + menuid + '\'' +
+                "menuid=" + menuid +
                 ", menuname='" + menuname + '\'' +
                 ", icon='" + icon + '\'' +
                 ", url='" + url + '\'' +
-                ", pid='" + pid + '\'' +
+                ", pid=" + pid +
                 ", menus=" + menus +
                 '}';
     }

@@ -50,8 +50,7 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
     @Override
     public List<T> listByPage(T t1, T t2, Object obj, int firstIndex, int rows) {
         DetachedCriteria dc = getDetachedCriteria(t1, t2, obj);
-        List<T> list = (List<T>) this.getHibernateTemplate().findByCriteria(dc, firstIndex, rows);
-        return list;
+        return (List<T>) this.getHibernateTemplate().findByCriteria(dc, firstIndex, rows);
     }
 
     /**
@@ -90,7 +89,7 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
      * @param id
      */
     @Override
-    public void delDo(long id) {
+    public void delDo(int id) {
         T t = getDo(id);
         this.getHibernateTemplate().delete(t);
     }
@@ -101,17 +100,8 @@ public abstract class BaseDaoImpl<T> extends HibernateDaoSupport implements Base
      * @return
      */
     @Override
-    public T getDo(long id) {
+    public T getDo(int id) {
 //        return this.getHibernateTemplate().get(entityClass, uuid);
-        return (T)this.getHibernateTemplate().load(entityClass, id);
-    }
-
-    /**
-     * 如果ID是Stirng类型
-     * @param id
-     */
-    @Override
-    public T getDo(String id) {
         return (T)this.getHibernateTemplate().load(entityClass, id);
     }
 

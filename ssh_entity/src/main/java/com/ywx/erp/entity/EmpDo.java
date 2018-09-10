@@ -4,26 +4,28 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class EmpDo implements Serializable {
 
-    private Long uuid;          //编号
+    private Integer uuid;          //编号
     private String username;    //登录名
     @JSONField(serialize = false)       //fastJson提供的不进行序列化
     private String pwd;         //登录密码
     private String name;        //真实姓名
-    private Long gender;        //性别
+    private Integer gender;        //性别
     private String email;       //邮箱
     private String tele;        //联系电话
     private String address;     //联系地址
     private Date birthday;      //生日
     private DepDo depDo;        //部门编号
+    private List<RoleDo> roleDoList; //拥有角色集合
 
-    public Long getUuid() {
+    public Integer getUuid() {
         return uuid;
     }
 
-    public void setUuid(Long uuid) {
+    public void setUuid(Integer uuid) {
         this.uuid = uuid;
     }
 
@@ -51,11 +53,11 @@ public class EmpDo implements Serializable {
         this.name = name;
     }
 
-    public Long getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Long gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -99,6 +101,14 @@ public class EmpDo implements Serializable {
         this.depDo = depDo;
     }
 
+    public List<RoleDo> getRoleDoList() {
+        return roleDoList;
+    }
+
+    public void setRoleDoList(List<RoleDo> roleDoList) {
+        this.roleDoList = roleDoList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,30 +116,32 @@ public class EmpDo implements Serializable {
 
         EmpDo empDo = (EmpDo) o;
 
-        if (!uuid.equals(empDo.uuid)) return false;
-        if (!username.equals(empDo.username)) return false;
-        if (!pwd.equals(empDo.pwd)) return false;
-        if (!name.equals(empDo.name)) return false;
-        if (!gender.equals(empDo.gender)) return false;
-        if (!email.equals(empDo.email)) return false;
-        if (!tele.equals(empDo.tele)) return false;
-        if (!address.equals(empDo.address)) return false;
-        if (!birthday.equals(empDo.birthday)) return false;
-        return depDo.equals(empDo.depDo);
+        if (uuid != null ? !uuid.equals(empDo.uuid) : empDo.uuid != null) return false;
+        if (username != null ? !username.equals(empDo.username) : empDo.username != null) return false;
+        if (pwd != null ? !pwd.equals(empDo.pwd) : empDo.pwd != null) return false;
+        if (name != null ? !name.equals(empDo.name) : empDo.name != null) return false;
+        if (gender != null ? !gender.equals(empDo.gender) : empDo.gender != null) return false;
+        if (email != null ? !email.equals(empDo.email) : empDo.email != null) return false;
+        if (tele != null ? !tele.equals(empDo.tele) : empDo.tele != null) return false;
+        if (address != null ? !address.equals(empDo.address) : empDo.address != null) return false;
+        if (birthday != null ? !birthday.equals(empDo.birthday) : empDo.birthday != null) return false;
+        if (depDo != null ? !depDo.equals(empDo.depDo) : empDo.depDo != null) return false;
+        return roleDoList != null ? roleDoList.equals(empDo.roleDoList) : empDo.roleDoList == null;
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + username.hashCode();
-        result = 31 * result + pwd.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + gender.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + tele.hashCode();
-        result = 31 * result + address.hashCode();
-        result = 31 * result + birthday.hashCode();
-        result = 31 * result + depDo.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (pwd != null ? pwd.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (tele != null ? tele.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        result = 31 * result + (depDo != null ? depDo.hashCode() : 0);
+        result = 31 * result + (roleDoList != null ? roleDoList.hashCode() : 0);
         return result;
     }
 
@@ -146,6 +158,7 @@ public class EmpDo implements Serializable {
                 ", address='" + address + '\'' +
                 ", birthday=" + birthday +
                 ", depDo=" + depDo +
+                ", roleDoList=" + roleDoList +
                 '}';
     }
 }

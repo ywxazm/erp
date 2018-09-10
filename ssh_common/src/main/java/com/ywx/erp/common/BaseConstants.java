@@ -66,6 +66,7 @@ public class BaseConstants {
 
     //常用字符串
     public static final String NULLSTR = "";
+    public static final String DOUHAOSTR = ",";
     public static final String SUCCESS = "success";
     public static final String MSG = "msg";
 

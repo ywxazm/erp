@@ -68,4 +68,8 @@
         <property name="reportService" ref="reportService"/>
     </bean>
 
+    <bean id="roleAction" class="com.ywx.erp.action.RoleAction" scope="prototype">
+        <property name="roleService" ref="roleService"/>
+    </bean>
+
 </beans>

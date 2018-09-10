@@ -7,16 +7,16 @@ import java.io.Serializable;
  */
 public class StoreDo implements Serializable {
 
-	private Long uuid;//编号
+	private Integer uuid;//编号
 	private String name;//名称
-	private Long empuuid;//库管员工编号
+	private Integer empuuid;//库管员工编号
 	private String empname;//库管员工姓名
 
-	public Long getUuid() {
+	public Integer getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(Long uuid) {
+	public void setUuid(Integer uuid) {
 		this.uuid = uuid;
 	}
 
@@ -28,11 +28,11 @@ public class StoreDo implements Serializable {
 		this.name = name;
 	}
 
-	public Long getEmpuuid() {
+	public Integer getEmpuuid() {
 		return empuuid;
 	}
 
-	public void setEmpuuid(Long empuuid) {
+	public void setEmpuuid(Integer empuuid) {
 		this.empuuid = empuuid;
 	}
 

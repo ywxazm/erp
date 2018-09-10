@@ -22,7 +22,7 @@ public class OrdersDo implements Serializable {
 	public static final String STATE_NOT_OUT = "0";	//未出库
 	public static final String STATE_OUT = "1";		//已出库
 	
-	private Long uuid;			//编号
+	private Integer uuid;			//编号
 	@JSONField(format= BaseConstants.DATEFORMAT)
 	private Date createtime;	//生成日期
 	@JSONField(format=BaseConstants.DATEFORMAT)
@@ -32,26 +32,26 @@ public class OrdersDo implements Serializable {
 	@JSONField(format=BaseConstants.DATEFORMAT)
 	private Date endtime;		//入库或出库日期
 	private String type;		//1:采购 2:销售
-	private Long creater;		//下单员
+	private Integer creater;		//下单员
 	private String createrName;	//下单员
-	private Long checker;		//审核员
+	private Integer checker;		//审核员
 	private String checkerName;	//审核员
-	private Long starter;		//采购员
+	private Integer starter;		//采购员
 	private String starterName;	//采购员
-	private Long ender;			//库管员
+	private Integer ender;			//库管员
 	private String enderName;	//库管员
-	private Long supplieruuid;	//供应商或客户
+	private Integer supplieruuid;	//供应商或客户
 	private String supplierName;//供应商或客户
 	private Double totalmoney;	//合计金额
 	private String state;		//采购: 0:未审核 1:已审核, 2:已确认, 3:已入库；销售：0:未出库 1:已出库
-	private Long waybillsn;		//运单号
+	private Integer waybillsn;		//运单号
 	private List<OrderdetailDo> orderDetailDos;//订单明细
 
-	public Long getUuid() {
+	public Integer getUuid() {
 		return uuid;
 	}
 
-	public void setUuid(Long uuid) {
+	public void setUuid(Integer uuid) {
 		this.uuid = uuid;
 	}
 
@@ -95,11 +95,11 @@ public class OrdersDo implements Serializable {
 		this.type = type;
 	}
 
-	public Long getCreater() {
+	public Integer getCreater() {
 		return creater;
 	}
 
-	public void setCreater(Long creater) {
+	public void setCreater(Integer creater) {
 		this.creater = creater;
 	}
 
@@ -111,11 +111,11 @@ public class OrdersDo implements Serializable {
 		this.createrName = createrName;
 	}
 
-	public Long getChecker() {
+	public Integer getChecker() {
 		return checker;
 	}
 
-	public void setChecker(Long checker) {
+	public void setChecker(Integer checker) {
 		this.checker = checker;
 	}
 
@@ -127,11 +127,11 @@ public class OrdersDo implements Serializable {
 		this.checkerName = checkerName;
 	}
 
-	public Long getStarter() {
+	public Integer getStarter() {
 		return starter;
 	}
 
-	public void setStarter(Long starter) {
+	public void setStarter(Integer starter) {
 		this.starter = starter;
 	}
 
@@ -143,11 +143,11 @@ public class OrdersDo implements Serializable {
 		this.starterName = starterName;
 	}
 
-	public Long getEnder() {
+	public Integer getEnder() {
 		return ender;
 	}
 
-	public void setEnder(Long ender) {
+	public void setEnder(Integer ender) {
 		this.ender = ender;
 	}
 
@@ -159,11 +159,11 @@ public class OrdersDo implements Serializable {
 		this.enderName = enderName;
 	}
 
-	public Long getSupplieruuid() {
+	public Integer getSupplieruuid() {
 		return supplieruuid;
 	}
 
-	public void setSupplieruuid(Long supplieruuid) {
+	public void setSupplieruuid(Integer supplieruuid) {
 		this.supplieruuid = supplieruuid;
 	}
 
@@ -191,11 +191,11 @@ public class OrdersDo implements Serializable {
 		this.state = state;
 	}
 
-	public Long getWaybillsn() {
+	public Integer getWaybillsn() {
 		return waybillsn;
 	}
 
-	public void setWaybillsn(Long waybillsn) {
+	public void setWaybillsn(Integer waybillsn) {
 		this.waybillsn = waybillsn;
 	}
 
