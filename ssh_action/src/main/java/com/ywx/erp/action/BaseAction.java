@@ -8,6 +8,7 @@ import com.ywx.erp.common.PIOConstants;
 import com.ywx.erp.common.WriteDate;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.service.BaseService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -198,8 +199,11 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
      * 获取当前用户
      */
     protected EmpDo getLoginUser() {
-        return (EmpDo)ServletActionContext.getContext().getSession().get(USER);
+        return (EmpDo) SecurityUtils.getSubject().getPrincipal();
     }
+    /*protected EmpDo getLoginUser() {
+        return (EmpDo)ServletActionContext.getContext().getSession().get(USER);
+    }*/
 
     /**
      * 导出
