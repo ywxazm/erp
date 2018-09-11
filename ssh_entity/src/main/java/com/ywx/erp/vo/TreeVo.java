@@ -1,6 +1,7 @@
 package com.ywx.erp.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TreeVo implements Serializable {
@@ -35,6 +36,9 @@ public class TreeVo implements Serializable {
     }
 
     public List<TreeVo> getChildren() {
+        if (null == children) {
+            children = new ArrayList<>();
+        }
         return children;
     }
 

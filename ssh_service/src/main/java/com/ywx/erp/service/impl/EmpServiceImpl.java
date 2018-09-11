@@ -22,9 +22,11 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
 
     private EmpDao empDao;
     private RoleDao roleDao;
+
     public void setRoleDao(RoleDao roleDao) {
         this.roleDao = roleDao;
     }
+
     public void setEmpDao(EmpDao empDao) {
         super.setBaseDao(empDao);
         this.empDao = empDao;
@@ -50,11 +52,12 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
     @Override
     public EmpDo findByUsernameAndPwd(String username, String pwd) {
         //TODO:验证密码用到了MD5
-        return empDao.findByUsernameAndPwd(username, new Md5Hash(pwd, username,HASHITERATIONS).toString());
+        return empDao.findByUsernameAndPwd(username, new Md5Hash(pwd, username, HASHITERATIONS).toString());
     }
 
     /**
      * 直接从session中拿用户
+     *
      * @return
      */
     @Override
@@ -68,6 +71,7 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
 
     /**
      * 更新密码： 以前台提交的用户ID，查询用户，再根据提交的密码与用户实体密码进行比较
+     *
      * @param uuid
      * @param oldPwd
      * @param newPwd
@@ -87,6 +91,7 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
 
     /**
      * 直接通过用户ID，进行密码的修改,默认值为“1”
+     *
      * @param id
      */
     @Override
@@ -115,13 +120,15 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
 
     @Override
     public void updateEmpRoles(int id, String checkedStr) {
-        EmpDo empDo = empDao.getDo(id);
-        String[] roleIds = checkedStr.split(BaseConstants.DOUHAOSTR);
         List<RoleDo> roleList = new ArrayList<>();
-        for (String s : roleIds) {
-            RoleDo roleDo = roleDao.getDo(Integer.parseInt(s));
-            roleList.add(roleDo);
+        EmpDo empDo = empDao.getDo(id);
+        if (null != checkedStr && checkedStr.trim().length() != 0) {
+            String[] roleIds = checkedStr.split(BaseConstants.DOUHAOSTR);
+            for (String s : roleIds) {
+                RoleDo roleDo = roleDao.getDo(Integer.parseInt(s));
+                roleList.add(roleDo);
+            }
         }
-        empDo.setRoleDoList(roleList);
+        empDo.setRoleDoList(roleList);      //会先删除用户角色表中对应用户的角色信息， 再添加对应的角色信息
     }
 }

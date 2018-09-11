@@ -1,11 +1,13 @@
 package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.MenuDo;
 import com.ywx.erp.service.MenuService;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class MenuAction extends BaseAction<MenuDo> {
 
@@ -48,14 +50,17 @@ public class MenuAction extends BaseAction<MenuDo> {
      */
     public void getMenuTree() {
         Long startTime = System.currentTimeMillis();
-        logger.debug("operaObj is = {}, getMenuTree() doing, menuId = {}", this, menuId);
+        logger.debug("operaObj is = {}, getMenuTree() doing, userid = {}", this, getLoginUser().getUuid());
         try {
-            MenuDo menuDo = menuService.getDo(menuId);
+//            MenuDo menuDo = menuService.getDo(menuId);
+                MenuDo menuDo = menuService.getMenuDoByEmpId(getLoginUser().getUuid());
             write(JSONObject.toJSONString(menuDo));
-            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.debug("operaObj is = {}, getMenuTree() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             logger.error("operaObj is = {}, getMenuTree is error, msg = {}", this, ex.getMessage());
-            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.debug("operaObj is = {}, getMenuTree() cast time = {}", this, System.currentTimeMillis() - startTime);
+            ex.printStackTrace();
         }
     }
+
 }

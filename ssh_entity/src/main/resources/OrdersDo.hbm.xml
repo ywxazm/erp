@@ -24,7 +24,7 @@
         <!-- 级联更新, 更新订单，级联更新订单明细  -->
         <!-- 一个订单对应多个订单明细 -->
         <bag name="orderDetailDos" cascade="save-update" inverse="true">   <!--TODO: 级联操作配置-->
-            <key column="ordersuuid"></key>
+            <key column="ordersuuid" />
             <one-to-many class="com.ywx.erp.entity.OrderdetailDo"/>
         </bag>
 

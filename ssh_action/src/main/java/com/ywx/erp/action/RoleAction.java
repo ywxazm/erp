@@ -53,9 +53,9 @@ public class RoleAction extends BaseAction<RoleDo> {
             write(ajaxReturn(true, "更新成功"));
             logger.debug("operaObj is = {}, updateRoleMenu() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception ex) {
+            write(ajaxReturn(false, "更新失败"));
             logger.error("operaObj is = {}, updateRoleMenu is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, updateRoleMenu() cast time = {}", this, System.currentTimeMillis() - startTime);
-            write(ajaxReturn(false, "更新失败"));
         }
     }
 }

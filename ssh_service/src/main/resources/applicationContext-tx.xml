@@ -16,6 +16,7 @@
             <tx:method name="update*" propagation="REQUIRED" />
             <tx:method name="del*" propagation="REQUIRED" />
             <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="getMenuDoByEmpId" propagation="REQUIRED" read-only="true" />
             <tx:method name="*" propagation="REQUIRED" />
         </tx:attributes>
     </tx:advice>

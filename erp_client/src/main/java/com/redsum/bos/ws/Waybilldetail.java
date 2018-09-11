@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>waybilldetail complex type的 Java 类。
+ * <p>waybilldetail complex type碌脛 Java 脌脿隆拢
  * 
- * <p>以下模式片段指定包含在此类中的预期内容。
+ * <p>脪脭脧脗脛拢脢陆脝卢露脦脰赂露篓掳眉潞卢脭脷麓脣脌脿脰脨碌脛脭陇脝脷脛脷脠脻隆拢
  * 
  * <pre>
  * &lt;complexType name="waybilldetail">
@@ -46,7 +46,7 @@ public class Waybilldetail {
     protected Integer sn;
 
     /**
-     * 获取exedate属性的值。
+     * 禄帽脠隆exedate脢么脨脭碌脛脰碌隆拢
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 设置exedate属性的值。
+     * 脡猫脰脙exedate脢么脨脭碌脛脰碌隆拢
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 获取exetime属性的值。
+     * 禄帽脠隆exetime脢么脨脭碌脛脰碌隆拢
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 设置exetime属性的值。
+     * 脡猫脰脙exetime脢么脨脭碌脛脰碌隆拢
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 获取id属性的值。
+     * 禄帽脠隆id脢么脨脭碌脛脰碌隆拢
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 设置id属性的值。
+     * 脡猫脰脙id脢么脨脭碌脛脰碌隆拢
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 获取info属性的值。
+     * 禄帽脠隆info脢么脨脭碌脛脰碌隆拢
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 设置info属性的值。
+     * 脡猫脰脙info脢么脨脭碌脛脰碌隆拢
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 获取sn属性的值。
+     * 禄帽脠隆sn脢么脨脭碌脛脰碌隆拢
      * 
      * @return
      *     possible object is
@@ -154,7 +154,7 @@ public class Waybilldetail {
     }
 
     /**
-     * 设置sn属性的值。
+     * 脡猫脰脙sn脢么脨脭碌脛脰碌隆拢
      * 
      * @param value
      *     allowed object is

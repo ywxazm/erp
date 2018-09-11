@@ -139,10 +139,11 @@ public class EmpAction extends BaseAction<EmpDo> {
             Long endTime = System.currentTimeMillis();
             logger.debug("operaObj is = {}, updateEmpRoles done, cast time = {}", this, endTime - startTime);
         }catch (Exception ex) {
-            write(ajaxReturn(true, "更新失败"));
+            write(ajaxReturn(false, "更新失败"));
             Long endTime = System.currentTimeMillis();
             logger.error("operaObj is = {}, updateEmpRoles is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, updateEmpRoles done, cast time = {}", this, endTime - startTime);
+            ex.printStackTrace();
         }
     }
 

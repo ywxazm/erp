@@ -15,16 +15,19 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDo> implements RoleServ
 
     private RoleDao roleDao;
     private MenuDao menuDao;
+
     public void setRoleDao(RoleDao roleDao) {
         super.setBaseDao(roleDao);
         this.roleDao = roleDao;
     }
+
     public void setMenuDao(MenuDao menuDao) {
         this.menuDao = menuDao;
     }
 
     /**
      * 根据角色ID，读取角色菜单
+     *
      * @return 返回菜单树
      */
     @Override
@@ -32,6 +35,9 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDo> implements RoleServ
         List<TreeVo> treeList = new ArrayList<>();
         MenuDo rootMenu = menuDao.getDo(0);                         //根菜单
         List<MenuDo> menuDoList = roleDao.getDo(uuid).getMenuDoList();  //角色下的菜单列表
+        if (null == menuDoList) {
+            return null;
+        }
         for (MenuDo m1 : rootMenu.getMenus()) {
             TreeVo mt1 = new TreeVo();
             mt1.setId(m1.getMenuid());
@@ -52,17 +58,22 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDo> implements RoleServ
 
     /**
      * 更新角色对应的菜单
-     * @param uuid   角色id
-     * @param checkedStr    菜单ids
+     *
+     * @param uuid       角色id
+     * @param checkedStr 菜单ids
      */
     @Override
     public void updateRoleMenu(int uuid, String checkedStr) {
+        List<MenuDo> menuDoList = new ArrayList<>();
         RoleDo roleDo = roleDao.getDo(uuid);
-        String[] menuids = checkedStr.split(BaseConstants.DOUHAOSTR);
-        for (String s : menuids) {
-            MenuDo menuDo = menuDao.getDo(Integer.parseInt(s));
-            roleDo.getMenuDoList().add(menuDo);
+        if (null != checkedStr && checkedStr.trim().length() != 0) {
+            String[] menuids = checkedStr.split(BaseConstants.DOUHAOSTR);
+            for (String s : menuids) {
+                MenuDo menuDo = menuDao.getDo(Integer.parseInt(s));
+                menuDoList.add(menuDo);
+            }
         }
+        roleDo.setMenuDoList(menuDoList);
     }
 
 }

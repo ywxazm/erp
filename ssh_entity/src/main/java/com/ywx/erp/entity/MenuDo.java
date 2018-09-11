@@ -10,7 +10,7 @@ public class MenuDo implements Serializable {
     private String icon;        //菜单图标
     private String url;         //菜单链接
     private Integer pid;         //菜单父ID
-    private List<MenuDo>menus;  //子菜单集合
+    private List<MenuDo> menus;  //子菜单集合
 
     public Integer getMenuid() {
         return menuid;

@@ -1,8 +1,15 @@
 package com.ywx.erp.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ywx.erp.dao.MenuDao;
 import com.ywx.erp.entity.MenuDo;
 import com.ywx.erp.service.MenuService;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MenuServiceImpl extends BaseServiceImpl<MenuDo> implements MenuService {
 
@@ -12,4 +19,40 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDo> implements MenuServ
         this.menuDao = menuDao;
     }
 
+    @Override
+    public MenuDo getMenuDoByEmpId(int id) {
+        MenuDo menuDo = menuDao.getDo(0);
+
+        List<MenuDo> menuDoList = menuDao.getMenuDoByEmpId(id);
+        StringBuffer menuDoIds = new StringBuffer();
+        for (MenuDo m : menuDoList) {
+            menuDoIds.append(m.getMenuid()).append(",");
+        }
+        logger.debug("have ids = {}", menuDoIds);
+
+        List<MenuDo> menuList01 = menuDo.getMenus();  //一级菜单
+        Iterator<MenuDo> it01 = menuList01.listIterator();
+        while (it01.hasNext()) {
+            MenuDo m01 = it01.next();
+
+            List<MenuDo> menuList02 = m01.getMenus();
+            Iterator<MenuDo> it02 = menuList02.listIterator();
+            int j = -1;
+            while (it02.hasNext()) {
+                MenuDo m02 = it02.next();
+                if (!menuDoIds.toString().contains(m02.getMenuid().toString())) {
+                    it02.remove();
+                }else {
+                    j++;
+                }
+            }
+
+            if (j == -1) {
+                it01.remove();
+            }
+        }
+
+        menuDo.setMenus(menuList01);
+        return menuDo;
+    }
 }
