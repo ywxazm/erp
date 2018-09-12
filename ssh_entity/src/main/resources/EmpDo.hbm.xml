@@ -19,7 +19,7 @@
         <many-to-one name="depDo" class="com.ywx.erp.entity.DepDo" column="depuuid" />      <!--根据员工表中的depuuid查询部门-->
 
         <bag name="roleDoList" table="emp_role" order-by="roleuuid" >        <!--不同用户下有一个或多个角色 -->   <!--    用户 - 用户角色 - 角色    -->
-            <key column="empuuid" />        <!-- 用户角色表指向本表的外键 -->
+            <key column="empuuid"  />        <!-- 用户角色表指向本表的外键 -->
             <many-to-many class="com.ywx.erp.entity.RoleDo" column="roleuuid" />  <!--用户角色表中指向角色表的外键及指向的类路径-->
         </bag>
 

@@ -45,7 +45,6 @@ public class ErpRealm extends AuthorizingRealm {
                 sai.addStringPermission(menuDo.getMenuname());      //告诉shiro，用户有什么样的权限
                 powerStr.append(menuDo.getMenuname()).append(",");
             }
-            logger.warn("powerStr ---------> {}", powerStr);
             logger.debug("operaObj is = {}, doGetAuthorizationInfo cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             logger.error("operaObj is = {}, doGetAuthorizationInfo is error, info = {}", this, e.getMessage());

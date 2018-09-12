@@ -9,7 +9,8 @@
         <property name="menuService" ref="menuService"/>
     </bean>
 
-    <!--<bean id="erpAuthorizationFilter" class="com.ywx.erp.filter.ErpAuthorizationFilter"/>-->
+    <!--自定义的Realm-->
+    <bean id="erpAuthorizationFilter" class="com.ywx.erp.filter.ErpAuthorizationFilter"/>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -20,11 +21,11 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" >
         <!-- 安全管理器，shiro核心组件  Facade模式 -->
         <property name="securityManager" ref="securityManager"/>
-        <!--<property name="filters">-->
-            <!--<map>-->
-                <!--<entry key="perms" value-ref="erpAuthorizationFilter" />-->
-            <!--</map>-->
-        <!--</property>-->
+        <property name="filters">
+            <map>
+                <entry key="perms" value-ref="erpAuthorizationFilter" />
+            </map>
+        </property>
         <!-- 用户如果没有登陆，当他在访问资源的时候，就会自动跳转到登陆的页面 -->
         <!-- 若配置了某些资源 = anon时，则以下配置对这些资源无效 -->
         <property name="loginUrl" value="/html/login.html" />

@@ -21,6 +21,10 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDo> implements MenuServ
 
         List<MenuDo> menuDoList = menuDao.getMenuDoByEmpId(id);
         StringBuffer menuDoIds = new StringBuffer();
+        if (null == menuDoList) {
+            logger.debug("menuDoList is null");
+            return null;
+        }
         for (MenuDo m : menuDoList) {
             menuDoIds.append(m.getMenuid()).append(",");
         }
