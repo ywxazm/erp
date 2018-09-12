@@ -1,67 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- shiro的过滤工厂，相当默认的加载了9个过滤器 -->
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-		<!-- 安全管理器，shiro核心组件(大脑) Facade模式 -->
-		<property name="securityManager" ref="securityManager" />
-		<!--<property name="filters">-->
-			<!--<map>-->
-				<!--<entry key="perms" value-ref="erpAuthorizationFilter" />-->
-			<!--</map>-->
-		<!--</property>-->
-		<!-- 用户如果没有登陆，当他在访问资源的时候，就会自动跳转到登陆的页面 -->
-		<property name="loginUrl" value="/login.html" />
-		<!-- 当用户没有访问某项资源权限的时候，跳转到该页面 -->
-		<property name="unauthorizedUrl" value="/error.html" />
-		<!-- 过滤链的定义：定义URL访问的时候对应的认证或授权时处理的过滤器 -->
-		<property name="filterChainDefinitions">
-			<value>
-				/error.html = anon
-				/loginAction_*.action = anon
-				/loginAction_*=anon
-				
-				/depAction_*=perms["部门"]
-				/supplier.html=perms["供应商管理","客户管理"]
-				/supplierAction_*=perms["供应商管理","客户管理"]
-				/role.html=perms["角色设置"]
-				/roleAction_*=perms["角色设置","角色菜单设置"]
-				/emp.html=perms["员工"]
-				/empAction_*=perms["用户角色设置","重置密码"]
-				/goodstype.html=perms["商品类型"]
-				/goodstypeAction_*=perms["商品类型"]
-				/goods.html=perms["商品"]
-				/goodsAction_*=perms["商品"]
-				/store.html=perms["仓库"]
-				/storeAction_*=perms["仓库"]
-				/dep.html=perms["部门管理"]
-				/depAction_*=perms["部门管理"]
-				/orders.html=perms["我的采购订单","采购订单申请","采购订单查询","采购订单审核","采购订单确认","采购订单入库","销售订单查询","销售订单录入","销售订单出库"]
-				/ordersAction_*=perms["我的采购订单","采购订单申请","采购订单查询","采购订单审核","采购订单确认","采购订单入库","销售订单查询","销售订单录入","销售订单出库"]
-				/reportAction_order.html=perms["销售统计报表"]
-				/reportAction_*=perms["销售统计报表","销售趋势报表"]
-				/reportAction_trend.html=perms["销售趋势报表"]
-				
-				
-				/*.html = authc
-				/*.action=authc
-				/*=authc
-			</value>
-		</property>
-	</bean>
+    <bean id="erpRealm" class="com.ywx.erp.realm.ErpRealm">
+        <property name="empService" ref="empService"/>
+        <property name="menuService" ref="menuService"/>
+    </bean>
 
-	<!-- 安全管理器 -->
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="erpRealm" />
-	</bean>
+    <!--<bean id="erpAuthorizationFilter" class="com.ywx.erp.filter.ErpAuthorizationFilter"/>-->
 
-	<!-- 自定义的realm -->
-	<bean id="erpRealm" class="com.ywx.erp.realm.ErpRealm">
-		<property name="empService" ref="empService" />
-	</bean>
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="erpRealm"/>
+    </bean>
 
-	<!--<bean id="erpAuthorizationFilter" class="cn.itcast.erp.filter.ErpAuthorizationFilter" />-->
+    <!-- shiro的过滤工厂，相当默认的加载了9个过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" >
+        <!-- 安全管理器，shiro核心组件  Facade模式 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!--<property name="filters">-->
+            <!--<map>-->
+                <!--<entry key="perms" value-ref="erpAuthorizationFilter" />-->
+            <!--</map>-->
+        <!--</property>-->
+        <!-- 用户如果没有登陆，当他在访问资源的时候，就会自动跳转到登陆的页面 -->
+        <!-- 若配置了某些资源 = anon时，则以下配置对这些资源无效 -->
+        <property name="loginUrl" value="/html/login.html" />
+        <!-- 当用户没有访问某项资源权限的时候，跳转到该页面 -->
+        <property name="unauthorizedUrl" value="/html/error.html" />
+        <!-- 过滤链的定义：定义URL访问的时候对应的认证或授权时处理的过滤器 -->
+        <property name="filterChainDefinitions">
+            <value>
+                /html/error.html = anon             <!--错误页面、登录页面、登录Action不需要认证，也可访问-->
+                /html/login.html = anon
+                /html/loginAction_* = anon
+
+                /html/depAction_* = perms["部门"]                   <!-- 授权控制规则,当有这些URl请求时，则执行授权方法 -->
+                /html/empAction_* = perms["员工"]
+                /html/goodsAction_* = perms["商品"]
+                /html/goodstypeAction_* = perms["商品类型"]
+                /html/ordersAction_* = perms["我的采购订单","采购订单查询","采购订单审核","采购订单确认","我的销售订单","销售订单查询"]
+                /html/orderdetailAction_* = perms["采购订单入库","销售订单出库"]
+                /html/roleAction_* = perms["用户密码管理","用户权限设置","角色管理","角色权限设置"]
+                /html/storeAction_* = perms["仓库"]
+                /html/reportAction_* = perms["品类销售报表"]
+                /html/storedetailAction_* = perms["库存明细"]
+                /html/storeoperAction_* = perms["库存操作"]
+                /html/supplierAction_* = perms["供应商","客户"]
+
+                /html/*.html = authc                <!--其它所有页面、Action可以访问-->
+                /html/* = authc
+            </value>
+        </property>
+    </bean>
+
+
 </beans>

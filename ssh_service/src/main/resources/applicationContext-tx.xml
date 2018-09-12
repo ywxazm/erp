@@ -13,18 +13,19 @@
     <!-- 定义事务规则 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
+            <tx:method name="list" propagation="REQUIRED"  read-only="true"/>
             <tx:method name="update*" propagation="REQUIRED" />
             <tx:method name="del*" propagation="REQUIRED" />
-            <tx:method name="add*" propagation="REQUIRED" />
-            <tx:method name="getMenuDoByEmpId" propagation="REQUIRED" read-only="true" />
-            <tx:method name="*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"  read-only="true"/>
         </tx:attributes>
     </tx:advice>
 
     <!-- 定义事务入口 -->
     <aop:config>
-        <aop:pointcut id="allDaoMethod" expression="execution(* com.ywx.erp.service.*.*(..))" />
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="allDaoMethod" />
+        <aop:pointcut id="allServiceMethod" expression="execution(* com.ywx.erp.service.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="allServiceMethod" />
     </aop:config>
 
 

@@ -25,8 +25,22 @@
         <struts.version>2.3.24</struts.version>
         <hibernate.version>5.0.7.Final</hibernate.version>
         <shiro.version>1.2.3</shiro.version>
+        <mysql.version>8.0.12</mysql.version>
+        <oracle.version>11.2.0.3</oracle.version>
+        <fastjson.version>1.2.49</fastjson.version>
+        <slf4j.version>1.7.2</slf4j.version>
+        <druid.version>1.1.10</druid.version>
+        <aspectjweaver.version>1.8.13</aspectjweaver.version>
+        <servlet.version>2.5</servlet.version>
+        <junit.version>4.12</junit.version>
+        <mail.version>1.4.4</mail.version>
+        <quartz.version>2.2.3</quartz.version>
+        <pio.version>3.17</pio.version>
+        <jfree.version>1.0.13</jfree.version>
+        <tomcat.version>2.2</tomcat.version>
     </properties>
 
+    <!--依赖-->
     <dependencies>
         <!--struts2-->
         <dependency>
@@ -102,70 +116,70 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.2</version>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!--druid-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.10</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <!--事务管理需要用到AOP,aspectjweaver是AOP静态实现的jar-->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.8.13</version>
+            <version>${aspectjweaver.version}</version>
         </dependency>
 
         <!--ojdbc6-->
         <!--<dependency>
             <groupId>oracle</groupId>
             <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.3</version>
+            <version>${oracle.version}</version>
         </dependency>-->
         <!--mysql-connect-java-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.12</version>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!--fastJson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.49</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <!--servlet-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <!-- shrio-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
+            <artifactId>shiro-aspectj</artifactId>
             <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-web</artifactId>
-            <version>${shiro.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aspectjweaver</artifactId>
+                    <groupId>org.aspectj</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-aspectj</artifactId>
             <version>${shiro.version}</version>
         </dependency>
 
@@ -173,7 +187,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -181,33 +195,39 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.4</version>
+            <version>${mail.version}</version>
         </dependency>
 
         <!--QuartZ-->
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-            <version>2.2.3</version>
+            <version>${quartz.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!--POI-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.17</version>
+            <version>${pio.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
+            <version>${pio.version}</version>
         </dependency>
 
         <!--JFreeChart-->
         <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
-            <version>1.0.13</version>
+            <version>${jfree.version}</version>
         </dependency>
     </dependencies>
 
@@ -217,7 +237,7 @@
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
+                <version>${tomcat.version}</version>
                 <configuration>
                     <path>/</path>
                     <port>8888</port>

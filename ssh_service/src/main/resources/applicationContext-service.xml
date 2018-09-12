@@ -52,4 +52,5 @@
         <property name="roleDao" ref="roleDao"/>
         <property name="menuDao" ref="menuDao"/>
     </bean>
+
 </beans>

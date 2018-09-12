@@ -10,9 +10,9 @@ public class ServiceTest {
 
     @Test
     public void test01() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
+        /*ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
         MenuDao menuDao = (MenuDao) ac.getBean("menuDao");
-        MenuDo menuDo = menuDao.getDo("0");
-        System.out.println(menuDo);
+        MenuDo menuDo = menuDao.getDo(0);
+        System.out.println(menuDo);*/
     }
 }

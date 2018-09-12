@@ -12,9 +12,9 @@ public class TeacherServiceSampleTest {
 
     @Test
     public void test01() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
+        /*ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
         TeacherServiceSample teacherServiceSample = (TeacherServiceSample)ac.getBean("teacherServiceSample");
         List<TeacherDo> list = teacherServiceSample.list();
-        list.stream().forEach(System.out::println);
+        list.stream().forEach(System.out::println);*/
     }
 }

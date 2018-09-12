@@ -55,8 +55,10 @@ public class LoginAction extends ActionSupport implements WriteDate{
         Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, checkUser() doing, username = {}, pwd = {}", this, username, pwd);
         try{
-            UsernamePasswordToken upt = new UsernamePasswordToken(username.trim(), pwd.trim());   //创建令牌
-            Subject subject = SecurityUtils.getSubject();   //获得主题
+            //创建令牌
+            UsernamePasswordToken upt = new UsernamePasswordToken(username.trim(), pwd.trim());
+            //获得主题
+            Subject subject = SecurityUtils.getSubject();
             subject.login(upt);
 
             write(ajaxReturn(BaseConstants.TRUE, LOGINSUCCESS));

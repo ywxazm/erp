@@ -11,10 +11,10 @@ public class ReportServiceTest {
 
     @Test
     public void test01() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
+        /*ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
         ReportService reportService = (ReportService)ac.getBean("reportService");
         List list = reportService.ordersReport(null, null);
-        System.out.println(list);
+        System.out.println(list);*/
 
     }
 }

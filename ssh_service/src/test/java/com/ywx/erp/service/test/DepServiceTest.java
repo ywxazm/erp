@@ -10,13 +10,13 @@ public class DepServiceTest {
 
     @Test
     public void test01() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext-*.xml");
+        /*ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext-*.xml");
         DepService depService = (DepService) ac.getBean("depService");
 
         DepDo depDo = new DepDo();
         depDo.setName("小明");
         depDo.setTele("123123");
 
-        depService.addDo(depDo);
+        depService.addDo(depDo);*/
     }
 }

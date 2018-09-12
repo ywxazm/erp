@@ -52,7 +52,9 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
     @Override
     public EmpDo findByUsernameAndPwd(String username, String pwd) {
         //TODO:验证密码用到了MD5
-        return empDao.findByUsernameAndPwd(username, new Md5Hash(pwd, username, HASHITERATIONS).toString());
+        EmpDo empDo = empDao.findByUsernameAndPwd(username, new Md5Hash(pwd, username, HASHITERATIONS).toString());
+        System.out.println(empDo);
+        return empDo;
     }
 
     /**

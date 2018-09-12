@@ -1,15 +1,11 @@
 package com.ywx.erp.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ywx.erp.dao.MenuDao;
 import com.ywx.erp.entity.MenuDo;
 import com.ywx.erp.service.MenuService;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class MenuServiceImpl extends BaseServiceImpl<MenuDo> implements MenuService {
 
@@ -54,5 +50,10 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDo> implements MenuServ
 
         menuDo.setMenus(menuList01);
         return menuDo;
+    }
+
+    @Override
+    public List<MenuDo> getMenuDoListByEmpId(int id) {
+        return menuDao.getMenuDoByEmpId(id);
     }
 }
