@@ -28,26 +28,26 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     }
 
     //常量定义
-        protected static final String ROWS = "rows";
-        protected static final String TOTAL = "total";
-        private static final String USER = "user";
-        protected static final String ADDSUCCESS= "ADD SUCCESS";
-        protected static final String ADDFAIL = "ADD FAIL";
-        private static final String UPDATASUCCESS = "UPDATA SUCCESS";
-        private static final String UPDATAFAIL = "UPDATA FAIL";
-        private static final String DELSUCCESS = "DEL SUCCESS";
-        private static final String DELFAIL = "DEL FAIL";
-        private static final String UPLOADSUCCESS = "UPLOAD SUCCESS";
-        private static final String UPLOADFAIL = "UPLOAD FAIL";
-        private static final String UPLOADMSG = "UPLOAD FILE MUST TYPE IS .xls";
+    protected static final String ROWS = "rows";
+    protected static final String TOTAL = "total";
+    private static final String USER = "user";
+    protected static final String ADDSUCCESS= "ADD SUCCESS";
+    protected static final String ADDFAIL = "ADD FAIL";
+    private static final String UPDATASUCCESS = "UPDATA SUCCESS";
+    private static final String UPDATAFAIL = "UPDATA FAIL";
+    private static final String DELSUCCESS = "DEL SUCCESS";
+    private static final String DELFAIL = "DEL FAIL";
+    private static final String UPLOADSUCCESS = "UPLOAD SUCCESS";
+    private static final String UPLOADFAIL = "UPLOAD FAIL";
+    private static final String UPLOADMSG = "UPLOAD FILE MUST TYPE IS .xls";
 
-        //接收数据
-        protected T t;
-        protected T tt;
-        protected Object obj;
-        protected Integer id;
-        protected int page;     //第几页
-        protected int rows;     //每页显示条目数
+    //接收数据
+    protected T t;
+    protected T tt;
+    protected Object obj;
+    protected Integer id;
+    protected int page;     //第几页
+    protected int rows;     //每页显示条目数
     public int getPage() {
         return page;
     }
@@ -122,7 +122,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
 
             logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
+            logger.error("operaObj is = {}, listByPage() is error, info = {}", this, e.getMessage());
             logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
@@ -140,8 +140,8 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             write(ajaxReturn(BaseConstants.FALSE, ADDFAIL));
+            logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
             logger.error("operaObj is = {}, addDo() is error,  msg = {}", this, ex.getMessage());
-            logger.debug("operaObj is = {}, list cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 
@@ -156,7 +156,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             write(ajaxReturn(BaseConstants.TRUE, DELSUCCESS));
             logger.debug("operaObj is = {}, delDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, delDo is error, msg = {}", this, ex.getMessage());
+            logger.error("operaObj is = {}, delDo() is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, delDo() cast time = {}", this, System.currentTimeMillis() - startTime);
             write(ajaxReturn(BaseConstants.FALSE, DELFAIL));
         }
@@ -190,7 +190,7 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
             logger.debug("operaObj is = {}, updateDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             write(ajaxReturn(BaseConstants.FALSE, UPDATAFAIL));
-            logger.error("operaObj is = {}, updateDo is error, msg = {}", this, ex.getMessage());
+            logger.error("operaObj is = {}, updateDo() is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, updateDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
@@ -201,9 +201,6 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
     protected EmpDo getLoginUser() {
         return (EmpDo) SecurityUtils.getSubject().getPrincipal();
     }
-    /*protected EmpDo getLoginUser() {
-        return (EmpDo)ServletActionContext.getContext().getSession().get(USER);
-    }*/
 
     /**
      * 导出
@@ -235,12 +232,10 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
                                 new String(fileName.getBytes(), PIOConstants.ISO_8859_1)));
             baseService.export(response.getOutputStream(), getT());
 
-            Long endTime = System.currentTimeMillis();
-            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
+            logger.debug("operaObj is = {}, export() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            Long endTime = System.currentTimeMillis();
-            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
-            logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, export() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.error("operaObj is = {}, export() store is error, msg = {}", this, ex.getMessage());
         }
     }
 
@@ -278,12 +273,10 @@ public class BaseAction<T> extends ActionSupport implements WriteDate{
 
         try {
             baseService.importData(file, fileFileName, this.getClass());
-            Long endTime = System.currentTimeMillis();
-            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
+            logger.debug("operaObj is = {}, export store done, cast time = {}", this, System.currentTimeMillis() - startTime);
             write(ajaxReturn(BaseConstants.TRUE, UPLOADSUCCESS));
         }catch (Exception ex) {
-            Long endTime = System.currentTimeMillis();
-            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
+            logger.debug("operaObj is = {}, export store done, cast time = {}", this, System.currentTimeMillis() - startTime);
             logger.error("operaObj is = {}, export store is error, msg = {}", this, ex.getMessage());
             write(ajaxReturn(BaseConstants.TRUE, UPLOADFAIL));
         }

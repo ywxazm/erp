@@ -21,18 +21,23 @@ public class OrdersAction extends BaseAction<OrdersDo> {
     private EmpService empService;
     private SupplierService supplierService;
     private IWaybillWs waybillWs;
+
     public IWaybillWs getWaybillWs() {
         return waybillWs;
     }
+
     public void setWaybillWs(IWaybillWs waybillWs) {
         this.waybillWs = waybillWs;
     }
+
     public void setEmpService(EmpService empService) {
         this.empService = empService;
     }
+
     public void setSupplierService(SupplierService supplierService) {
         this.supplierService = supplierService;
     }
+
     public void setOrdersService(OrdersService ordersService) {
         super.setBaseService(ordersService);
         this.ordersService = ordersService;
@@ -69,7 +74,6 @@ public class OrdersAction extends BaseAction<OrdersDo> {
     public void setOper(String oper) {
         this.oper = oper;
     }
-
     /**
      * 订单查询，如果有用户ID，则只查询当前用户ID下的订单
      */
@@ -102,15 +106,17 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             write(json);
             logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, query listByPage is error, info = {}", this, e.getMessage());
+            logger.error("operaObj is = {}, listByPage() is error, info = {}", this, e.getMessage());
             logger.debug("operaObj is = {}, listByPage() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
+
     private String getSupplierName(Integer id) {
         if (null == id)
             return null;
         return supplierService.getDo(id).getName();
     }
+
     private String getEmpName(Integer id) {
         if (null == id)
             return null;
@@ -145,7 +151,7 @@ public class OrdersAction extends BaseAction<OrdersDo> {
 
             write(ajaxReturn(BaseConstants.TRUE, ADDSUCCESS));
             logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             write(ajaxReturn(BaseConstants.FALSE, ADDFAIL));
             logger.error("operaObj is = {}, addDo() is error,  msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, addDo() cast time = {}", this, System.currentTimeMillis() - startTime);
@@ -164,7 +170,7 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             logger.debug("operaObj is = {}, doCheck() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             write(ajaxReturn(BaseConstants.FALSE, CHECKFAIL));
-            logger.error("operaObj is = {}, query list is error, info = {}", this, e.getMessage());
+            logger.error("operaObj is = {}, doCheck is error, info = {}", this, e.getMessage());
             logger.debug("operaObj is = {}, doCheck() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
@@ -181,7 +187,7 @@ public class OrdersAction extends BaseAction<OrdersDo> {
             logger.debug("operaObj is = {}, doStart() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             write(ajaxReturn(BaseConstants.FALSE, DOSTARTFAIL));
-            logger.error("operaObj is = {}, doStart is error, info = {}", this, e.getMessage());
+            logger.error("operaObj is = {}, doStart() is error, info = {}", this, e.getMessage());
             logger.debug("operaObj is = {}, doStart() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
@@ -190,7 +196,16 @@ public class OrdersAction extends BaseAction<OrdersDo> {
      * 查询运单详情
      */
     public void waybilldetailList() {
-        List<Waybilldetail> waybilldetails = waybillWs.waybilldetailList(waybillSn);
-        write(JSONObject.toJSONString(waybilldetails));
+        Long startTime = System.currentTimeMillis();
+        logger.debug("operaObj is = {}, waybilldetailList param is id = {}", this, id);
+        try {
+            List<Waybilldetail> waybilldetails = waybillWs.waybilldetailList(waybillSn);
+            write(JSONObject.toJSONString(waybilldetails));
+            logger.debug("operaObj is = {}, waybilldetailList() cast time = {}", this, System.currentTimeMillis() - startTime);
+        } catch (Exception e) {
+            write(ajaxReturn(BaseConstants.FALSE, DOSTARTFAIL));
+            logger.error("operaObj is = {}, waybilldetailList() is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, waybilldetailList() cast time = {}", this, System.currentTimeMillis() - startTime);
+        }
     }
 }

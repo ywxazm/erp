@@ -11,7 +11,7 @@
         <property name="depService" ref="depService"/>
     </bean>
 
-    <bean id="empAction" class="com.ywx.erp.action.EmpAction" scope="prototype">
+    <bean id="empAction" class="com.ywx.erp.action.EmpAction" scope="prototype" >
         <property name="empService" ref="empService"/>
     </bean>
 

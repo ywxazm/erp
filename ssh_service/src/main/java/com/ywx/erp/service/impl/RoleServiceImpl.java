@@ -27,7 +27,6 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDo> implements RoleServ
 
     /**
      * 根据角色ID，读取角色菜单
-     *
      * @return 返回菜单树
      */
     @Override
@@ -58,7 +57,6 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDo> implements RoleServ
 
     /**
      * 更新角色对应的菜单
-     *
      * @param uuid       角色id
      * @param checkedStr 菜单ids
      */

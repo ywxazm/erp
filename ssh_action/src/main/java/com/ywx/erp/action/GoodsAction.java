@@ -33,7 +33,7 @@ public class GoodsAction extends BaseAction<GoodsDo> {
             write(JSONObject.toJSONString(map));
             logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.error("operaObj is = {}, getDo() is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }

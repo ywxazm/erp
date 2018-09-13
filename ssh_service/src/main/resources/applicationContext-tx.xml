@@ -13,12 +13,19 @@
     <!-- 定义事务规则 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="list" propagation="REQUIRED"  read-only="true"/>
-            <tx:method name="update*" propagation="REQUIRED" />
-            <tx:method name="add*" propagation="REQUIRED" />
-            <tx:method name="del*" propagation="REQUIRED" />
-            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="*" propagation="REQUIRED"  read-only="true"/>
+            <tx:method name="list*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500"  read-only="true"/>
+            <tx:method name="get*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" read-only="true"/>
+            <tx:method name="find*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" read-only="true"/>
+            <tx:method name="reset*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" read-only="true"/>
+            <tx:method name="read*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" read-only="true"/>
+            <tx:method name="send*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" read-only="true"/>
+
+            <tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" />
+            <tx:method name="do*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" />
+            <tx:method name="add*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" />
+            <tx:method name="del*" propagation="REQUIRED" isolation="READ_COMMITTED" timeout="1500" />
+
+            <tx:method name="*" propagation="REQUIRED" isolation="READ_COMMITTED"  read-only="true"/>
         </tx:attributes>
     </tx:advice>
 

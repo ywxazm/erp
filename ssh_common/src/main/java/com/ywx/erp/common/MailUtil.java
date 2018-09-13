@@ -8,8 +8,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
  * 邮件工具类
- * @author Administrator
- *
  */
 public class MailUtil {
 

@@ -10,7 +10,6 @@ import java.util.List;
 public class RoleAction extends BaseAction<RoleDo> {
 
     private RoleService roleService;
-
     public void setRoleService(RoleService roleService) {
         super.setBaseService(roleService);
         this.roleService = roleService;

@@ -1,18 +1,15 @@
 package com.ywx.erp.action;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.common.WriteDate;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.service.EmpService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.shiro.authc.UsernamePasswordToken;
-
-import static org.apache.shiro.web.filter.mgt.DefaultFilter.user;
 
 public class LoginAction extends ActionSupport implements WriteDate{
 
@@ -62,35 +59,14 @@ public class LoginAction extends ActionSupport implements WriteDate{
             subject.login(upt);
 
             write(ajaxReturn(BaseConstants.TRUE, LOGINSUCCESS));
-            Long endTime = System.currentTimeMillis();
-            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
+            logger.debug("operaObj is = {}, checkUser() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex){
             write(ajaxReturn(BaseConstants.FALSE, LOGINFAIL));
-            Long endTime = System.currentTimeMillis();
-            logger.debug("operaObj is = {}, export store done, cast time = {}", this, endTime - startTime);
-            logger.error("operaObj is = {}, checkUser is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, checkUser() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.error("operaObj is = {}, checkUser() is error, msg = {}", this, ex.getMessage());
             ex.printStackTrace();
         }
     }
-/*
-    public void checkUser() {
-        Long startTime = System.currentTimeMillis();
-        logger.debug("operaObj is = {}, checkUser() doing, username = {}, pwd = {}", this, username, pwd);
-        try{
-            EmpDo empDo = empService.findByUsernameAndPwd(username.trim(), pwd.trim());
-
-            if (null != empDo) {
-                ActionContext.getContext().getSession().put(USER, empDo);
-                write(ajaxReturn(BaseConstants.TRUE, LOGINSUCCESS));
-            }else {
-                write(ajaxReturn(BaseConstants.FALSE, LOGINFAIL));
-            }
-        }catch (Exception ex){
-            logger.error("operaObj is = {}, checkUser is error, msg = {}", this, ex.getMessage());
-            ex.printStackTrace();
-        }
-    }
-*/
 
     /**
      *  主界面显示用户名实现
@@ -107,26 +83,12 @@ public class LoginAction extends ActionSupport implements WriteDate{
             } else {
                 write(ajaxReturn(BaseConstants.FALSE, BaseConstants.NULLSTR));
             }
+            logger.debug("operaObj is = {}, showName() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, showName is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, showName() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.error("operaObj is = {}, showName() is error, msg = {}", this, ex.getMessage());
         }
     }
-/*
-    public void showName() {
-        Long startTime = System.currentTimeMillis();
-        logger.debug("operaObj is = {}, showName() doing", this);
-        try {
-            EmpDo user = (EmpDo) ActionContext.getContext().getSession().get("user");
-            if (null != user) {
-                write(ajaxReturn(BaseConstants.TRUE, user.getName()));
-            } else {
-                write(ajaxReturn(BaseConstants.FALSE, BaseConstants.NULLSTR));
-            }
-        }catch (Exception ex) {
-            logger.error("operaObj is = {}, showName is error, msg = {}", this, ex.getMessage());
-        }
-    }
-*/
 
     /**
      * 退出登录
@@ -137,20 +99,11 @@ public class LoginAction extends ActionSupport implements WriteDate{
         logger.debug("operaObj is = {}, loginOut() doing", this);
         try {
             SecurityUtils.getSubject().logout();
+            logger.debug("operaObj is = {}, loginOut() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, loginOut is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, loginOut() store done, cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.error("operaObj is = {}, loginOut() is error, msg = {}", this, ex.getMessage());
         }
     }
-/*
-    public void loginOut() {
-        Long startTime = System.currentTimeMillis();
-        logger.debug("operaObj is = {}, loginOut() doing", this);
-        try {
-            ActionContext.getContext().getSession().remove(USER);
-        }catch (Exception ex) {
-            logger.error("operaObj is = {}, loginOut is error, msg = {}", this, ex.getMessage());
-        }
-    }
-*/
 
 }

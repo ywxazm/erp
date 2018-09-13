@@ -43,10 +43,10 @@ public class ReportAction implements WriteDate {
         try {
             List list = reportService.ordersReport(startDate, endDate);
             write(JSONObject.toJSONString(list));
-            logger.debug("operaObj is = {}, orderReport() cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.debug("operaObj is = {}, orderReport cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
             logger.error("operaObj is = {}, ordersReport is error, info = {}", this, e.getMessage());
-            logger.debug("operaObj is = {}, orderReport() cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.debug("operaObj is = {}, orderReport cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
 }

@@ -19,9 +19,9 @@
         </property>
     </bean>
 	
-	<bean id="mailUtil" class="com.ywx.erp.common.MailUtil">
+	<bean id="mailUtil" class="com.ywx.erp.common.MailUtil" scope="prototype">
 		<property name="javaMailSender" ref="javaMailSender" />
-		<property name="from" value="18824278018@139.com" />        <!-- 发件人 -->
+		<property name="from" value="ywx_azm" />        <!-- 发件人 -->
 	</bean>
 
 </beans>

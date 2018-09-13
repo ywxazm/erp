@@ -14,7 +14,6 @@ public class ErpAuthorizationFilter extends AuthorizationFilter {
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception {
-        //获取主题
         Subject subject = getSubject(request, response);
         String[] perms = (String[]) mappedValue;
 

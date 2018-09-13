@@ -40,19 +40,19 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
     }
 
     //常量定义
-    private static final String GOODSDONEINSTORE = "Goods In Store Done";        //商品已入库
-    private static final String INVENTORYDEFICIENCY = "Inventory Deficiency";    //库存不足
-    private static final String NOINVENTORYOFGOODS = "No Inventory Of Goods";    //无此商品库存
-    private static final String ORDERSINVENTORYOUTSTORE = "Orders Inventory Out Store";        //订单已出库
+    private static final String GOODSDONEINSTORE = "Goods In Store Done";                   //商品已入库
+    private static final String INVENTORYDEFICIENCY = "Inventory Deficiency";               //库存不足
+    private static final String NOINVENTORYOFGOODS = "No Inventory Of Goods";               //无此商品库存
+    private static final String ORDERSINVENTORYOUTSTORE = "Orders Inventory Out Store";     //订单已出库
 
     @Override
     public void doInStore(int uuid, int storeId, int empId) {
         //更新商品明细
         OrderdetailDo orderdetailDo = orderdetailDao.getDo(uuid);
-        if (OrderdetailDo.STATE_IN.equals(orderdetailDo.getState())) {
+        if (BaseConstants.STATE_IN_OUT.equals(orderdetailDo.getState())) {
             throw new ErpException(GOODSDONEINSTORE);
         }
-        orderdetailDo.setState(OrderdetailDo.STATE_IN);
+        orderdetailDo.setState(BaseConstants.STATE_IN_OUT);
         orderdetailDo.setEnder(empId);
         orderdetailDo.setEndtime(Calendar.getInstance().getTime());
         orderdetailDo.setStoreuuid(storeId);
@@ -76,17 +76,17 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         storeoperDo.setNum(orderdetailDo.getNum());
         storeoperDo.setOpertime(Calendar.getInstance().getTime());
         storeoperDo.setStoreuuid(orderdetailDo.getStoreuuid());
-        storeoperDo.setType(StoreoperDo.STATE_IN);
+        storeoperDo.setType(BaseConstants.STATE_IN_OUT);
         storeoperDao.addDo(storeoperDo);
 
         //更新订单状态的判断
         OrdersDo ordersDo = orderdetailDo.getOrdersDo();
         OrderdetailDo paramCount = new OrderdetailDo();
-        paramCount.setState(OrderdetailDo.STATE_NOT_IN);
+        paramCount.setState(BaseConstants.STATE_NOT_IN_OUT);
         paramCount.setOrdersDo(ordersDo);
         Long count = orderdetailDao.getCount(paramCount, null, null);
         if (null != count && count == BaseConstants.ZEROSTR) {
-            ordersDo.setState(OrdersDo.STATE_END);
+            ordersDo.setState(BaseConstants.STATE_END);
             ordersDo.setEnder(empId);
             ordersDo.setEndtime(Calendar.getInstance().getTime());
         }
@@ -127,7 +127,7 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         //更新订单明细
         orderdetailDo.setEnder(empId);
         orderdetailDo.setEndtime(new Date());
-        orderdetailDo.setState(OrderdetailDo.STATE_OUT);
+        orderdetailDo.setState(BaseConstants.STATE_IN_OUT);
         orderdetailDo.setStoreuuid(storeId);
 
         //添加库存变更操作记录表
@@ -137,14 +137,14 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         storeoperDo.setNum(orderdetailDo.getNum());
         storeoperDo.setOpertime(new Date());
         storeoperDo.setStoreuuid(storeId);
-        storeoperDo.setType(StoreoperDo.TYPE_0UT);
+        storeoperDo.setType(BaseConstants.STATE_IN_OUT);
         storeoperDao.addDo(storeoperDo);
 
         //检查订单下所有明细是否已出库
         OrderdetailDo orderdetailDo1 = new OrderdetailDo();
         OrdersDo ordersDo = orderdetailDo.getOrdersDo();
         orderdetailDo1.setOrdersDo(orderdetailDo.getOrdersDo());
-        orderdetailDo1.setState(StoreoperDo.STATE_NOT_OUT);
+        orderdetailDo1.setState(BaseConstants.STATE_NOT_IN_OUT);
         Long count = orderdetailDao.getCount(orderdetailDo1, null, null);
         if (0 == count) {
             ordersDo.setEnder(empId);

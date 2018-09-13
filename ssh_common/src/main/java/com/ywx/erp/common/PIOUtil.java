@@ -26,9 +26,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 通用导出功能
-     *
-     * @param sheet
-     * @param dataList
      */
     public static void export(HSSFSheet sheet, List dataList, Class clazz) throws Exception {
 
@@ -56,7 +53,7 @@ public class PIOUtil implements Serializable {
         FileInputStream is = new FileInputStream(file);
         Workbook wb = getWorkbook(file, fileFileName, is);
         String actionName = clazz.getName();
-        int start = actionName.lastIndexOf(".");
+        int start = actionName.lastIndexOf(BaseConstants.JUHAOSTR);
         String doName = "com.ywx.erp.entity" + actionName.substring(start).replace("Action", "Do");
         String daoName = "com.ywx.erp.dao.impl" + actionName.substring(start).replace("Action", "DaoImpl");
 
@@ -90,11 +87,11 @@ public class PIOUtil implements Serializable {
      * @throws IOException
      */
     public static Workbook getWorkbook(File file, String fileFileName, InputStream is) throws IOException {
-        String extendName = fileFileName.substring(fileFileName.lastIndexOf(".") + 1);
+        String extendName = fileFileName.substring(fileFileName.lastIndexOf(BaseConstants.JUHAOSTR) + 1);
         Workbook wb = null;
         switch (extendName) {
-            case "xls"  :   wb = new HSSFWorkbook(is); break;
-            case "xlsx" :   wb = new XSSFWorkbook(is); break;
+            case PIOConstants.FILETYPE_XLS  :   wb = new HSSFWorkbook(is); break;
+            case PIOConstants.FILETYPE_XLSX :   wb = new XSSFWorkbook(is); break;
             default     :   throw new ErpException("Import file type error, the file name is " + extendName);
         }
         return wb;
@@ -102,7 +99,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 读取提交Excel,组装成List集合
-     *
      * @param wb
      * @param doName
      * @return
@@ -138,7 +134,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 根据方法定义参数类型，将值转化为对应类型
-     *
      * @param method
      * @param columValue
      * @return
@@ -210,7 +205,6 @@ public class PIOUtil implements Serializable {
 
     /**
      * 设置Cell内容
-     *
      * @param sheet
      * @param dataList
      * @param nameList

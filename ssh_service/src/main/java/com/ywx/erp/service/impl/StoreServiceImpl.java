@@ -27,7 +27,7 @@ public class StoreServiceImpl extends BaseServiceImpl<StoreDo> implements StoreS
 
     //常量定义
     private static final String RECEIVEMAIL = "18824278018@139.com";
-    private static final String MAILSUBJECT = "库存报警";
+    private static final String MAILSUBJECT = "库存预警";
 
     @Override
     public void sendWarnStoreMail() throws MessagingException {

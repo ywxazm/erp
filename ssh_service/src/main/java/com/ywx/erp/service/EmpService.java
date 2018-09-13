@@ -11,8 +11,6 @@ public interface EmpService extends BaseService<EmpDo> {
 
     void updatePwd(int uuid, String oldPwd, String newPwd);
 
-    EmpDo getCurrentUser();
-
     void resetPwd(int id);
 
     List<TreeVo> readEmpRoles(int id);

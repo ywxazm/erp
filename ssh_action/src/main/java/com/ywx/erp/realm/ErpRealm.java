@@ -1,5 +1,6 @@
 package com.ywx.erp.realm;
 
+import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.EmpDo;
 import com.ywx.erp.entity.MenuDo;
 import com.ywx.erp.service.EmpService;
@@ -43,12 +44,12 @@ public class ErpRealm extends AuthorizingRealm {
             StringBuffer powerStr = new StringBuffer();
             for (MenuDo menuDo : menuDoList) {
                 sai.addStringPermission(menuDo.getMenuname());      //告诉shiro，用户有什么样的权限
-                powerStr.append(menuDo.getMenuname()).append(",");
+                powerStr.append(menuDo.getMenuname()).append(BaseConstants.DOUHAOSTR);
             }
-            logger.debug("operaObj is = {}, doGetAuthorizationInfo cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.debug("operaObj is = {}, doGetAuthorizationInfo() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, doGetAuthorizationInfo is error, info = {}", this, e.getMessage());
-            logger.debug("operaObj is = {}, doGetAuthorizationInfo cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.error("operaObj is = {}, doGetAuthorizationInfo() is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, doGetAuthorizationInfo() cast time = {}", this, System.currentTimeMillis() - startTime);
             e.printStackTrace();
         }
         return sai;
@@ -70,10 +71,10 @@ public class ErpRealm extends AuthorizingRealm {
             if (null != empDo) {
                 return new SimpleAuthenticationInfo(empDo, new String(upt.getPassword()), getName());
             }
-            logger.debug("operaObj is = {}, doGetAuthenticationInfo cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.debug("operaObj is = {}, doGetAuthenticationInfo() cast time = {}", this, System.currentTimeMillis() - startTime);
         } catch (Exception e) {
-            logger.error("operaObj is = {}, doGetAuthenticationInfo is error, info = {}", this, e.getMessage());
-            logger.debug("operaObj is = {}, doGetAuthenticationInfo cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.error("operaObj is = {}, doGetAuthenticationInfo() is error, info = {}", this, e.getMessage());
+            logger.debug("operaObj is = {}, doGetAuthenticationInfo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
         return null;
     }

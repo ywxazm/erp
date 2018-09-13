@@ -23,7 +23,7 @@ public interface WriteDate {
             response.setContentType(BaseConstants.CONTENTTYPE_JSON);
             response.getWriter().print(jsonString);
         } catch (IOException e) {
-            logger.error("operaObj is = {},  is write error, info = {}", this, e.getMessage());
+            logger.error("operaObj is = {},  write is error, info = {}", this, e.getMessage());
         }
     }
 

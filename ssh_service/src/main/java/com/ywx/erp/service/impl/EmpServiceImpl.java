@@ -22,11 +22,9 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
 
     private EmpDao empDao;
     private RoleDao roleDao;
-
     public void setRoleDao(RoleDao roleDao) {
         this.roleDao = roleDao;
     }
-
     public void setEmpDao(EmpDao empDao) {
         super.setBaseDao(empDao);
         this.empDao = empDao;
@@ -55,20 +53,6 @@ public class EmpServiceImpl extends BaseServiceImpl<EmpDo> implements EmpService
         EmpDo empDo = empDao.findByUsernameAndPwd(username, new Md5Hash(pwd, username, HASHITERATIONS).toString());
         System.out.println(empDo);
         return empDo;
-    }
-
-    /**
-     * 直接从session中拿用户
-     *
-     * @return
-     */
-    @Override
-    public EmpDo getCurrentUser() {
-        EmpDo empDo = (EmpDo) ActionContext.getContext().getSession().get(USER);
-        if (null != empDo) {
-            return empDo;
-        }
-        return null;
     }
 
     /**

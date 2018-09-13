@@ -67,6 +67,7 @@ public class BaseConstants {
     //常用字符串
     public static final String NULLSTR = "";
     public static final String DOUHAOSTR = ",";
+    public static final String JUHAOSTR= ".";
     public static final String SUCCESS = "success";
     public static final String MSG = "msg";
 
@@ -77,4 +78,12 @@ public class BaseConstants {
 
     //Http
     public static final String CONTENTTYPE_JSON = "application/json;charset=utf-8";
+
+    //StateCode
+    public static final String STATE_CREATE = "0";	//未审核
+    public static final String STATE_CHECK = "1";	//已审核
+    public static final String STATE_START = "2";	//已确认
+    public static final String STATE_END = "3";		//已入库
+    public static final String STATE_NOT_IN_OUT = "0";	//未入库, 未出库
+    public static final String STATE_IN_OUT = "1";		//已入库，已出库
 }

@@ -39,8 +39,10 @@ public class MenuAction extends BaseAction<MenuDo> {
             map.put(BaseConstants.TURL, menuDo.getUrl());
             map.put(BaseConstants.TPID, menuDo.getPid());
             write(JSONObject.toJSONString(map));
-        }catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
+        } catch (Exception ex) {
+            logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
+            logger.error("operaObj is = {}, getDo() is error, msg = {}", this, ex.getMessage());
         }
     }
 
@@ -52,11 +54,10 @@ public class MenuAction extends BaseAction<MenuDo> {
         Long startTime = System.currentTimeMillis();
         logger.debug("operaObj is = {}, getMenuTree() doing, userid = {}", this, getLoginUser().getUuid());
         try {
-//            MenuDo menuDo = menuService.getDo(menuId);
-                MenuDo menuDo = menuService.getMenuDoByEmpId(getLoginUser().getUuid());
+            MenuDo menuDo = menuService.getMenuDoByEmpId(getLoginUser().getUuid());
             write(JSONObject.toJSONString(menuDo));
             logger.debug("operaObj is = {}, getMenuTree() cast time = {}", this, System.currentTimeMillis() - startTime);
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             logger.error("operaObj is = {}, getMenuTree is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, getMenuTree() cast time = {}", this, System.currentTimeMillis() - startTime);
             ex.printStackTrace();

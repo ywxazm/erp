@@ -68,7 +68,7 @@ public class EmpAction extends BaseAction<EmpDo> {
             write(JSONObject.toJSONStringWithDateFormat(map, BaseConstants.DATEFORMAT));
             logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
-            logger.error("operaObj is = {}, getDo is error, msg = {}", this, ex.getMessage());
+            logger.error("operaObj is = {}, getDo() is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, getDo() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
@@ -79,7 +79,7 @@ public class EmpAction extends BaseAction<EmpDo> {
     public void updatePwd() {
         logger.debug("operaObj is = {}, updatePwd() doing, oldPwd = {}, newPwd = {}", this, oldPwd, newPwd);
         try {
-            EmpDo empDo = empService.getCurrentUser();
+            EmpDo empDo = getLoginUser();
             if (null == empDo) {
                 write(ajaxReturn(BaseConstants.FALSE, NOLOGIN));
             }

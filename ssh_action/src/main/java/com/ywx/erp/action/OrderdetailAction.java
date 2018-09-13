@@ -73,7 +73,7 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
             logger.debug("operaObj is = {}, doInStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             write(ajaxReturn(BaseConstants.FALSE, DOINSTOREFAIL));
-            logger.error("operaObj is = {}, doInStore is error, msg = {}", this, ex.getMessage());
+            logger.error("operaObj is = {}, doInStore() is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, doInStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }
@@ -95,7 +95,7 @@ public class OrderdetailAction extends BaseAction<OrderdetailDo> {
             logger.debug("operaObj is = {}, doOutStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }catch (Exception ex) {
             write(ajaxReturn(BaseConstants.FALSE, DOINSTOREFAIL));
-            logger.error("operaObj is = {}, doOutStore is error, msg = {}", this, ex.getMessage());
+            logger.error("operaObj is = {}, doOutStore() is error, msg = {}", this, ex.getMessage());
             logger.debug("operaObj is = {}, doOutStore() cast time = {}", this, System.currentTimeMillis() - startTime);
         }
     }

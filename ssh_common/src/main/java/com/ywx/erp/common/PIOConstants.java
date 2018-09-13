@@ -14,8 +14,6 @@ public class PIOConstants {
     public static final String GOODSFILRNAME = "商品.xls";
     public static final String GOODSTYPEFILRNAME = "商品类型.xls";
     public static final String ORDERFILRNAME = "订单.xls";
-    public static final String ORDERSALEFILRNAME = "销售订单.xls";
-    public static final String ORDERSSHOPPINGFILRNAME = "采购订单.xls";
     public static final String ORDERDETAILFILRNAME = "订单明细.xls";
     public static final String STOREOPERFILRNAME = "仓库操作.xls";
     public static final String STOREODETAILFILRNAME = "仓库明细.xls";
@@ -27,5 +25,9 @@ public class PIOConstants {
 
     //工作薄名称
     public static final String SHEETNAME = "Sheet";
+
+    //文件类型
+    public static final String FILETYPE_XLS = "xls";
+    public static final String FILETYPE_XLSX = "xlsx";
 
 }
