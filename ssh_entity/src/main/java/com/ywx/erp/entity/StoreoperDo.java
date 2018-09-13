@@ -12,13 +12,6 @@ import java.util.Date;
  */
 public class StoreoperDo implements Serializable {
 
-	public static final String STATE_NOT_IN = "0";	//未入库
-	public static final String STATE_IN = "1";		//已入库
-	public static final String STATE_NOT_OUT = "0";	//未出库
-	public static final String STATE_OUT = "1";		//已出库
-	public static final String TYPE_IN = "1";		//入库
-	public static final String TYPE_0UT = "2";		//出库
-
 	private Integer uuid;		//编号
 	private Integer empuuid;	//操作员工编号
 	private String empname;	//操作员工名称

@@ -2,6 +2,9 @@ package com.ywx.erp.entity;
 
 import java.io.Serializable;
 
+/**
+ * 部门
+ */
 public class DepDo implements Serializable {
 
     private Integer uuid;      //部门ID

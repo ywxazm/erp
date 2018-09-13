@@ -1,6 +1,7 @@
 package com.ywx.erp.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.ywx.erp.common.BaseConstants;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,22 +11,17 @@ import java.util.Date;
  */
 public class OrderdetailDo implements Serializable {
 
-	public static final String STATE_NOT_IN = "0";	//未入库
-	public static final String STATE_IN = "1";		//已入库
-	public static final String STATE_NOT_OUT = "0";	//未出库
-	public static final String STATE_OUT = "1";		//已出库
-	
 	private Integer uuid;			//编号
 	private Integer goodsuuid;		//商品编号
-	private String goodsname;	//商品名称
-	private Double price;		//价格
+	private String goodsname;		//商品名称
+	private Double price;			//价格
 	private Integer num;			//数量
-	private Double money;		//金额
-	@JSONField(format="yyyy-MM-dd HH:mm:ss")
-	private Date endtime;		//结束日期
+	private Double money;			//金额
+	@JSONField(format= BaseConstants.DATEFORMAT)
+	private Date endtime;			//结束日期
 	private Integer ender;			//库管员
 	private Integer storeuuid;		//仓库编号
-	private String state;		//采购：0=未入库，1=已入库  销售：0=未出库，1=已出库
+	private String state;			//采购：0=未入库，1=已入库  销售：0=未出库，1=已出库
 	@JSONField(serialize=false)
 	private OrdersDo ordersDo;	//订单
 

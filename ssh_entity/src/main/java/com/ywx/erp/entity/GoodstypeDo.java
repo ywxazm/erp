@@ -2,6 +2,9 @@ package com.ywx.erp.entity;
 
 import java.io.Serializable;
 
+/**
+ * 商品类型
+ */
 public class GoodstypeDo implements Serializable{
 
     private Integer uuid;      //商品类型ID

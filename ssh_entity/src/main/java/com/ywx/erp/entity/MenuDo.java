@@ -3,6 +3,9 @@ package com.ywx.erp.entity;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * 菜单
+ */
 public class MenuDo implements Serializable {
 
     private Integer menuid;      //菜单ID

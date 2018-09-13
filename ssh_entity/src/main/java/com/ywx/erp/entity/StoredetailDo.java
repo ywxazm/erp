@@ -8,9 +8,6 @@ import java.io.Serializable;
  */
 public class StoredetailDo implements Serializable {
 
-	public static final String STATE_NOT_OUT = "0";	//未出库
-	public static final String STATE_OUT = "1";		//已出库
-
 	private Integer uuid;			//编号
 	private Integer storeuuid;		//仓库编号
 	private String storename;	//仓库名称

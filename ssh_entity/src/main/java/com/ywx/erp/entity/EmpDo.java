@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 员工
+ */
 public class EmpDo implements Serializable {
 
     private Integer uuid;          //编号

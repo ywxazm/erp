@@ -13,37 +13,28 @@ import java.util.List;
  */
 public class OrdersDo implements Serializable {
 	
-	public static final String STATE_CREATE = "0";	//未审核
-	public static final String STATE_CHECK = "1";	//已审核
-	public static final String STATE_START = "2";	//已确认
-	public static final String STATE_END = "3";		//已入库
-	public static final String TYPE_IN = "1";		//采购订单
-	public static final String TYPE_OUT = "2";		//销售订单
-	public static final String STATE_NOT_OUT = "0";	//未出库
-	public static final String STATE_OUT = "1";		//已出库
-	
 	private Integer uuid;			//编号
 	@JSONField(format= BaseConstants.DATEFORMAT)
-	private Date createtime;	//生成日期
+	private Date createtime;		//生成日期
 	@JSONField(format=BaseConstants.DATEFORMAT)
-	private Date checktime;		//审核日期
+	private Date checktime;			//审核日期
 	@JSONField(format=BaseConstants.DATEFORMAT)
-	private Date starttime;		//确认日期
+	private Date starttime;			//确认日期
 	@JSONField(format=BaseConstants.DATEFORMAT)
-	private Date endtime;		//入库或出库日期
-	private String type;		//1:采购 2:销售
+	private Date endtime;			//入库或出库日期
+	private String type;			//1:采购 2:销售
 	private Integer creater;		//下单员
-	private String createrName;	//下单员
+	private String createrName;		//下单员
 	private Integer checker;		//审核员
-	private String checkerName;	//审核员
+	private String checkerName;		//审核员
 	private Integer starter;		//采购员
-	private String starterName;	//采购员
+	private String starterName;		//采购员
 	private Integer ender;			//库管员
-	private String enderName;	//库管员
+	private String enderName;		//库管员
 	private Integer supplieruuid;	//供应商或客户
-	private String supplierName;//供应商或客户
-	private Double totalmoney;	//合计金额
-	private String state;		//采购: 0:未审核 1:已审核, 2:已确认, 3:已入库；销售：0:未出库 1:已出库
+	private String supplierName;	//供应商或客户
+	private Double totalmoney;		//合计金额
+	private String state;			//采购: 0:未审核 1:已审核, 2:已确认, 3:已入库；销售：0:未出库 1:已出库
 	private Integer waybillsn;		//运单号
 	private List<OrderdetailDo> orderDetailDos;//订单明细
 
