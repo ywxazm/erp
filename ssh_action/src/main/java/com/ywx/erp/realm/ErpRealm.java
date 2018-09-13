@@ -21,11 +21,11 @@ public class ErpRealm extends AuthorizingRealm {
 
     private EmpService empService;
     private MenuService menuService;
-    public void setMenuService(MenuService menuService) {
-        this.menuService = menuService;
-    }
     public void setEmpService(EmpService empService) {
         this.empService = empService;
+    }
+    public void setMenuService(MenuService menuService) {
+        this.menuService = menuService;
     }
 
     /**

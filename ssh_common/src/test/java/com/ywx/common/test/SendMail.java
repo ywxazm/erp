@@ -11,9 +11,9 @@ public class SendMail {
 
     @Test
     public void test01() throws MessagingException {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
+        /*ApplicationContext ac = new ClassPathXmlApplicationContext("classpath*:applicationContext*.xml");
         MailUtil mailUtil = (MailUtil) ac.getBean("mailUtil");
-        mailUtil.sendMail("18824278018@139.com", "XX", "xxxxxx");
+        mailUtil.sendMail("18824278018@139.com", "XX", "xxxxxx");*/
 
     }
 }

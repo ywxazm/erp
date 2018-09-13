@@ -5,6 +5,5 @@
 
     <bean id="erpException" class="com.ywx.erp.exception.ErpException" scope="prototype" />
 
-    <bean id="mailUtil" class="com.ywx.erp.common.MailUtil" scope="prototype" />
 
 </beans>

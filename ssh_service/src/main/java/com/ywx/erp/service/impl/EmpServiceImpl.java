@@ -1,6 +1,5 @@
 package com.ywx.erp.service.impl;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.dao.EmpDao;
 import com.ywx.erp.dao.RoleDao;
@@ -10,7 +9,6 @@ import com.ywx.erp.exception.ErpException;
 import com.ywx.erp.service.EmpService;
 import com.ywx.erp.vo.TreeVo;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,16 +1,11 @@
 package com.ywx.erp.action;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.MenuDo;
 import com.ywx.erp.service.MenuService;
-import com.ywx.erp.service.jedis.JedisService;
-import jdk.nashorn.internal.parser.JSONParser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class MenuAction extends BaseAction<MenuDo> {
 
