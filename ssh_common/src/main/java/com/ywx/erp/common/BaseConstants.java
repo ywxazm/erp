@@ -68,13 +68,15 @@ public class BaseConstants {
     public static final String NULLSTR = "";
     public static final String DOUHAOSTR = ",";
     public static final String JUHAOSTR= ".";
+    public static final String ZEROSTR= "0";
+    public static final String ONESTR= "1";
     public static final String SUCCESS = "success";
     public static final String MSG = "msg";
 
     //整形常量
-    public static final int ZEROSTR = 0;
-    public static final int ONESTR = 1;
-    public static final int TWOSTR = 2;
+    public static final int ZERO = 0;
+    public static final int ONE = 1;
+    public static final int TWO = 2;
 
     //Http
     public static final String CONTENTTYPE_JSON = "application/json;charset=utf-8";

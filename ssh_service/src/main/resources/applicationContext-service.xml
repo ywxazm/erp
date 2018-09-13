@@ -21,6 +21,7 @@
     </bean>
     <bean id="menuService" class="com.ywx.erp.service.impl.MenuServiceImpl">
         <property name="menuDao" ref="menuDao"/>
+        <property name="jedisService" ref="jedisService"/>
     </bean>
     <bean id="supplierService" class="com.ywx.erp.service.impl.SupplierServiceImpl">
         <property name="supplierDao" ref="supplierDao"/>

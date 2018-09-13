@@ -85,7 +85,7 @@ public class OrderdetailServiceImpl extends BaseServiceImpl<OrderdetailDo> imple
         paramCount.setState(BaseConstants.STATE_NOT_IN_OUT);
         paramCount.setOrdersDo(ordersDo);
         Long count = orderdetailDao.getCount(paramCount, null, null);
-        if (null != count && count == BaseConstants.ZEROSTR) {
+        if (null != count && count == BaseConstants.ZERO) {
             ordersDo.setState(BaseConstants.STATE_END);
             ordersDo.setEnder(empId);
             ordersDo.setEndtime(Calendar.getInstance().getTime());

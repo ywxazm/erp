@@ -1,8 +1,10 @@
 package com.ywx.erp.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.ywx.erp.dao.MenuDao;
 import com.ywx.erp.entity.MenuDo;
 import com.ywx.erp.service.MenuService;
+import com.ywx.erp.service.jedis.JedisService;
 
 import java.util.Iterator;
 import java.util.List;
@@ -10,6 +12,10 @@ import java.util.List;
 public class MenuServiceImpl extends BaseServiceImpl<MenuDo> implements MenuService {
 
     private MenuDao menuDao;
+    private JedisService jedisService;
+    public void setJedisService(JedisService jedisService) {
+        this.jedisService = jedisService;
+    }
     public void setMenuDao(MenuDao menuDao) {
         super.setBaseDao(menuDao);
         this.menuDao = menuDao;
@@ -18,7 +24,6 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuDo> implements MenuServ
     @Override
     public MenuDo getMenuDoByEmpId(int id) {
         MenuDo menuDo = menuDao.getDo(0);
-
         List<MenuDo> menuDoList = menuDao.getMenuDoByEmpId(id);
         StringBuffer menuDoIds = new StringBuffer();
         if (null == menuDoList) {
