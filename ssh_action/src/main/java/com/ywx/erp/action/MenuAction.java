@@ -4,13 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.ywx.erp.common.BaseConstants;
 import com.ywx.erp.entity.MenuDo;
 import com.ywx.erp.service.MenuService;
+import com.ywx.erp.service.jedis.JedisService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MenuAction extends BaseAction<MenuDo> {
 
     private MenuService menuService;
-
     public void setMenuService(MenuService menuService) {
         super.setBaseService(menuService);
         this.menuService = menuService;
@@ -18,11 +20,9 @@ public class MenuAction extends BaseAction<MenuDo> {
 
     //接收数据
     private Integer menuId;      //父类ID
-
     public Integer getMenuId() {
         return menuId;
     }
-
     public void setMenuId(Integer menuId) {
         this.menuId = menuId;
     }
@@ -65,4 +65,5 @@ public class MenuAction extends BaseAction<MenuDo> {
             ex.printStackTrace();
         }
     }
+
 }

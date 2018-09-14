@@ -19,8 +19,9 @@
     <bean id="goodstypeService" class="com.ywx.erp.service.impl.GoodstypeServiceImpl">
         <property name="goodstypeDao" ref="goodstypeDao"/>
     </bean>
-    <bean id="menuService" class="com.ywx.erp.service.impl.MenuServiceImpl">
+    <bean id="menuService" class="com.ywx.erp.service.impl.MenuServiceImpl" depends-on="menuDao">
         <property name="menuDao" ref="menuDao"/>
+        <property name="jedisService" ref="jedisService"/>
     </bean>
     <bean id="supplierService" class="com.ywx.erp.service.impl.SupplierServiceImpl">
         <property name="supplierDao" ref="supplierDao"/>
