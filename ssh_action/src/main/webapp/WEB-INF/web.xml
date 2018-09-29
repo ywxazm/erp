@@ -15,9 +15,7 @@
     </listener>
 
     <!-- shiro过滤器 -->
-    <filter>
-        <!--过滤请求，名称必需与ApplicationContext-shiro.xml中定义的过滤器Bean名称一致-->
-        <!--必需放在前面，以保证第一个起作用-->
+   <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>

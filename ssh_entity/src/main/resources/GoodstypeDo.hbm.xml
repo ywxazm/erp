@@ -4,7 +4,9 @@
 <hibernate-mapping>
     <class name="com.ywx.erp.entity.GoodstypeDo" table="goodstype">
         <id name="uuid" type="java.lang.Integer">
-            <generator class="increment" />
+            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+                <param name="sequence_name">GOODSTYPE_SEQ</param>                         <!--sequence_name是固定的-->
+            </generator>
         </id>
         <property name="name" type="java.lang.String"/>
 

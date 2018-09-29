@@ -6,11 +6,16 @@
 
 
     <!-- 定义加载资源文件 -->
-    <context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true" />
+    <!--<context:property-placeholder location="classpath:redis.properties" />-->
 
     <!-- redis 单机资源池 -->
-    <bean id="jedisPool" class="redis.clients.jedis.JedisPool" scope="singleton"  lazy-init="true" >
-        <constructor-arg  index="0"  value="${redis.ip}" />
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig" />
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1" value="192.168.0.106" />
+        <constructor-arg index="2" value="6379" />
+        <constructor-arg index="3" value="1000000" />
+        <constructor-arg index="4" value="Over12340" />
     </bean>
 
     <bean id="jedisService" class="com.ywx.erp.service.jedis.JedisService" >

@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 
-    <jaxws:client id="waybillWsClient" address="http://localhost:8080/redsun_web/ws/waybill?wsdl"
+    <jaxws:client id="waybillWsClient" address="http://192.168.0.106:4080/redsun/ws/waybill?wsdl"
                   serviceClass="com.redsum.bos.ws.impl.IWaybillWs" />
 
 
