@@ -30,7 +30,7 @@
         <druid.version>1.1.10</druid.version>
         <aspectjweaver.version>1.8.13</aspectjweaver.version>
         <servlet.version>2.5</servlet.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <mail.version>1.4.4</mail.version>
         <quartz.version>2.2.3</quartz.version>
         <pio.version>3.17</pio.version>
