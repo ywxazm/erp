@@ -25,7 +25,7 @@
         <shiro.version>1.2.3</shiro.version>
         <mysql.version>8.0.12</mysql.version>
         <oracle.version>11.2.0.3</oracle.version>
-        <fastjson.version>1.2.49</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <slf4j.version>1.7.2</slf4j.version>
         <druid.version>1.1.10</druid.version>
         <aspectjweaver.version>1.8.13</aspectjweaver.version>
