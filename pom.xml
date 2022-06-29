@@ -33,7 +33,7 @@
         <junit.version>4.12</junit.version>
         <mail.version>1.4.4</mail.version>
         <quartz.version>2.2.3</quartz.version>
-        <pio.version>3.17</pio.version>
+        <pio.version>4.1.1</pio.version>
         <jfree.version>1.0.13</jfree.version>
         <jedis.version>2.9.0</jedis.version>
         <tomcat.version>2.2</tomcat.version>
